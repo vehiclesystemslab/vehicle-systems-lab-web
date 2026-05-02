@@ -44,6 +44,13 @@ const sections = {
     description:
       "A direct institutional entry point for researchers, reviewers, readers, and collaborators interested in VEHICLE, VEHICLE-T, AIMTG, or independent systems modeling.",
   },
+  partnerships: {
+    face: "GATEWAY",
+    title: "Partnerships",
+    subtitle: "Strategic collaboration for VEHICLE-ODI and complex systems research.",
+    description:
+      "VEHICLE Systems Lab welcomes aerospace companies, universities, research centers, orbital data partners, legal/IP advisors, and institutional funders interested in VEHICLE-ODI, orbital debris intelligence, and structural decision architectures.",
+  },
 };
 
 function CubeFace({ className, sectionKey, active, onSelect }) {
@@ -94,48 +101,56 @@ export default function App() {
             </p>
 
             <div className="hero-actions">
-  <button
-    type="button"
-    className="primary-action"
-    onClick={() => setActiveKey("front")}
-  >
-    Explore VEHICLE
-  </button>
+              <button
+                type="button"
+                className="primary-action"
+                onClick={() => setActiveKey("front")}
+              >
+                Explore VEHICLE
+              </button>
 
-  <button
-    type="button"
-    className="secondary-action"
-    onClick={() => setActiveKey("back")}
-  >
-    View Publications
-  </button>
-</div>
-<div className="section-buttons">
-  {Object.entries(sections).map(([key, item]) => (
-    <button
-      key={key}
-      type="button"
-      className={activeKey === key ? "section-button active" : "section-button"}
-      onClick={() => setActiveKey(key)}
-    >
-      {item.title}
-    </button>
-  ))}
-</div>
+              <button
+                type="button"
+                className="secondary-action"
+                onClick={() => setActiveKey("back")}
+              >
+                View Publications
+              </button>
+            </div>
+
+            <div className="section-buttons">
+              {Object.entries(sections).map(([key, item]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className={activeKey === key ? "section-button active" : "section-button"}
+                  onClick={() => setActiveKey(key)}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
 
             <div className="metric-row">
               <article>
                 <strong>6</strong>
                 <span>navigation faces</span>
               </article>
+
               <article>
                 <strong>3D</strong>
                 <span>relational gateway</span>
               </article>
-              <article>
-                <strong>v1</strong>
-                <span>web prototype</span>
-              </article>
+
+              <button
+                type="button"
+                className={activeKey === "partnerships" ? "metric-card metric-link active" : "metric-card metric-link"}
+                onClick={() => setActiveKey("partnerships")}
+                aria-label="Open Partnerships section"
+              >
+                <strong>ODI</strong>
+                <span>partnerships</span>
+              </button>
             </div>
           </div>
 
