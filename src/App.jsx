@@ -53,6 +53,77 @@ const sections = {
   },
 };
 
+const orbitingDebris = [
+  { className: "debris debris-a", label: "A1" },
+  { className: "debris debris-b", label: "A5" },
+  { className: "debris debris-c", label: "A6" },
+  { className: "debris debris-d", label: "A2" },
+  { className: "debris debris-e", label: "A4" },
+  { className: "debris debris-f", label: "" },
+  { className: "debris debris-g", label: "" },
+  { className: "debris debris-h", label: "" },
+];
+
+const odiDetails = {
+  a1: {
+    code: "A1",
+    title: "Critical conjunction risk",
+    subtitle: "An object or relation producing elevated external tension.",
+    description:
+      "A1 identifies objects, crossings, or orbital relations that require priority monitoring because the risk of conjunction or collision is structurally elevated. In VEHICLE-ODI, this is not only a position warning; it is a relational tension signal.",
+  },
+  a2: {
+    code: "A2",
+    title: "Recovered object",
+    subtitle: "Risk reduced after maneuver, correction, or uncertainty reduction.",
+    description:
+      "A2 identifies objects or orbital relations that have returned to a safer admissible state after a corrective action, improved tracking, maneuver, or risk reduction. VEHICLE-ODI treats recovery as a measurable regime, not only as the absence of danger.",
+  },
+  a3: {
+    code: "A3",
+    title: "Fragmentation pressure",
+    subtitle: "A body showing internal instability or propagation risk.",
+    description:
+      "A3 marks objects whose internal coherence may be degrading: aging bodies, unstable remnants, or objects with potential to generate new fragments. It helps separate ordinary debris from debris that may become a source of future systemic risk.",
+  },
+  a4: {
+    code: "A4",
+    title: "Filtered fragment",
+    subtitle: "Tracked but not structurally prioritized under current conditions.",
+    description:
+      "A4 represents fragments that remain recorded and monitored, but do not currently concentrate enough systemic tension to justify immediate allocation of scarce intervention resources. It is a disciplined filtering regime, not a dismissal of risk.",
+  },
+  a5: {
+    code: "A5",
+    title: "Dangerous rigid mass",
+    subtitle: "Large, persistent, non-cooperative mass with latent impact potential.",
+    description:
+      "A5 identifies massive objects such as dead satellites or rocket bodies that may not be critical today but carry high latent risk. If struck, they can become major sources of fragmentation, making them serious candidates for stabilization or removal studies.",
+  },
+  a6: {
+    code: "A6",
+    title: "Fluid fragmentation cloud",
+    subtitle: "Distributed debris propagation across orbital relations.",
+    description:
+      "A6 represents many small fragments moving as a cloud rather than a single object. VEHICLE-ODI treats this as distributed tension: a propagation field that must be mapped, monitored, and connected to vulnerable orbital regions.",
+  },
+  oti: {
+    code: "OTI",
+    title: "Orbital Tension Index",
+    subtitle: "A normalized research signal for regional orbital tension.",
+    description:
+      "OTI is proposed as an experimental index that compares structural tension by orbital region over time. It can help evaluate whether a region is becoming more stable, more congested, or more urgent for observation and intervention.",
+  },
+  partnerships: {
+    code: "ODI",
+    title: "Strategic partnerships",
+    subtitle: "Collaboration for validation, data, infrastructure, and funding.",
+    description:
+      "VEHICLE Systems Lab welcomes partners in aerospace, space situational awareness, orbital data, legal/IP, universities, research centers, and space sustainability. The goal is to validate VEHICLE-ODI without replacing existing systems: it adds a decision layer above them.",
+  },
+};
+
+
 function CubeFace({ className, sectionKey, active, onSelect }) {
   const section = sections[sectionKey];
 
@@ -69,9 +140,185 @@ function CubeFace({ className, sectionKey, active, onSelect }) {
   );
 }
 
+function OdiEarthScene({ onBack, onPartnerships }) {
+  const [activeOdiKey, setActiveOdiKey] = useState("oti");
+  const activeOdi = odiDetails[activeOdiKey];
+
+  const handleOdiSelect = (key) => {
+    setActiveOdiKey(key);
+  };
+
+  return (
+    <section className="odi-section" aria-label="VEHICLE-ODI orbital debris project">
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
+      <div className="grid-layer" />
+
+      <div className="odi-shell">
+        <article className="odi-info-card">
+          <button className="back-button" type="button" onClick={onBack}>
+            ← Back to VEHICLE Cube
+          </button>
+
+          <span className="odi-kicker">PROJECT</span>
+          <h1>VEHICLE-ODI</h1>
+          <h2>Orbital Debris Intelligence</h2>
+
+          <p className="odi-lead">
+            Before removing orbital debris, we must know which debris matters most.
+          </p>
+
+          <p>
+            VEHICLE-ODI applies the Borda Milan Pyramid and the VEHICLE
+            Formula-as-Architecture to model orbital debris as a structured
+            relational system under tension. Objects, fragments, orbital zones,
+            and debris clouds become nodes in a decision architecture.
+          </p>
+
+          <div className="odi-pill-grid" aria-label="VEHICLE-ODI interactive regimes">
+            <button
+              type="button"
+              className={activeOdiKey === "a1" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a1")}
+            >
+              A1 Conjunction risk
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "a2" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a2")}
+            >
+              A2 Recovered object
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "a3" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a3")}
+            >
+              A3 Fragmentation pressure
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "a4" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a4")}
+            >
+              A4 Filtered fragment
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "a5" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a5")}
+            >
+              A5 Dangerous mass
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "a6" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("a6")}
+            >
+              A6 Fragment cloud
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "oti" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("oti")}
+            >
+              OTI Index
+            </button>
+            <button
+              type="button"
+              className={activeOdiKey === "partnerships" ? "odi-pill active" : "odi-pill"}
+              onClick={() => handleOdiSelect("partnerships")}
+            >
+              Partnerships
+            </button>
+          </div>
+
+          <div className="odi-explainer">
+            <h3>What VEHICLE-ODI adds</h3>
+            <p>
+              It does not replace tracking, astrodynamics, sensors, or active
+              debris removal missions. It adds a structural decision layer for
+              prioritizing what to observe, avoid, stabilize, move, or remove first.
+            </p>
+          </div>
+
+          <div className="odi-actions">
+            <button type="button" className="secondary-action" onClick={onBack}>
+              Explore VEHICLE Architecture
+            </button>
+          </div>
+        </article>
+
+        <div className="odi-visual-card">
+          <div className="odi-badge">
+            <span /> VEHICLE-ODI · Orbital Debris Intelligence
+          </div>
+
+          <div className="earth-stage" aria-hidden="true">
+            <div className="earth-rotator">
+              <div className="orbit orbit-one" />
+              <div className="orbit orbit-two" />
+              <div className="orbit orbit-three" />
+              <div className="orbit orbit-four" />
+
+              <div className="earth-core">
+                <div className="earth-grid" />
+                <div className="earth-continent continent-one" />
+                <div className="earth-continent continent-two" />
+                <div className="earth-continent continent-three" />
+                <div className="earth-glow" />
+              </div>
+
+              {orbitingDebris.map((item) => (
+                <span className={item.className} key={item.className}>
+                  {item.label}
+                </span>
+              ))}
+
+              <div className="tension-line tension-one" />
+              <div className="tension-line tension-two" />
+              <div className="tension-line tension-three" />
+            </div>
+          </div>
+
+          <div className="odi-caption-card" aria-live="polite">
+            <span>{activeOdi.code}</span>
+            <strong>{activeOdi.title}</strong>
+            <em>{activeOdi.subtitle}</em>
+            <p>{activeOdi.description}</p>
+            {activeOdiKey === "partnerships" && (
+              <button type="button" className="caption-link" onClick={onPartnerships}>
+                Open partnerships gateway
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [activeKey, setActiveKey] = useState("front");
+  const [view, setView] = useState("home");
   const active = sections[activeKey];
+
+  const openPartnerships = () => {
+    setView("home");
+    setActiveKey("partnerships");
+  };
+
+  if (view === "odi") {
+    return (
+      <main className="page-shell">
+        <OdiEarthScene
+          onBack={() => setView("home")}
+          onPartnerships={openPartnerships}
+        />
+      </main>
+    );
+  }
 
   return (
     <main className="page-shell">
@@ -116,6 +363,14 @@ export default function App() {
               >
                 View Publications
               </button>
+
+              <button
+                type="button"
+                className="secondary-action odi-action"
+                onClick={() => setView("odi")}
+              >
+                Space Debris Project
+              </button>
             </div>
 
             <div className="section-buttons">
@@ -144,12 +399,12 @@ export default function App() {
 
               <button
                 type="button"
-                className={activeKey === "partnerships" ? "metric-card metric-link active" : "metric-card metric-link"}
-                onClick={() => setActiveKey("partnerships")}
-                aria-label="Open Partnerships section"
+                className="metric-card metric-link odi-project-card"
+                onClick={() => setView("odi")}
+                aria-label="Open VEHICLE-ODI space debris project"
               >
                 <strong>ODI</strong>
-                <span>partnerships</span>
+                <span>space debris project</span>
               </button>
             </div>
           </div>
