@@ -43,6 +43,7 @@ const sections = {
     subtitle: "For review, discussion, replication, and collaboration.",
     description:
       "A direct institutional entry point for researchers, reviewers, readers, and collaborators interested in VEHICLE, VEHICLE-T, AIMTG, or independent systems modeling.",
+    contact: "contact@vehiclesystemslab.com",
   },
   partnerships: {
     face: "GATEWAY",
@@ -123,6 +124,119 @@ const odiDetails = {
   },
 };
 
+const odiRegimeKeys = [
+  "a1",
+  "a2",
+  "a3",
+  "a4",
+  "a5",
+  "a6",
+  "oti",
+  "partnerships",
+];
+
+
+const cpsDetails = {
+  overview: {
+    code: "CPS",
+    title: "Civil Protection Systems",
+    subtitle: "Environmental safety through relational coherence.",
+    description:
+      "VEHICLE-CPS treats high-density human environments as structured relational fields under tension. People, teams, credentials, access points, protected zones, routes, security rings and critical areas become nodes in a supervised civil protection graph.",
+  },
+  kernel: {
+    code: "KERNEL",
+    title: "VEHICLE mathematical kernel",
+    subtitle: "External tension plus internal incoherence.",
+    description:
+      "The environment is represented as G=(N,E). Each node carries an E.I.A.R.(V) state, while total tension T(X)=T_ext(X)+T_int(X) supports projection-governed correction and supervised operational interpretation.",
+  },
+  p0: {
+    code: "P0",
+    title: "Structural Rest",
+    subtitle: "Event not started or space essentially empty.",
+    description:
+      "The field is calm and structurally ready. Authorized teams remain in normal readiness while the system confirms that no relevant pressure or incoherence is present.",
+  },
+  p1: {
+    code: "P1",
+    title: "Controlled Normal Flow",
+    subtitle: "Occupancy and movement remain compatible.",
+    description:
+      "Flows, access points, routes and perimeter relations remain coherent under standard monitoring. This is the normal operational state for a healthy public event.",
+  },
+  p2: {
+    code: "P2",
+    title: "Localized Review",
+    subtitle: "Small anomalies requiring nearby verification.",
+    description:
+      "A local mismatch, disconnected credential, abnormal persistence or small density pocket requires human review, but the environment has not become systemically critical.",
+  },
+  p3: {
+    code: "P3",
+    title: "Anomalous Concentration",
+    subtitle: "Bottlenecks, density pressure or unexpected crowd formation.",
+    description:
+      "External tension rises in a specific area. Teams may redirect flows, reinforce a sector, open a route or investigate a pressure concentration before escalation.",
+  },
+  p4: {
+    code: "P4",
+    title: "Perimeter Break / Critical Incoherence",
+    subtitle: "Security ring breach, route conflict or critical node incoherence.",
+    description:
+      "The system indicates a critical loss of environmental coherence, such as a protected-zone conflict, broken perimeter relation or critical operational node falling out of expected configuration.",
+  },
+  p5: {
+    code: "P5",
+    title: "Reinforcement and Containment",
+    subtitle: "Response is active and the field is being reconfigured.",
+    description:
+      "Human response has begun. Teams coordinate deployment, route management and sector reinforcement to move the field back toward admissible coherence.",
+  },
+  p6: {
+    code: "P6",
+    title: "Controlled Evacuation",
+    subtitle: "Partial or full evacuation under monitored tension.",
+    description:
+      "Evacuation routes, access corridors and crowd pressure are monitored to protect movement, reduce collapse risk and support coordinated evacuation management.",
+  },
+  simulation: {
+    code: "SIM",
+    title: "Synthetic simulation phase",
+    subtitle: "1,000 to 10,000 human nodes before any physical pilot.",
+    description:
+      "The first development stage should validate graph construction, tension computation, P0-P6 classification, detection timing, controlled response scenarios and return-to-coherence behavior in simulation.",
+  },
+  ethics: {
+    code: "ETHICS",
+    title: "Governance by design",
+    subtitle: "Prevention, not persecution.",
+    description:
+      "VEHICLE-CPS is not a surveillance system. It requires mandatory human supervision, no automatic coercive action, data minimization, pseudonymized operational IDs and no facial recognition by design in the initial architecture.",
+  },
+  partnerships: {
+    code: "PARTNERS",
+    title: "Partnership and funding pathway",
+    subtitle: "Simulation, validation and controlled civil protection research.",
+    description:
+      "Potential partners include civil protection agencies, event security companies, municipalities, universities, emergency management institutions, wearable technology providers, venue operators and public safety researchers.",
+  },
+};
+
+const cpsRegimeKeys = [
+  "overview",
+  "kernel",
+  "p0",
+  "p1",
+  "p2",
+  "p3",
+  "p4",
+  "p5",
+  "p6",
+  "simulation",
+  "ethics",
+  "partnerships",
+];
 
 function CubeFace({ className, sectionKey, active, onSelect }) {
   const section = sections[sectionKey];
@@ -144,160 +258,299 @@ function OdiEarthScene({ onBack, onPartnerships }) {
   const [activeOdiKey, setActiveOdiKey] = useState("oti");
   const activeOdi = odiDetails[activeOdiKey];
 
-  const handleOdiSelect = (key) => {
-    setActiveOdiKey(key);
-  };
-
   return (
-    <section className="odi-section" aria-label="VEHICLE-ODI orbital debris project">
+    <section
+      className="hero-section project-section odi-section"
+      aria-label="VEHICLE-ODI orbital debris project"
+    >
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
       <div className="grid-layer" />
 
-      <div className="odi-shell">
-        <article className="odi-info-card">
-          <button className="back-button" type="button" onClick={onBack}>
-            ← Back to VEHICLE Cube
-          </button>
+      <div className="hero-content project-content odi-shell">
+        <div className="left-panel project-left-panel">
+          <div className="eyebrow">
+            <span />
+            VEHICLE-ODI · Orbital Debris Intelligence · Structural priority
+          </div>
 
-          <span className="odi-kicker">PROJECT</span>
           <h1>VEHICLE-ODI</h1>
-          <h2>Orbital Debris Intelligence</h2>
 
-          <p className="odi-lead">
+          <h2>
+            Orbital Debris Intelligence for relational prioritization of space debris.
+          </h2>
+
+          <p className="project-lead">
             Before removing orbital debris, we must know which debris matters most.
           </p>
 
           <p>
-            VEHICLE-ODI applies the Borda Milan Pyramid and the VEHICLE
-            Formula-as-Architecture to model orbital debris as a structured
-            relational system under tension. Objects, fragments, orbital zones,
-            and debris clouds become nodes in a decision architecture.
+            VEHICLE-ODI reads objects, fragments, orbital zones and debris clouds
+            as a structured field under tension. The page keeps the same visual
+            architecture as HOME: left intelligence layer, right 3D visual layer.
           </p>
 
-          <div className="odi-pill-grid" aria-label="VEHICLE-ODI interactive regimes">
-            <button
-              type="button"
-              className={activeOdiKey === "a1" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a1")}
-            >
-              A1 Conjunction risk
+          <div className="hero-actions project-actions">
+            <button type="button" className="primary-action" onClick={onBack}>
+              Back to VEHICLE Cube
             </button>
             <button
               type="button"
-              className={activeOdiKey === "a2" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a2")}
+              className="secondary-action"
+              onClick={() => setActiveOdiKey("oti")}
             >
-              A2 Recovered object
+              Reset ODI Index
             </button>
-            <button
-              type="button"
-              className={activeOdiKey === "a3" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a3")}
-            >
-              A3 Fragmentation pressure
-            </button>
-            <button
-              type="button"
-              className={activeOdiKey === "a4" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a4")}
-            >
-              A4 Filtered fragment
-            </button>
-            <button
-              type="button"
-              className={activeOdiKey === "a5" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a5")}
-            >
-              A5 Dangerous mass
-            </button>
-            <button
-              type="button"
-              className={activeOdiKey === "a6" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("a6")}
-            >
-              A6 Fragment cloud
-            </button>
-            <button
-              type="button"
-              className={activeOdiKey === "oti" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("oti")}
-            >
-              OTI Index
-            </button>
-            <button
-              type="button"
-              className={activeOdiKey === "partnerships" ? "odi-pill active" : "odi-pill"}
-              onClick={() => handleOdiSelect("partnerships")}
-            >
-              Partnerships
+            <button type="button" className="secondary-action" onClick={onPartnerships}>
+              Partnerships Gateway
             </button>
           </div>
 
-          <div className="odi-explainer">
-            <h3>What VEHICLE-ODI adds</h3>
-            <p>
-              It does not replace tracking, astrodynamics, sensors, or active
-              debris removal missions. It adds a structural decision layer for
-              prioritizing what to observe, avoid, stabilize, move, or remove first.
-            </p>
+          <div className="section-buttons project-mode-buttons" aria-label="VEHICLE-ODI regimes">
+            {odiRegimeKeys.map((key) => (
+              <button
+                key={key}
+                type="button"
+                className={activeOdiKey === key ? "section-button active" : "section-button"}
+                onClick={() => setActiveOdiKey(key)}
+              >
+                {odiDetails[key].code}
+              </button>
+            ))}
           </div>
 
-          <div className="odi-actions">
-            <button type="button" className="secondary-action" onClick={onBack}>
-              Explore VEHICLE Architecture
-            </button>
+          <div className="metric-row project-metric-row">
+            <article>
+              <strong>A1-A6</strong>
+              <span>debris regimes</span>
+            </article>
+            <article>
+              <strong>OTI</strong>
+              <span>orbital tension index</span>
+            </article>
+            <article>
+              <strong>3D</strong>
+              <span>earth relation field</span>
+            </article>
+            <article>
+              <strong>ODI</strong>
+              <span>decision layer</span>
+            </article>
           </div>
-        </article>
+        </div>
 
-        <div className="odi-visual-card">
-          <div className="odi-badge">
-            <span /> VEHICLE-ODI · Orbital Debris Intelligence
-          </div>
+        <div className="right-panel project-right-panel">
+          <div className="cube-card project-visual-card odi-visual-card">
+            <div className="node node-a" />
+            <div className="node node-b" />
 
-          <div className="earth-stage" aria-hidden="true">
-            <div className="earth-rotator">
-              <div className="orbit orbit-one" />
-              <div className="orbit orbit-two" />
-              <div className="orbit orbit-three" />
-              <div className="orbit orbit-four" />
+            <div className="odi-badge project-badge">
+              <span /> VEHICLE-ODI · Orbital field
+            </div>
 
-              <div className="earth-core">
-                <div className="earth-grid" />
-                <div className="earth-continent continent-one" />
-                <div className="earth-continent continent-two" />
-                <div className="earth-continent continent-three" />
-                <div className="earth-glow" />
+            <div className="earth-stage" aria-hidden="true">
+              <div className="earth-rotator">
+                <div className="orbit orbit-one" />
+                <div className="orbit orbit-two" />
+                <div className="orbit orbit-three" />
+                <div className="orbit orbit-four" />
+
+                <div className="earth-core">
+                  <div className="earth-grid" />
+                  <div className="earth-continent continent-one" />
+                  <div className="earth-continent continent-two" />
+                  <div className="earth-continent continent-three" />
+                  <div className="earth-glow" />
+                </div>
+
+                {orbitingDebris.map((item) => (
+                  <span className={item.className} key={item.className}>
+                    {item.label}
+                  </span>
+                ))}
+
+                <div className="tension-line tension-one" />
+                <div className="tension-line tension-two" />
+                <div className="tension-line tension-three" />
               </div>
-
-              {orbitingDebris.map((item) => (
-                <span className={item.className} key={item.className}>
-                  {item.label}
-                </span>
-              ))}
-
-              <div className="tension-line tension-one" />
-              <div className="tension-line tension-two" />
-              <div className="tension-line tension-three" />
             </div>
           </div>
 
-          <div className="odi-caption-card" aria-live="polite">
+          <article className="info-card project-detail-card" aria-live="polite">
             <span>{activeOdi.code}</span>
-            <strong>{activeOdi.title}</strong>
-            <em>{activeOdi.subtitle}</em>
+            <h3>{activeOdi.title}</h3>
+            <h4>{activeOdi.subtitle}</h4>
             <p>{activeOdi.description}</p>
-            {activeOdiKey === "partnerships" && (
-              <button type="button" className="caption-link" onClick={onPartnerships}>
-                Open partnerships gateway
-              </button>
-            )}
-          </div>
+          </article>
         </div>
       </div>
     </section>
   );
 }
+
+
+function CpsHumanScene({ activeKey }) {
+  return (
+    <div className={`cps-human-stage cps-state-${activeKey}`} aria-hidden="true">
+      <div className="cps-field-grid" />
+      <div className="cps-zone-ring cps-zone-one" />
+      <div className="cps-zone-ring cps-zone-two" />
+      <div className="cps-zone-ring cps-zone-three" />
+      <span className="cps-field-node node-one" />
+      <span className="cps-field-node node-two" />
+      <span className="cps-field-node node-three" />
+      <span className="cps-field-node node-four" />
+      <span className="cps-field-node node-five" />
+
+      <div className="human-rotator-3d">
+        <div className="human-model-shell">
+          <div className="human-halo" />
+
+          <div className="human-layer human-model-back">
+            <div className="human-head" />
+            <div className="human-neck" />
+            <div className="human-shoulders" />
+            <div className="human-torso" />
+            <div className="human-arm human-arm-left" />
+            <div className="human-arm human-arm-right" />
+          </div>
+
+          <div className="human-side human-side-left" />
+          <div className="human-side human-side-right" />
+
+          <div className="human-layer human-model-front">
+            <div className="human-head" />
+            <div className="human-neck" />
+            <div className="human-shoulders" />
+            <div className="human-torso" />
+            <div className="human-arm human-arm-left" />
+            <div className="human-arm human-arm-right" />
+            <div className="human-axis axis-head" />
+            <div className="human-axis axis-torso" />
+            <div className="human-axis axis-core" />
+            <span className="human-node h-node-one" />
+            <span className="human-node h-node-two" />
+            <span className="human-node h-node-three" />
+            <span className="human-node h-node-four" />
+          </div>
+
+          <div className="human-base-orbit" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CpsScene({ onBack, onPartnerships }) {
+  const [activeCpsKey, setActiveCpsKey] = useState("overview");
+  const activeCps = cpsDetails[activeCpsKey];
+
+  return (
+    <section
+      className="hero-section project-section cps-section"
+      aria-label="VEHICLE-CPS civil protection project"
+    >
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
+      <div className="grid-layer" />
+
+      <div className="hero-content project-content cps-shell">
+        <div className="left-panel project-left-panel">
+          <div className="eyebrow">
+            <span />
+            VEHICLE-CPS · Civil Protection Systems · Human nodes under tension
+          </div>
+
+          <h1>VEHICLE-CPS</h1>
+
+          <h2>
+            Civil Protection Systems for environmental safety through relational coherence.
+          </h2>
+
+          <p className="project-lead">
+            High-density human environments can be read as structured relational fields.
+          </p>
+
+          <p>
+            VEHICLE-CPS supports authorized teams with supervised decision support
+            for public events, protected areas, stadiums, concerts, emergency drills
+            and critical infrastructure environments. It is prevention and coordination,
+            not surveillance or automatic coercive action.
+          </p>
+
+          <div className="hero-actions project-actions">
+            <button type="button" className="primary-action" onClick={onBack}>
+              Back to VEHICLE Cube
+            </button>
+            <button
+              type="button"
+              className="secondary-action"
+              onClick={() => setActiveCpsKey("overview")}
+            >
+              Reset CPS Overview
+            </button>
+            <button type="button" className="secondary-action" onClick={onPartnerships}>
+              Partnerships Gateway
+            </button>
+          </div>
+
+          <div className="section-buttons project-mode-buttons" aria-label="VEHICLE-CPS regimes">
+            {cpsRegimeKeys.map((key) => (
+              <button
+                key={key}
+                type="button"
+                className={activeCpsKey === key ? "section-button active" : "section-button"}
+                onClick={() => setActiveCpsKey(key)}
+              >
+                {cpsDetails[key].code}
+              </button>
+            ))}
+          </div>
+
+          <div className="metric-row project-metric-row">
+            <article>
+              <strong>P0-P6</strong>
+              <span>operational regimes</span>
+            </article>
+            <article>
+              <strong>10K</strong>
+              <span>simulation nodes</span>
+            </article>
+            <article>
+              <strong>3D</strong>
+              <span>human node model</span>
+            </article>
+            <article>
+              <strong>ETH</strong>
+              <span>human supervision</span>
+            </article>
+          </div>
+        </div>
+
+        <div className="right-panel project-right-panel">
+          <div className="cube-card project-visual-card cps-visual-card">
+            <div className="node node-a" />
+            <div className="node node-b" />
+
+            <div className="cps-badge project-badge">
+              <span /> VEHICLE-CPS · Human field
+            </div>
+
+            <CpsHumanScene activeKey={activeCpsKey} />
+          </div>
+
+          <article className="info-card project-detail-card" aria-live="polite">
+            <span>{activeCps.code}</span>
+            <h3>{activeCps.title}</h3>
+            <h4>{activeCps.subtitle}</h4>
+            <p>{activeCps.description}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 export default function App() {
   const [activeKey, setActiveKey] = useState("front");
@@ -308,6 +561,17 @@ export default function App() {
     setView("home");
     setActiveKey("partnerships");
   };
+
+  if (view === "cps") {
+    return (
+      <main className="page-shell">
+        <CpsScene
+          onBack={() => setView("home")}
+          onPartnerships={openPartnerships}
+        />
+      </main>
+    );
+  }
 
   if (view === "odi") {
     return (
@@ -371,6 +635,14 @@ export default function App() {
               >
                 Space Debris Project
               </button>
+
+              <button
+                type="button"
+                className="secondary-action cps-action"
+                onClick={() => setView("cps")}
+              >
+                VEHICLE-CPS
+              </button>
             </div>
 
             <div className="section-buttons">
@@ -405,6 +677,16 @@ export default function App() {
               >
                 <strong>ODI</strong>
                 <span>space debris project</span>
+              </button>
+
+              <button
+                type="button"
+                className="metric-card metric-link cps-project-card"
+                onClick={() => setView("cps")}
+                aria-label="Open VEHICLE-CPS civil protection project"
+              >
+                <strong>CPS</strong>
+                <span>civil protection</span>
               </button>
             </div>
           </div>
@@ -461,6 +743,14 @@ export default function App() {
               <h3>{active.title}</h3>
               <h4>{active.subtitle}</h4>
               <p>{active.description}</p>
+              {active.contact && (
+                <div className="contact-block">
+                  <small>Official contact</small>
+                  <a className="contact-pill" href={`mailto:${active.contact}`}>
+                    {active.contact}
+                  </a>
+                </div>
+              )}
             </article>
           </div>
         </div>

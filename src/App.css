@@ -1079,3 +1079,783 @@ h2 {
   border-color: rgba(253, 224, 71, 0.75);
   color: #fde68a;
 }
+
+/* DRAFT 2026-05-07: ODI/CPS project pages keep the same visual footprint as HOME. */
+.odi-section,
+.cps-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 78% 20%, rgba(34, 211, 238, 0.16), transparent 30%),
+    radial-gradient(circle at 18% 82%, rgba(250, 204, 21, 0.10), transparent 30%),
+    linear-gradient(145deg, #020617 0%, #030712 44%, #071827 100%);
+  color: #ffffff;
+}
+
+.odi-shell,
+.cps-shell {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.88fr);
+  gap: clamp(32px, 6vw, 76px);
+  align-items: stretch;
+}
+
+.odi-info-card,
+.odi-visual-card,
+.cps-info-card,
+.cps-visual-card {
+  height: clamp(520px, 72vh, 640px);
+  min-height: 0;
+}
+
+.odi-info-card,
+.cps-info-card {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(103, 232, 249, 0.45) rgba(15, 23, 42, 0.35);
+}
+
+.odi-visual-card,
+.cps-visual-card {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.earth-stage,
+.cps-human-stage {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.metric-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 720px;
+}
+
+.cps-action,
+.cps-project-card {
+  border-color: rgba(253, 224, 71, 0.46) !important;
+  color: #fde68a;
+}
+
+.cps-project-card:hover {
+  border-color: rgba(253, 224, 71, 0.76) !important;
+}
+
+.contact-block {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-block small {
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 1px solid rgba(103, 232, 249, 0.5);
+  border-radius: 999px;
+  background: rgba(103, 232, 249, 0.10);
+  color: #e0faff;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.12);
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.contact-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(253, 224, 71, 0.72);
+  color: #fde68a;
+}
+
+/* VEHICLE-CPS project page */
+.cps-info-card,
+.cps-visual-card {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 34px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.58), rgba(2, 6, 23, 0.76));
+  box-shadow:
+    inset 0 0 45px rgba(34, 211, 238, 0.045),
+    0 30px 90px rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(16px);
+}
+
+.cps-info-card {
+  padding: clamp(28px, 4vw, 44px);
+}
+
+.cps-visual-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.cps-kicker,
+.cps-caption-card span {
+  display: inline-block;
+  color: #fde68a;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.22em;
+}
+
+.cps-info-card h1 {
+  margin: 16px 0 0;
+  font-size: clamp(46px, 6vw, 74px);
+}
+
+.cps-info-card h2 {
+  margin-top: 8px;
+  max-width: 600px;
+  color: #e0faff;
+}
+
+.cps-info-card p {
+  color: #cbd5e1;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.cps-lead {
+  color: #ffffff !important;
+  font-size: clamp(20px, 2vw, 26px) !important;
+  line-height: 1.3 !important;
+  font-weight: 850;
+}
+
+.cps-regime-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.cps-regime {
+  border: 1px solid rgba(103, 232, 249, 0.30);
+  border-radius: 999px;
+  padding: 9px 12px;
+  color: #e0faff;
+  background: rgba(103, 232, 249, 0.07);
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.cps-regime:hover,
+.cps-regime.active {
+  transform: translateY(-2px);
+  color: #fde68a;
+  border-color: rgba(253, 224, 71, 0.72);
+  background: rgba(253, 224, 71, 0.08);
+  box-shadow: 0 0 26px rgba(253, 224, 71, 0.10);
+}
+
+.cps-explainer {
+  margin-top: 20px;
+  padding: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.52);
+}
+
+.cps-explainer h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.cps-explainer p {
+  margin: 0;
+}
+
+.cps-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.cps-badge {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 10px 16px;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+  background: rgba(103, 232, 249, 0.08);
+  color: #e0faff;
+  font-size: 13px;
+  font-weight: 850;
+  box-shadow: 0 0 32px rgba(34, 211, 238, 0.10);
+}
+
+.cps-badge span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #fde047;
+  box-shadow: 0 0 18px rgba(253, 224, 71, 0.95);
+}
+
+.cps-human-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+  transform-style: preserve-3d;
+  margin: 10px 0;
+}
+
+.cps-field-grid {
+  position: absolute;
+  inset: 5%;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(103, 232, 249, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(circle, black, transparent 72%);
+}
+
+.cps-zone-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(103, 232, 249, 0.24);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.08);
+  animation: cps-ring-pulse 5.4s ease-in-out infinite;
+}
+
+.cps-zone-one {
+  width: 62%;
+  height: 28%;
+  transform: translate(-50%, -50%) rotateZ(-12deg) rotateX(64deg);
+}
+
+.cps-zone-two {
+  width: 78%;
+  height: 36%;
+  transform: translate(-50%, -50%) rotateZ(32deg) rotateX(58deg);
+  animation-delay: 0.6s;
+}
+
+.cps-zone-three {
+  width: 48%;
+  height: 22%;
+  transform: translate(-50%, -50%) rotateZ(78deg) rotateX(64deg);
+  border-color: rgba(253, 224, 71, 0.24);
+  animation-delay: 1.2s;
+}
+
+.cps-field-node {
+  position: absolute;
+  z-index: 3;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #67e8f9;
+  box-shadow: 0 0 16px rgba(103, 232, 249, 0.95);
+}
+
+.cps-field-node.node-one { left: 21%; top: 35%; }
+.cps-field-node.node-two { right: 20%; top: 31%; background: #fde047; box-shadow: 0 0 16px rgba(253, 224, 71, 0.95); }
+.cps-field-node.node-three { right: 24%; bottom: 27%; }
+.cps-field-node.node-four { left: 25%; bottom: 30%; background: #e0f2fe; }
+.cps-field-node.node-five { left: 50%; top: 15%; width: 7px; height: 7px; background: #fde68a; }
+
+.human-rotator-3d {
+  position: relative;
+  z-index: 5;
+  width: clamp(136px, 16vw, 178px);
+  height: clamp(205px, 24vw, 258px);
+  transform-style: preserve-3d;
+  animation: human-rotate-3d 20s linear infinite;
+}
+
+.cps-human-stage:hover .human-rotator-3d {
+  animation-play-state: paused;
+}
+
+.human-model-shell,
+.human-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.human-halo {
+  position: absolute;
+  inset: 6% 11%;
+  border: 1px solid rgba(103, 232, 249, 0.20);
+  border-radius: 50% 50% 44% 44% / 42% 42% 58% 58%;
+  box-shadow: 0 0 28px rgba(34, 211, 238, 0.18);
+  transform: translateZ(-4px);
+}
+
+.human-model-front {
+  transform: translateZ(20px);
+}
+
+.human-model-back {
+  transform: translateZ(-20px);
+  opacity: 0.30;
+  filter: blur(0.3px);
+}
+
+.human-head,
+.human-neck,
+.human-shoulders,
+.human-torso,
+.human-arm,
+.human-side {
+  position: absolute;
+  border: 1.5px solid rgba(103, 232, 249, 0.92);
+  background: rgba(103, 232, 249, 0.055);
+  box-shadow:
+    inset 0 0 18px rgba(103, 232, 249, 0.12),
+    0 0 14px rgba(103, 232, 249, 0.10);
+}
+
+.human-head {
+  width: 34%;
+  height: 28%;
+  left: 33%;
+  top: 4%;
+  border-radius: 46% 46% 44% 44% / 48% 48% 42% 42%;
+}
+
+.human-neck {
+  width: 14%;
+  height: 8%;
+  left: 43%;
+  top: 31%;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.human-shoulders {
+  width: 72%;
+  height: 14%;
+  left: 14%;
+  top: 36%;
+  border-radius: 44px 44px 18px 18px;
+}
+
+.human-torso {
+  width: 52%;
+  height: 43%;
+  left: 24%;
+  top: 43%;
+  border-radius: 26px 26px 34px 34px / 18px 18px 38px 38px;
+}
+
+.human-arm {
+  width: 12%;
+  height: 38%;
+  top: 46%;
+  border-radius: 18px;
+}
+
+.human-arm-left {
+  left: 14%;
+  transform: rotate(9deg);
+}
+
+.human-arm-right {
+  right: 14%;
+  transform: rotate(-9deg);
+}
+
+.human-side {
+  top: 12%;
+  width: 9%;
+  height: 72%;
+  background: linear-gradient(180deg, rgba(103, 232, 249, 0.14), rgba(2, 6, 23, 0.28));
+  border-radius: 20px;
+  opacity: 0.42;
+}
+
+.human-side-left {
+  left: 22%;
+  transform: rotateY(90deg) translateZ(20px);
+}
+
+.human-side-right {
+  right: 22%;
+  transform: rotateY(90deg) translateZ(-20px);
+}
+
+.human-axis {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(253, 224, 71, 0.12), rgba(103, 232, 249, 0.95));
+  box-shadow: 0 0 14px rgba(103, 232, 249, 0.40);
+}
+
+.axis-head { top: 10%; height: 18%; }
+.axis-torso { top: 42%; height: 22%; }
+.axis-core { top: 64%; height: 19%; }
+
+.human-node {
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: #fde68a;
+  box-shadow: 0 0 14px rgba(253, 230, 138, 0.92);
+}
+
+.h-node-one { top: 10%; }
+.h-node-two { top: 39%; }
+.h-node-three { top: 61%; }
+.h-node-four { top: 83%; background: #67e8f9; box-shadow: 0 0 16px rgba(103, 232, 249, 0.92); }
+
+.human-base-orbit {
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  width: 72%;
+  height: 12%;
+  transform: translateX(-50%) rotateX(76deg) translateZ(10px);
+  border: 1px solid rgba(103, 232, 249, 0.38);
+  border-radius: 50%;
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.18);
+}
+
+.cps-caption-card {
+  position: relative;
+  z-index: 6;
+  padding: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.68);
+}
+
+.cps-caption-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #f8fafc;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.cps-caption-card em {
+  display: block;
+  margin-top: 8px;
+  color: #e0faff;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 750;
+}
+
+.cps-caption-card p {
+  margin: 12px 0 0;
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+@keyframes human-rotate-3d {
+  from { transform: rotateX(-8deg) rotateY(0deg); }
+  to { transform: rotateX(-8deg) rotateY(360deg); }
+}
+
+@keyframes cps-ring-pulse {
+  0%, 100% { opacity: 0.42; }
+  50% { opacity: 0.95; }
+}
+
+@media (max-width: 980px) {
+  .odi-section,
+  .cps-section {
+    align-items: flex-start;
+    overflow: visible;
+  }
+
+  .odi-shell,
+  .cps-shell {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .odi-info-card,
+  .odi-visual-card,
+  .cps-info-card,
+  .cps-visual-card {
+    height: auto;
+    overflow: visible;
+  }
+
+  .odi-visual-card,
+  .cps-visual-card {
+    min-height: 560px;
+  }
+
+  .metric-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .metric-row {
+    grid-template-columns: 1fr;
+  }
+
+  .cps-actions {
+    flex-direction: column;
+  }
+
+  .contact-pill {
+    width: 100%;
+  }
+
+  .cps-visual-card {
+    min-height: 520px;
+  }
+}
+
+/* DRAFT 2026-05-07: HOME-BASE ARCHITECTURE FOR PROJECT PAGES
+   ODI and CPS now reuse the same page footprint as HOME: hero-section,
+   hero-content, left-panel, right-panel, cube-card, and info-card.
+   No internal card scrollbars are used. */
+.project-section.odi-section,
+.project-section.cps-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(32px, 5vw, 72px);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(34, 211, 238, 0.12), transparent 28%),
+    radial-gradient(circle at 28% 75%, rgba(14, 165, 233, 0.14), transparent 32%),
+    linear-gradient(145deg, #020617 0%, #030712 46%, #07111f 100%);
+  color: #ffffff;
+}
+
+.project-content.odi-shell,
+.project-content.cps-shell {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(360px, 0.88fr);
+  gap: clamp(32px, 6vw, 76px);
+  align-items: center;
+}
+
+.project-left-panel {
+  max-width: 720px;
+}
+
+.project-left-panel h1 {
+  margin: 44px 0 18px;
+}
+
+.project-left-panel p {
+  max-width: 700px;
+  margin: 18px 0 0;
+  color: #cbd5e1;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.72;
+  font-weight: 500;
+}
+
+.project-lead {
+  color: #ffffff !important;
+  font-weight: 850 !important;
+}
+
+.project-actions {
+  margin-top: 30px;
+}
+
+.project-mode-buttons {
+  margin-top: 20px;
+  max-width: 680px;
+}
+
+.project-mode-buttons .section-button {
+  padding: 9px 12px;
+  font-size: 12px;
+}
+
+.project-metric-row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 720px;
+  margin-top: 34px;
+}
+
+.project-right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.project-visual-card.odi-visual-card,
+.project-visual-card.cps-visual-card {
+  position: relative;
+  height: min(46vh, 430px) !important;
+  min-height: 340px !important;
+  max-height: 430px;
+  padding: clamp(18px, 2.2vw, 24px) !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden !important;
+}
+
+.project-badge {
+  position: absolute !important;
+  z-index: 8;
+  top: 22px;
+  left: 22px;
+}
+
+.project-visual-card .earth-stage,
+.project-visual-card .cps-human-stage {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  flex: none;
+}
+
+.project-visual-card .earth-rotator {
+  width: min(100%, 520px);
+  height: 100%;
+}
+
+.project-visual-card .earth-core {
+  width: clamp(185px, 24vw, 280px);
+  height: clamp(185px, 24vw, 280px);
+}
+
+.project-visual-card .human-rotator-3d {
+  width: clamp(126px, 14vw, 168px);
+  height: clamp(190px, 22vw, 246px);
+}
+
+.project-detail-card {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.project-detail-card p {
+  max-width: 500px;
+}
+
+.odi-info-card,
+.cps-info-card,
+.project-info-card {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-width: auto !important;
+}
+
+.odi-caption-card,
+.cps-caption-card {
+  display: none !important;
+}
+
+.cps-regime-grid,
+.odi-pill-grid,
+.odi-explainer,
+.cps-explainer,
+.odi-actions,
+.cps-actions {
+  overflow: visible !important;
+}
+
+@media (max-width: 980px) {
+  .project-content.odi-shell,
+  .project-content.cps-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .project-left-panel {
+    max-width: none;
+  }
+
+  .project-right-panel {
+    width: 100%;
+  }
+
+  .project-visual-card.odi-visual-card,
+  .project-visual-card.cps-visual-card {
+    height: 420px !important;
+    max-height: none;
+  }
+
+  .project-metric-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .project-mode-buttons {
+    gap: 8px;
+  }
+
+  .project-metric-row {
+    grid-template-columns: 1fr;
+  }
+
+  .project-visual-card .earth-core {
+    width: 210px;
+    height: 210px;
+  }
+
+  .project-visual-card .human-rotator-3d {
+    width: 136px;
+    height: 205px;
+  }
+}
+
