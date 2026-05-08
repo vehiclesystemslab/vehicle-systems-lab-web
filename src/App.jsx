@@ -286,9 +286,22 @@ function OdiEarthScene({ onBack, onPartnerships }) {
 
           <p>
             VEHICLE-ODI reads objects, fragments, orbital zones and debris clouds
-            as a structured field under tension. The page keeps the same visual
-            architecture as HOME: left intelligence layer, right 3D visual layer.
+            as a structured field under tension. The project is now archived and
+            citable through GitHub and Zenodo.
           </p>
+
+          <div className="project-repository-card" aria-label="VEHICLE-ODI repository and DOI">
+            <strong>Repository and archived release</strong>
+            <a href="https://github.com/vehiclesystemslab/VEHICLE-ODI" target="_blank" rel="noreferrer">
+              github.com/vehiclesystemslab/VEHICLE-ODI
+            </a>
+            <a href="https://zenodo.org/records/20077230" target="_blank" rel="noreferrer">
+              Zenodo record: 20077230
+            </a>
+            <a href="https://doi.org/10.5281/zenodo.20077230" target="_blank" rel="noreferrer">
+              DOI: 10.5281/zenodo.20077230
+            </a>
+          </div>
 
           <div className="hero-actions project-actions">
             <button type="button" className="primary-action" onClick={onBack}>

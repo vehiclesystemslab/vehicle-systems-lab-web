@@ -1859,3 +1859,38 @@ h2 {
   }
 }
 
+
+/* VEHICLE-ODI repository / DOI card */
+.project-repository-card {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid rgba(103, 232, 249, 0.32);
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.54);
+  box-shadow: inset 0 0 28px rgba(34, 211, 238, 0.045);
+}
+
+.project-repository-card strong {
+  display: block;
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.project-repository-card a {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 8px;
+  color: #e0faff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.45;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.project-repository-card a:hover {
+  color: #fde68a;
+}
