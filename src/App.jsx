@@ -719,6 +719,9 @@ function SupraScene({ onBack, onPartnerships }) {
             <a href="/downloads/VEHICLE-SUPRA-v0.1-Professional.zip" download>
               Download VEHICLE-SUPRA v0.1 Professional
             </a>
+            <a href="/downloads/VEHICLE-SUPRA-v0.2-GITEX-Demo.zip" download>
+              Download VEHICLE-SUPRA v0.2 GITEX Demo
+            </a>
             <a href="mailto:contact@vehiclesystemslab.com">
               contact@vehiclesystemslab.com
             </a>
@@ -741,6 +744,13 @@ function SupraScene({ onBack, onPartnerships }) {
               download
             >
               Download v0.1
+            </a>
+            <a
+              className="secondary-action download-action"
+              href="/downloads/VEHICLE-SUPRA-v0.2-GITEX-Demo.zip"
+              download
+            >
+              GITEX Demo v0.2
             </a>
             <button type="button" className="secondary-action" onClick={onPartnerships}>
               Partnerships Gateway
