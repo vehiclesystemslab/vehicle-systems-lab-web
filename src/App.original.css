@@ -1933,20 +1933,6 @@ h2 {
   border-color: rgba(253, 224, 71, 0.76) !important;
 }
 
-.ai-access-action,
-.ai-access-card {
-  border-color: rgba(253, 224, 71, 0.52) !important;
-  color: #fde68a;
-  background-image: linear-gradient(180deg, rgba(253, 224, 71, 0.08), rgba(15, 23, 42, 0.72));
-}
-
-.ai-access-action:hover,
-.ai-access-card:hover {
-  border-color: rgba(103, 232, 249, 0.72) !important;
-  color: #ffffff;
-  box-shadow: 0 0 28px rgba(253, 224, 71, 0.12);
-}
-
 .download-action {
   display: inline-flex;
   align-items: center;

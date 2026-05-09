@@ -925,14 +925,6 @@ export default function App() {
               >
                 VEHICLE-SUPRA
               </button>
-
-              <button
-                type="button"
-                className="secondary-action ai-access-action"
-                onClick={() => window.location.assign("/ai-access-layer/index.html")}
-              >
-                VEHICLE AI Access Layer
-              </button>
             </div>
 
             <div className="section-buttons">
@@ -987,16 +979,6 @@ export default function App() {
               >
                 <strong>SUPRA</strong>
                 <span>autonomous AI</span>
-              </button>
-
-              <button
-                type="button"
-                className="metric-card metric-link ai-access-card"
-                onClick={() => window.location.assign("/ai-access-layer/index.html")}
-                aria-label="Open VEHICLE AI Access Layer"
-              >
-                <strong>AI</strong>
-                <span>access layer</span>
               </button>
             </div>
           </div>
