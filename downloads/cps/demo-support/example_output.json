@@ -1,0 +1,11 @@
+{
+  "output_type": "visual command surface simulation",
+  "features": [
+    "field tension gauge",
+    "operational regime classification",
+    "VIP orbit visualization",
+    "crisis node response",
+    "distributed team deployment",
+    "audit-oriented event log"
+  ]
+}

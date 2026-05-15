@@ -1,0 +1,10 @@
+{
+  "systemic_tension": "T(X)",
+  "regimes": "A0-A6",
+  "outputs": [
+    "network_cohesion",
+    "faulted_nodes",
+    "twin_activations",
+    "recovery_status"
+  ]
+}

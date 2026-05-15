@@ -1,40 +1,191 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VEHICLE Systems Lab | Structural Intelligence for Complex Systems</title>
-
-<meta
-  name="description"
-  content="VEHICLE Systems Lab develops projection-governed relational architectures for complex systems, including VEHICLE-ODI: Orbital Debris Intelligence for structural prioritization, clean orbit research, and decision support."
-/>
-
-<meta name="robots" content="index, follow" />
-<meta name="author" content="Roberto Borda Milan, VEHICLE Systems Lab" />
-<meta name="keywords" content="VEHICLE Systems Lab, VEHICLE-ODI, Orbital Debris Intelligence, structural intelligence, complex systems, Borda Milan Pyramid, orbital debris, clean orbit research, relational systems, projection-governed architecture" />
-
-<link rel="canonical" href="https://vehiclesystemslab.com/" />
-
-<meta property="og:title" content="VEHICLE Systems Lab" />
-<meta
-  property="og:description"
-  content="Structural intelligence for complex systems. VEHICLE-ODI explores orbital debris as a relational tension system for prioritization and clean orbit research."
-/>
-<meta property="og:url" content="https://vehiclesystemslab.com/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="VEHICLE Systems Lab" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="VEHICLE Systems Lab" />
-<meta
-  name="twitter:description"
-  content="Projection-governed relational architectures for complex systems and orbital debris intelligence."
-/>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VEHICLE Systems Lab | MADRE Ultra Premium Interface</title>
+  <meta name="description" content="MADRE premium interface for VEHICLE Systems Lab." />
+  <link rel="stylesheet" href="styles.css?v=20260513-final-breath-audio" />
 </head>
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <main id="stage" class="stage sleeping" aria-label="VEHICLE Systems Lab MADRE interface">
+    <canvas id="space" class="space" aria-hidden="true"></canvas>
+    <canvas id="network" class="network" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand"><span></span><strong>VEHICLE</strong><em>Systems Lab</em></div>
+      <p id="statusLabel" class="status">MADRE / SLEEPING</p>
+    </header>
+
+    <aside class="left-whisper" aria-hidden="true">
+      <span>SCIENCE</span>
+      <span>RESPONSIBILITY</span>
+      <span>PASSION</span>
+      <i></i>
+      <small>MADRE / LIVING SYSTEM CORE</small>
+    </aside>
+
+    <section class="core-wrap" aria-label="MADRE core">
+      <div id="core" class="core">
+        <div class="sphere base"></div>
+        <div class="sphere currents"></div>
+        <div class="sphere clouds"></div>
+        <div class="sphere glass"></div>
+        <div class="sphere heart"></div>
+        <div class="sphere point"></div>
+      </div>
+      <button id="powerButton" class="power" type="button" aria-label="Wake MADRE"><span></span></button>
+      <p id="sleepLabel" class="sleep-label">MADRE / SLEEPING / CLICK TO WAKE</p>
+
+      <nav id="projectNames" class="project-names" aria-label="VEHICLE projects">
+        <button class="project-name supra" data-project="supra" type="button">VEHICLE SUPRA</button>
+        <button class="project-name access" data-project="access" type="button">VEHICLE ACCESS LAYER</button>
+        <button class="project-name odi" data-project="odi" type="button">VEHICLE ODI</button>
+        <button class="project-name cps" data-project="cps" type="button">VEHICLE CPS</button>
+        <button class="project-name madre" data-project="madre" type="button">VEHICLE MADRE</button>
+      </nav>
+    </section>
+
+    <section id="voicePanel" class="voice-panel" aria-live="polite">
+      <p id="voiceLine" class="voice-line"></p>
+    </section>
+
+    <section id="odiScene" class="scene odi-scene" aria-live="polite">
+      <button class="scene-back" data-back type="button">BACK / MADRE</button>
+      <div class="scene-stars" aria-hidden="true"></div>
+      <div class="body-shell round-shell" id="odiReturn" role="button" tabindex="0" aria-label="Open VEHICLE ODI experience">
+        <div class="body-glow"></div>
+        <img class="body-image" src="odi-earth-hero.png" alt="Earth from orbit" />
+        <div class="body-shade"></div>
+        <div class="debris-field" aria-hidden="true">
+          <span class="debris debris-a"></span><span class="debris debris-b"></span><span class="debris debris-c"></span><span class="debris debris-d"></span>
+          <span class="debris debris-e"></span><span class="debris debris-f"></span><span class="debris debris-g"></span><span class="debris debris-h"></span>
+          <span class="debris debris-i"></span><span class="debris debris-j"></span><span class="debris debris-k"></span><span class="debris debris-l"></span>
+        </div>
+      </div>
+      <div class="scene-copy left-copy">
+        <p id="odiText" class="scene-text"></p>
+        <div class="scene-links">
+          <a class="scene-launch" href="vehicle-odi.html">OPEN ODI EXPERIENCE</a>
+          <a href="downloads/odi/VEHICLE-ODI-Orbital-Debris-Decision-Surface-Demo.html">LAUNCH DECISION SURFACE</a>
+        </div>
+      </div>
+      <div class="scene-downloads">
+        <a class="scene-launch" href="vehicle-odi.html">ODI PROJECT PAGE</a>
+        <a href="downloads/odi/VEHICLE-ODI-Investor-Package-v1.zip" download>ODI INVESTOR PACKAGE</a>
+        <a href="downloads/odi/Orbital-Debris-Responsibility-and-Removal-Paper-ODI.pdf" download>ODI RESPONSIBILITY PAPER</a>
+        <a href="vehicle-odi-ai-reference.txt" download>ODI AI REFERENCE</a>
+      </div>
+    </section>
+
+    <section id="supraScene" class="scene supra-scene" aria-live="polite">
+      <button class="scene-back" data-back type="button">BACK / MADRE</button>
+      <div class="scene-stars" aria-hidden="true"></div>
+      <div class="body-shell round-shell" id="supraReturn" role="button" tabindex="0" aria-label="Open VEHICLE SUPRA experience">
+        <div class="body-glow"></div>
+        <img class="body-image" src="supra-moon-hero.png" alt="Realistic moon" />
+        <div class="body-shade"></div>
+      </div>
+      <div class="scene-copy left-copy">
+        <p id="supraText" class="scene-text"></p>
+        <div class="scene-links">
+          <a class="scene-launch" href="vehicle-supra.html">OPEN SUPRA EXPERIENCE</a>
+          <a href="vehicle-supra-demo.html">LAUNCH LUNAR DEMO</a>
+        </div>
+      </div>
+      <div class="scene-downloads">
+        <a class="scene-launch" href="vehicle-supra.html">SUPRA PROJECT PAGE</a>
+        <a href="vehicle-supra-demo.html">SUPRA LIVE DEMO</a>
+        <a href="downloads/supra/VEHICLE-SUPRA-Investor-Package-v1.zip" download>SUPRA INVESTOR PACKAGE</a>
+        <a href="vehicle-supra-ai-reference.txt" download>SUPRA AI REFERENCE</a>
+      </div>
+    </section>
+
+    <section id="cpsScene" class="scene cps-scene" aria-live="polite">
+      <button class="scene-back" data-back type="button">BACK / MADRE</button>
+      <div class="scene-stars" aria-hidden="true"></div>
+      <div class="body-shell round-shell" id="cpsReturn" role="button" tabindex="0" aria-label="Open VEHICLE CPS experience">
+        <div class="body-glow"></div>
+        <img class="body-image" src="cps-planet-hero.png" alt="Mars-like planet" />
+        <div class="body-shade"></div>
+        <div class="meteor-field" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="scene-copy left-copy">
+        <p id="cpsText" class="scene-text"></p>
+        <div class="scene-links">
+          <a class="scene-launch" href="vehicle-cps.html">OPEN CPS EXPERIENCE</a>
+          <a href="vehicle-cps-simulacion.html">LAUNCH COMMAND SIMULATION</a>
+        </div>
+      </div>
+      <div class="scene-downloads">
+        <a class="scene-launch" href="vehicle-cps.html">CPS PROJECT PAGE</a>
+        <a href="vehicle-cps-simulacion.html">CPS LIVE SIMULATION</a>
+        <a href="downloads/cps/VEHICLE-CPS-Investor-Package-v2.zip" download>CPS INVESTOR PACKAGE</a>
+        <a href="vehicle-cps-ai-reference.txt" download>CPS AI REFERENCE</a>
+      </div>
+    </section>
+
+    <section id="accessScene" class="scene access-scene" aria-live="polite">
+      <button class="scene-back" data-back type="button">BACK / MADRE</button>
+      <div class="scene-stars" aria-hidden="true"></div>
+      <div class="body-shell asteroid-shell" id="accessReturn" role="button" tabindex="0" aria-label="Open VEHICLE ACCESS experience">
+        <div class="body-glow asteroid-glow"></div>
+        <img class="body-image asteroid-image" src="access-meteor-hero.png" alt="Asteroid in deep space" />
+        <div class="asteroid-mask"></div>
+      </div>
+      <div class="scene-copy left-copy">
+        <p id="accessText" class="scene-text"></p>
+        <div class="scene-links">
+          <a class="scene-launch" href="vehicle-access.html">OPEN ACCESS EXPERIENCE</a>
+          <a href="downloads/access/VEHICLE-ACCESS-Layer-v0.2.zip" download>DOWNLOAD AI ACCESS LAYER</a>
+        </div>
+      </div>
+      <div class="scene-downloads">
+        <a class="scene-launch" href="vehicle-access.html">ACCESS PROJECT PAGE</a>
+        <a href="downloads/access/VEHICLE-ACCESS-Layer-v0.2.zip" download>ACCESS LAYER v0.2</a>
+        <a href="downloads/access/VEHICLE-ACCESS-Investor-Package-v1.zip" download>ACCESS INVESTOR PACKAGE</a>
+        <a href="vehicle-access-ai-reference.txt" download>ACCESS AI REFERENCE</a>
+      </div>
+    </section>
+
+    <section id="madreScene" class="scene madre-scene" aria-live="polite">
+      <button class="scene-back" data-back type="button">BACK / MADRE</button>
+      <div class="madre-veil" aria-hidden="true"></div>
+      <div class="scene-copy center-copy madre-copy">
+        <p id="madreText" class="scene-text"></p>
+        <div class="scene-links scene-links-center">
+          <a class="scene-launch" href="VEHICLE-MADRE-Investor-Package-v1.zip" download>OPEN FULL MADRE PACKAGE</a>
+          <a href="vehicle-madre-ai-reference.txt" download>OPEN MADRE AI REFERENCE</a>
+        </div>
+      </div>
+      <div class="scene-downloads madre-downloads">
+        <a href="VEHICLE-MADRE-Funding-Brief.pdf" download>MADRE FUNDING PDF</a>
+        <a href="VEHICLE-MADRE-Technical-Brief.pdf" download>MADRE TECHNICAL PDF</a>
+        <a href="VEHICLE-MADRE-Operational-Costs.pdf" download>MADRE COSTS PDF</a>
+        <a href="vehicle-madre-ai-reference.txt" download>MADRE AI REFERENCE</a>
+        <a href="VEHICLE-MADRE-Demo-Status.txt" download>MADRE STATUS</a>
+        <a href="VEHICLE-MADRE-Investor-Package-v1.zip" download>MADRE PACKAGE ZIP</a>
+      </div>
+    </section>
+
+    <footer class="footer-note" aria-label="Institutional references">
+      <a id="footerOrcid" href="https://orcid.org/0009-0009-9047-1036" target="_blank" rel="noopener noreferrer">ORCID</a>
+      <a id="footerZenodo" href="https://zenodo.org/" target="_blank" rel="noopener noreferrer">ZENODO</a>
+      <a id="footerGithub" href="https://github.com/vehiclesystemslab" target="_blank" rel="noopener noreferrer">GITHUB</a>
+      <a href="mailto:contact@vehiclesystemslab.com">contact@vehiclesystemslab.com</a>
+      <a href="mailto:bordamilan@vehiclesystemslab.com">bordamilan@vehiclesystemslab.com</a>
+      <a href="mailto:andresborda@vehiclesystemslab.com">andresborda@vehiclesystemslab.com</a>
+    </footer>
+
+    <audio id="welcomeAudio" src="madre-welcome.mp3" preload="auto"></audio>
+    <audio id="odiAudio" src="vehicle-odi.mp3" preload="auto"></audio>
+    <audio id="supraAudio" src="vehicle-supra.mp3" preload="auto"></audio>
+    <audio id="cpsAudio" src="vehicle-cps.mp3" preload="auto"></audio>
+    <audio id="accessAudio" src="vehicle-access-layer.mp3" preload="auto"></audio>
+    <audio id="madreAudio" src="madre-coming-soon.mp3" preload="auto"></audio>
+  </main>
+  <script src="app.js?v=20260513-final-breath-audio"></script>
+</body>
 </html>

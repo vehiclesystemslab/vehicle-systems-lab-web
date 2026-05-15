@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEHICLE-CPS | Civil Protection Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"IBM Plex Mono",monospace;
+  color:#eef5ff;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(95,232,255,.10),transparent 24%),
+    radial-gradient(circle at 82% 16%,rgba(119,168,255,.10),transparent 24%),
+    radial-gradient(circle at 72% 72%,rgba(255,191,105,.08),transparent 22%),
+    linear-gradient(180deg,#040811 0%,#09111c 46%,#03070f 100%);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:106px 106px;
+  mask-image:radial-gradient(circle at center,black 38%,transparent 92%);
+  opacity:.28;
+}
+a{color:inherit;text-decoration:none}
+.shell{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:18px 28px;
+  background:linear-gradient(180deg,rgba(6,12,22,.96),rgba(6,12,22,.80));
+  border-bottom:1px solid rgba(146,187,211,.12);
+  backdrop-filter:blur(18px);
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.brand strong{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:18px;
+  letter-spacing:.22em;
+}
+.brand span{
+  font-size:10px;
+  letter-spacing:.30em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:12px;
+}
+.pill{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 16px;
+  border-radius:999px;
+  border:1px solid rgba(146,187,211,.14);
+  background:rgba(10,18,30,.64);
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.pill.primary{
+  color:#07111a;
+  background:linear-gradient(135deg,#6ff0d1,#fff0cb);
+  border-color:rgba(255,255,255,.26);
+  box-shadow:0 12px 32px rgba(110,242,202,.18);
+}
+.layout{
+  width:min(1440px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) 370px;
+  gap:24px;
+  padding:30px 24px 36px;
+}
+.main{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:720px;
+  padding:40px;
+  border-radius:34px;
+  border:1px solid rgba(146,187,211,.12);
+  background:
+    radial-gradient(circle at 54% 54%,rgba(95,232,255,.08),transparent 26%),
+    radial-gradient(circle at 50% 50%,rgba(255,108,122,.05),transparent 46%),
+    linear-gradient(180deg,rgba(10,18,29,.90),rgba(8,14,22,.84));
+  box-shadow:0 42px 90px rgba(0,0,0,.32);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:26px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.05);
+  pointer-events:none;
+}
+.eyebrow{
+  position:relative;
+  z-index:2;
+  font-size:10px;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.hero h1{
+  position:relative;
+  z-index:2;
+  max-width:650px;
+  margin:14px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(40px,5.4vw,70px);
+  line-height:.96;
+  letter-spacing:-.02em;
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+  max-width:620px;
+  margin-top:18px;
+  font-size:13px;
+  line-height:1.8;
+  color:rgba(238,245,255,.74);
+}
+.metric-grid{
+  position:relative;
+  z-index:2;
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.metric{
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(11,20,31,.58);
+  border:1px solid rgba(146,187,211,.10);
+}
+.metric strong{
+  display:block;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:24px;
+}
+.metric span{
+  display:block;
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(173,194,211,.56);
+}
+.command-stage{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.command-core{
+  position:absolute;
+  left:53%;
+  top:53%;
+  width:340px;
+  height:340px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at center,rgba(95,232,255,.20),rgba(119,168,255,.07) 40%,transparent 70%);
+  filter:blur(8px);
+}
+.vip-ring{
+  position:absolute;
+  left:53%;
+  top:53%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(255,108,122,.18);
+}
+.vip-ring.one{width:220px;height:220px}
+.vip-ring.two{width:310px;height:310px}
+.vip-ring.three{width:402px;height:402px}
+.vip-ring.four{width:500px;height:500px}
+.node{
+  position:absolute;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  box-shadow:0 0 18px currentColor;
+}
+.vip-core{
+  position:absolute;
+  left:53%;
+  top:53%;
+  width:120px;
+  height:120px;
+  transform:translate(-50%,-50%);
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(180deg,rgba(255,108,122,.18),rgba(255,108,122,.06)),
+    rgba(13,22,35,.92);
+  box-shadow:0 0 0 14px rgba(255,108,122,.04),0 0 54px rgba(255,108,122,.14);
+}
+.vip-core::before,
+.vip-core::after{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+}
+.node.alert{left:calc(53% + 150px);top:calc(53% - 64px);background:#ff6c7a;color:#ff6c7a}
+.node.team-a{left:calc(53% - 168px);top:calc(53% - 120px);background:#5fe8ff;color:#5fe8ff}
+.node.team-b{left:calc(53% + 178px);top:calc(53% + 78px);background:#6ef2ca;color:#6ef2ca}
+.node.team-c{left:calc(53% - 62px);top:calc(53% + 178px);background:#ffbf69;color:#ffbf69}
+.node.surv-a{left:calc(53% - 220px);top:calc(53% + 50px);background:#77a8ff;color:#77a8ff}
+.node.surv-b{left:calc(53% + 30px);top:calc(53% - 205px);background:#9b8fff;color:#9b8fff}
+.line{
+  position:absolute;
+  transform-origin:left center;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(95,232,255,.28),transparent);
+}
+.line.one{left:53%;top:53%;width:156px;transform:rotate(-24deg)}
+.line.two{left:53%;top:53%;width:180px;transform:rotate(149deg)}
+.line.three{left:53%;top:53%;width:188px;transform:rotate(29deg)}
+.line.four{left:53%;top:53%;width:198px;transform:rotate(92deg)}
+.hero-bottom{
+  position:absolute;
+  left:40px;
+  right:40px;
+  bottom:34px;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(260px,320px);
+  gap:18px;
+  align-items:end;
+}
+.sim-panel{
+  padding:18px 18px 20px;
+  border-radius:26px;
+  border:1px solid rgba(95,232,255,.16);
+  background:linear-gradient(180deg,rgba(12,22,34,.88),rgba(8,15,24,.74));
+  box-shadow:0 30px 80px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.sim-kicker{
+  font-size:9px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.sim-title{
+  margin-top:10px;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  line-height:1.05;
+}
+.sim-copy{
+  margin-top:10px;
+  max-width:560px;
+  font-size:11px;
+  line-height:1.72;
+  color:rgba(238,245,255,.72);
+}
+.sim-actions{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.cta{
+  min-height:54px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  border-radius:999px;
+  border:1px solid rgba(146,187,211,.14);
+  background:rgba(10,18,29,.68);
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.cta:hover,.asset:hover{transform:translateY(-2px)}
+.cta.primary{
+  color:#081119;
+  background:linear-gradient(135deg,#6ff0d1,#ffe6af);
+  border-color:rgba(255,255,255,.28);
+  box-shadow:0 20px 54px rgba(110,242,202,.18);
+}
+.cta.secondary:hover{
+  border-color:rgba(146,187,211,.22);
+  box-shadow:0 14px 34px rgba(0,0,0,.22);
+}
+.mission-box{
+  padding:16px 18px;
+  border-radius:22px;
+  border:1px solid rgba(146,187,211,.12);
+  background:linear-gradient(180deg,rgba(11,20,31,.80),rgba(7,14,24,.72));
+}
+.mission-box strong{
+  display:block;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  color:#ffe3a8;
+}
+.mission-box span{
+  display:block;
+  margin-top:10px;
+  font-size:10px;
+  line-height:1.7;
+  color:rgba(238,245,255,.66);
+}
+.support-band{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.support{
+  padding:20px 22px;
+  border-radius:24px;
+  border:1px solid rgba(146,187,211,.10);
+  background:rgba(10,18,29,.58);
+}
+.support .label{
+  font-size:9px;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.support h2{
+  margin:12px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:24px;
+  line-height:1.06;
+}
+.support p{
+  margin:10px 0 0;
+  font-size:11px;
+  line-height:1.75;
+  color:rgba(238,245,255,.70);
+}
+.rail{
+  position:sticky;
+  top:100px;
+  height:calc(100vh - 124px);
+  overflow:auto;
+  padding:6px 2px 8px 10px;
+}
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:rgba(146,187,211,.22);border-radius:999px}
+.rail-shell{
+  padding:20px 18px;
+  border-radius:28px;
+  border:1px solid rgba(146,187,211,.12);
+  background:linear-gradient(180deg,rgba(10,18,29,.90),rgba(8,13,22,.78));
+  box-shadow:0 36px 80px rgba(0,0,0,.30);
+}
+.rail-head{
+  padding-bottom:18px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(146,187,211,.10);
+}
+.rail-head .label{
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.rail-head h2{
+  margin:10px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  line-height:1;
+}
+.rail-head p{
+  margin:10px 0 0;
+  font-size:11px;
+  line-height:1.7;
+  color:rgba(238,245,255,.70);
+}
+.group{margin-top:20px}
+.group:first-of-type{margin-top:0}
+.group-label{
+  margin-bottom:12px;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(173,194,211,.56);
+}
+.asset-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.asset{
+  display:block;
+  padding:14px 14px 13px;
+  border-radius:20px;
+  border:1px solid rgba(146,187,211,.10);
+  background:rgba(11,20,31,.58);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.asset:hover{
+  border-color:rgba(146,187,211,.22);
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+}
+.asset.featured{
+  border-color:rgba(95,232,255,.18);
+  background:linear-gradient(180deg,rgba(12,24,36,.92),rgba(7,16,25,.82));
+}
+.asset-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+.asset-code{
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#5fe8ff;
+}
+.asset-kind{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(173,194,211,.52);
+}
+.asset-title{
+  margin-top:8px;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:16px;
+  line-height:1.08;
+}
+.asset.featured .asset-title{
+  font-size:18px;
+  color:#fff4d8;
+}
+.asset-copy{
+  margin-top:8px;
+  font-size:10px;
+  line-height:1.65;
+  color:rgba(238,245,255,.68);
+}
+.footer-note{
+  margin-top:22px;
+  padding-top:16px;
+  border-top:1px solid rgba(146,187,211,.10);
+  font-size:10px;
+  line-height:1.7;
+  color:rgba(173,194,211,.58);
+}
+.hero{
+  background:
+    radial-gradient(circle at 72% 24%,rgba(255,135,96,.18),transparent 22%),
+    radial-gradient(circle at 68% 46%,rgba(95,232,255,.08),transparent 28%),
+    linear-gradient(180deg,rgba(10,18,29,.94),rgba(8,14,22,.86));
+}
+.command-stage{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.command-stage::before{
+  content:"";
+  position:absolute;
+  inset:28px;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 72% 28%,rgba(255,167,122,.10),transparent 22%),
+    linear-gradient(180deg,rgba(255,255,255,.03),transparent 24%);
+}
+.hero-visual-glow{
+  position:absolute;
+  right:2%;
+  top:7%;
+  width:min(48vw,690px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,126,94,.18),rgba(255,126,94,0) 62%);
+  filter:blur(24px);
+}
+.hero-dust{
+  position:absolute;
+  right:9%;
+  top:16%;
+  width:min(40vw,560px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 34% 30%,rgba(255,227,181,.12),transparent 12%),
+    radial-gradient(circle at 56% 46%,rgba(255,144,102,.10),transparent 16%),
+    radial-gradient(circle at 72% 64%,rgba(255,201,144,.10),transparent 12%);
+  filter:blur(4px);
+}
+.hero-visual-shell{
+  position:absolute;
+  right:8%;
+  top:13%;
+  width:min(35vw,520px);
+  aspect-ratio:1;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 0 120px rgba(255,126,94,.22),0 48px 90px rgba(0,0,0,.38);
+}
+.hero-visual-shell::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.18),transparent 18%),
+    radial-gradient(circle at 72% 74%,transparent 38%,rgba(0,0,0,.42) 74%,rgba(0,0,0,.78) 100%);
+}
+.hero-visual-shell img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.08);
+  animation:spin 170s linear infinite;
+  filter:saturate(1.12) contrast(1.06);
+}
+.hero-visual-ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(255,151,117,.12);
+}
+.ring-one{
+  right:5%;
+  top:10%;
+  width:min(42vw,620px);
+  aspect-ratio:1;
+}
+.ring-two{
+  right:0;
+  top:5%;
+  width:min(48vw,710px);
+  aspect-ratio:1;
+  border-color:rgba(95,232,255,.10);
+}
+.hero-gridline{
+  position:absolute;
+  right:8%;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,126,94,.34),rgba(255,255,255,0));
+}
+.line-one{top:31%;width:min(34vw,500px);transform:rotate(-18deg)}
+.line-two{top:52%;width:min(36vw,520px);transform:rotate(8deg)}
+.line-three{top:66%;width:min(26vw,380px);transform:rotate(18deg)}
+.hero-telemetry{
+  position:absolute;
+  right:clamp(180px,20vw,360px);
+  bottom:23%;
+  width:min(280px,26vw);
+  display:grid;
+  gap:10px;
+}
+.hero-telemetry span{
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid rgba(255,146,109,.16);
+  background:rgba(17,22,31,.70);
+  box-shadow:0 18px 34px rgba(0,0,0,.22);
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#ffe1c0;
+}
+@keyframes spin{to{transform:scale(1.08) rotate(360deg)}}
+@media (max-width:1180px){
+  .layout{grid-template-columns:1fr}
+  .rail{
+    position:relative;
+    top:0;
+    height:auto;
+    overflow:visible;
+    padding:0;
+  }
+}
+@media (max-width:920px){
+  .layout{padding:22px 16px 28px}
+  .hero{padding:24px;min-height:840px}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-bottom{left:24px;right:24px;bottom:24px;grid-template-columns:1fr}
+  .support-band{grid-template-columns:1fr}
+  .hero-visual-shell{right:10%;top:11%;width:min(50vw,420px)}
+  .hero-telemetry{right:24px;bottom:31%;width:min(260px,48vw)}
+}
+@media (max-width:640px){
+  .topbar{flex-direction:column;align-items:flex-start}
+  .actions{justify-content:flex-start}
+  .hero{min-height:920px}
+  .hero h1{font-size:40px}
+  .metric-grid{grid-template-columns:1fr}
+  .hero-visual-shell{top:14%;right:12%;width:58vw}
+  .ring-one{width:70vw}
+  .ring-two{width:84vw}
+  .hero-telemetry{left:24px;right:24px;width:auto;bottom:33%}
+  .hero-gridline{display:none}
+}
+
+/* LAB CONTINUITY PASS */
+.topbar{
+  position:fixed;
+  top:24px;
+  left:28px;
+  right:28px;
+  padding:0;
+  background:none;
+  border:0;
+  backdrop-filter:none;
+}
+.pill{
+  min-height:46px;
+  background:rgba(10,14,22,.58);
+  backdrop-filter:blur(14px);
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+}
+.layout{
+  width:100%;
+  max-width:none;
+  padding:0 4.5vw 72px;
+  gap:40px;
+}
+.main{gap:52px}
+.hero{
+  margin:0 calc(50% - 50vw);
+  width:100vw;
+  min-height:100svh;
+  padding:140px 5.5vw 110px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.hero::after{display:none}
+.metric-grid{max-width:760px}
+.hero-bottom{
+  position:relative;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  margin-top:clamp(250px,30vw,420px);
+  max-width:860px;
+  grid-template-columns:minmax(0,1fr) minmax(220px,260px);
+}
+.sim-panel,
+.mission-box,
+.support,
+.rail-shell,
+.asset,
+.asset.featured{
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+.sim-panel,
+.support,
+.asset,
+.asset.featured{
+  border:0;
+  border-top:1px solid rgba(255,146,109,.18);
+  padding-left:0;
+  padding-right:0;
+}
+.mission-box{
+  border:0;
+  border-left:1px solid rgba(255,146,109,.18);
+  padding:0 0 0 24px;
+}
+.support-band{gap:28px}
+.rail{
+  top:118px;
+  height:auto;
+  overflow:visible;
+  padding:118px 0 0;
+}
+.rail-shell{padding:0;border:0}
+@media (max-width:1180px){
+  .layout{display:block;padding:0 5vw 56px}
+  .rail{padding:36px 0 0}
+}
+@media (max-width:920px){
+  .hero{
+    min-height:auto;
+    padding:128px 5vw 86px;
+  }
+  .hero-bottom{
+    margin-top:360px;
+    grid-template-columns:1fr;
+  }
+  .mission-box{
+    border-left:0;
+    border-top:1px solid rgba(255,146,109,.18);
+    padding:18px 0 0;
+  }
+}
+@media (max-width:640px){
+  .topbar{left:16px;right:16px;top:16px}
+  .hero{padding-top:120px}
+  .hero-bottom{margin-top:320px}
+}
+
+/* FINAL POLISH PASS */
+.eyebrow,
+.hero h1,
+.hero-copy,
+.metric-grid,
+.hero-bottom{
+  margin-left:clamp(32px,6vw,118px);
+}
+.hero h1{
+  max-width:min(700px,58vw);
+  line-height:1;
+}
+.hero-copy{
+  max-width:min(610px,48vw);
+}
+.metric-grid{
+  width:min(760px,56vw);
+}
+.sim-actions{
+  row-gap:14px;
+}
+.hero-visual-shell{
+  animation:orbitalFloat 26s ease-in-out infinite alternate;
+}
+.hero-visual-shell img{
+  animation:planetSpin 150s linear infinite;
+}
+@keyframes planetSpin{
+  from{transform:scale(1.08) rotate(0turn)}
+  to{transform:scale(1.08) rotate(1turn)}
+}
+@keyframes orbitalFloat{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(10px,-8px,0)}
+}
+@media (max-width:920px){
+  .eyebrow,
+  .hero h1,
+  .hero-copy,
+  .metric-grid,
+  .hero-bottom{
+    margin-left:clamp(12px,3vw,28px);
+  }
+  .hero h1,
+  .hero-copy,
+  .metric-grid{
+    max-width:min(100%,620px);
+    width:auto;
+  }
+}
+@media (max-width:640px){
+  .eyebrow,
+  .hero h1,
+  .hero-copy,
+  .metric-grid,
+  .hero-bottom{
+    margin-left:0;
+  }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <strong>VEHICLE-CPS</strong>
+      <span>Civil Protection Systems</span>
+    </div>
+    <div class="actions">
+      <a class="pill" href="./index.html?ready=1">Back / Madre</a>
+      <a class="pill primary" href="./vehicle-cps-simulacion.html">Open Simulation</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="main">
+      <section class="hero">
+        <div class="command-stage" aria-hidden="true">
+          <div class="hero-visual-glow"></div>
+          <div class="hero-dust"></div>
+          <div class="hero-visual-ring ring-one"></div>
+          <div class="hero-visual-ring ring-two"></div>
+          <div class="hero-visual-shell">
+            <img src="./cps-planet-hero.png" alt="">
+          </div>
+          <div class="hero-gridline line-one"></div>
+          <div class="hero-gridline line-two"></div>
+          <div class="hero-gridline line-three"></div>
+          <div class="hero-telemetry">
+            <span>Predictive field state</span>
+            <span>Martian threat palette</span>
+            <span>Response-first interface</span>
+          </div>
+        </div>
+
+        <div class="eyebrow">VEHICLE Systems Lab · Auditable Protection Command Surface</div>
+        <h1>Civil protection presented as a premium decision and download environment.</h1>
+        <p class="hero-copy">
+          The new CPS publishing logic is simple: the simulation HTML is the direct replacement for the live command-surface experience, while every supporting institutional, investor and technical file gets its own download action instead of being hidden behind a single generic slot.
+        </p>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>P0-P6</strong>
+            <span>Operational Regimes</span>
+          </div>
+          <div class="metric">
+            <strong>01</strong>
+            <span>Replacement Simulation</span>
+          </div>
+          <div class="metric">
+            <strong>07</strong>
+            <span>Download Actions</span>
+          </div>
+          <div class="metric">
+            <strong>T(X)</strong>
+            <span>Field Tension Layer</span>
+          </div>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="sim-panel">
+            <div class="sim-kicker">Primary Surface</div>
+            <div class="sim-title">Replace the current CPS simulation with this new exhibition command surface.</div>
+            <div class="sim-copy">
+              This HTML is the one that should take over the live `CPS SIMULATION HTML` slot. It already carries the premium exhibition language, command-surface hierarchy and institutional framing that fits the current VEHICLE Systems Lab direction.
+            </div>
+            <div class="sim-actions">
+              <a class="cta primary" href="./vehicle-cps-simulacion.html">Open New Simulation</a>
+              <a class="cta secondary" href="./downloads/cps/VEHICLE-CPS-Demo-Package.zip">Download Demo Package</a>
+              <a class="cta secondary" href="./downloads/cps/VEHICLE-CPS-Investor-Package-v2.zip">Download Full CPS Package</a>
+            </div>
+          </div>
+          <div class="mission-box">
+            <strong>Ready</strong>
+            <span>Simulation replaced. Institutional PDFs visible. Investor and technical files separated into their own download buttons.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="support-band">
+        <article class="support">
+          <div class="label">Institutional Layer</div>
+          <h2>Government and delivery materials can sit beside the core CPS package.</h2>
+          <p>The delivery proposal and the institutional government research package should be visible as direct actions, not buried inside another archive.</p>
+        </article>
+        <article class="support">
+          <div class="label">Investor Layer</div>
+          <h2>Funding and technical briefs remain distinct.</h2>
+          <p>That separation helps different audiences understand CPS quickly without forcing one document to do every job at once.</p>
+        </article>
+        <article class="support">
+          <div class="label">AI Layer</div>
+          <h2>The AI reference stays lightweight and explicit.</h2>
+          <p>The text reference is useful as a clean machine-readable summary for agents, reviewers and technical search workflows.</p>
+        </article>
+      </section>
+    </main>
+
+    <aside class="rail">
+      <div class="rail-shell">
+        <div class="rail-head">
+          <div class="label">CPS Release Rail</div>
+          <h2>Right-side downloads</h2>
+          <p>The simulation leads. Everything else becomes its own clear institutional or investor download.</p>
+        </div>
+
+        <section class="group">
+          <div class="group-label">Live Experience</div>
+          <div class="asset-list">
+            <a class="asset featured" href="./vehicle-cps-simulacion.html">
+              <div class="asset-top">
+                <div class="asset-code">CPS / LIVE</div>
+                <div class="asset-kind">HTML</div>
+              </div>
+              <div class="asset-title">New CPS Simulation HTML</div>
+              <div class="asset-copy">Direct replacement for the current live CPS simulation slot.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Demo-Package.zip">
+              <div class="asset-top">
+                <div class="asset-code">CPS / DEMO</div>
+                <div class="asset-kind">ZIP</div>
+              </div>
+              <div class="asset-title">Demo Package</div>
+              <div class="asset-copy">HTML demo bundle with notes, ethical limits, license and example data.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Investor + Core Docs</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Investor-Package-v2.zip">
+              <div class="asset-top">
+                <div class="asset-code">CPS / FULL</div>
+                <div class="asset-kind">ZIP</div>
+              </div>
+              <div class="asset-title">Investor Package v2</div>
+              <div class="asset-copy">Full CPS publication bundle for upload, distribution and review.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Funding-Brief.pdf">
+              <div class="asset-top">
+                <div class="asset-code">CPS / FUND</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Funding Brief</div>
+              <div class="asset-copy">Primary capital-facing summary for CPS.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Technical-Brief.pdf">
+              <div class="asset-top">
+                <div class="asset-code">CPS / TECH</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Technical Brief</div>
+              <div class="asset-copy">Technical support document describing the CPS architecture and positioning.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Institutional Downloads</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/cps/01-VEHICLE_CPS_4_Phase_CPS_1_Year_Delivery_Proposal.pdf">
+              <div class="asset-top">
+                <div class="asset-code">CPS / DELIVERY</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">4-Phase 1-Year Delivery Proposal</div>
+              <div class="asset-copy">Six-page delivery plan aligned to phased rollout after first disbursement.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/02-VEHICLE_CPS_Institutional_Government_Research_Package.pdf">
+              <div class="asset-top">
+                <div class="asset-code">CPS / GOV</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Institutional Government Research Package</div>
+              <div class="asset-copy">Expanded institutional package for agency, state and strategic review workflows.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Editable + AI</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Funding-Brief.docx">
+              <div class="asset-top">
+                <div class="asset-code">CPS / FUND</div>
+                <div class="asset-kind">DOCX</div>
+              </div>
+              <div class="asset-title">Funding Brief Source</div>
+              <div class="asset-copy">Editable source document for review, revision and partner customization.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/VEHICLE-CPS-Technical-Brief.docx">
+              <div class="asset-top">
+                <div class="asset-code">CPS / TECH</div>
+                <div class="asset-kind">DOCX</div>
+              </div>
+              <div class="asset-title">Technical Brief Source</div>
+              <div class="asset-copy">Editable technical source for institutional and internal refinement.</div>
+            </a>
+            <a class="asset" href="./vehicle-cps-ai-reference.txt">
+              <div class="asset-top">
+                <div class="asset-code">CPS / AI</div>
+                <div class="asset-kind">TXT</div>
+              </div>
+              <div class="asset-title">AI Reference File</div>
+              <div class="asset-copy">Machine-readable CPS summary for agents, researchers and technical reviewers.</div>
+            </a>
+            <a class="asset" href="./downloads/cps/README_PACKAGE.txt">
+              <div class="asset-top">
+                <div class="asset-code">CPS / NOTES</div>
+                <div class="asset-kind">TXT</div>
+              </div>
+              <div class="asset-title">Package Notes</div>
+              <div class="asset-copy">Short guidance on reading order and publication logic for the CPS bundle.</div>
+            </a>
+          </div>
+        </section>
+
+        <div class="footer-note">
+          Publication rule for CPS: the simulation replaces the live slot, while every supporting document gets its own direct download action.
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

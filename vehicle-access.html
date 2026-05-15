@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEHICLE-ACCESS | AI Access Layer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"IBM Plex Mono",monospace;
+  color:#eef6ff;
+  background:
+    radial-gradient(circle at 14% 18%,rgba(109,241,210,.08),transparent 22%),
+    radial-gradient(circle at 80% 16%,rgba(111,196,255,.10),transparent 24%),
+    radial-gradient(circle at 72% 72%,rgba(255,223,161,.08),transparent 22%),
+    linear-gradient(180deg,#041017 0%,#081721 46%,#030910 100%);
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+  background-size:106px 106px;
+  mask-image:radial-gradient(circle at center,black 38%,transparent 92%);
+  opacity:.28;
+}
+a{color:inherit;text-decoration:none}
+.shell{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:18px 28px;
+  background:linear-gradient(180deg,rgba(7,16,24,.96),rgba(7,16,24,.80));
+  border-bottom:1px solid rgba(151,194,212,.12);
+  backdrop-filter:blur(18px);
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.brand strong{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:18px;
+  letter-spacing:.22em;
+}
+.brand span{
+  font-size:10px;
+  letter-spacing:.30em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:12px;
+}
+.pill{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 16px;
+  border-radius:999px;
+  border:1px solid rgba(151,194,212,.14);
+  background:rgba(11,20,30,.64);
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.pill.primary{
+  color:#0a141a;
+  background:linear-gradient(135deg,#6df1d2,#edf9ff);
+  border-color:rgba(255,255,255,.24);
+  box-shadow:0 14px 34px rgba(109,241,210,.18);
+}
+.layout{
+  width:min(1440px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) 368px;
+  gap:24px;
+  padding:30px 24px 36px;
+}
+.main{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:720px;
+  padding:40px;
+  border-radius:34px;
+  border:1px solid rgba(151,194,212,.12);
+  background:
+    radial-gradient(circle at 56% 54%,rgba(109,241,210,.10),transparent 26%),
+    radial-gradient(circle at 46% 34%,rgba(111,196,255,.08),transparent 28%),
+    linear-gradient(180deg,rgba(10,20,30,.92),rgba(7,13,21,.84));
+  box-shadow:0 42px 90px rgba(0,0,0,.32);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:26px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.05);
+  pointer-events:none;
+}
+.eyebrow{
+  position:relative;
+  z-index:2;
+  font-size:10px;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.hero h1{
+  position:relative;
+  z-index:2;
+  max-width:650px;
+  margin:14px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(40px,5.4vw,70px);
+  line-height:.96;
+  letter-spacing:-.02em;
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+  max-width:620px;
+  margin-top:18px;
+  font-size:13px;
+  line-height:1.8;
+  color:rgba(238,246,255,.74);
+}
+.metric-grid{
+  position:relative;
+  z-index:2;
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.metric{
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(12,23,34,.58);
+  border:1px solid rgba(151,194,212,.10);
+}
+.metric strong{
+  display:block;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:24px;
+}
+.metric span{
+  display:block;
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(178,197,212,.56);
+}
+.network-stage{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.grid-frame{
+  position:absolute;
+  inset:54px;
+  border-radius:28px;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(circle at center,black 38%,transparent 90%);
+  opacity:.32;
+}
+.hub{
+  position:absolute;
+  left:52%;
+  top:50%;
+  width:180px;
+  height:180px;
+  transform:translate(-50%,-50%);
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(109,241,210,.16),rgba(109,241,210,.04)),rgba(12,22,32,.92);
+  box-shadow:0 0 0 18px rgba(109,241,210,.04),0 0 54px rgba(109,241,210,.12);
+}
+.hub::before,
+.hub::after{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+}
+.hub::after{inset:40px;border-radius:14px}
+.node{
+  position:absolute;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  box-shadow:0 0 18px currentColor;
+}
+.node.n1{left:28%;top:22%;background:#6df1d2;color:#6df1d2}
+.node.n2{left:68%;top:18%;background:#6fc4ff;color:#6fc4ff}
+.node.n3{left:76%;top:48%;background:#ffd48f;color:#ffd48f}
+.node.n4{left:64%;top:74%;background:#9da3ff;color:#9da3ff}
+.node.n5{left:22%;top:70%;background:#85f5ff;color:#85f5ff}
+.node.n6{left:16%;top:42%;background:#f0f5ff;color:#f0f5ff}
+.line{
+  position:absolute;
+  height:1px;
+  transform-origin:left center;
+  background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(109,241,210,.34),transparent);
+}
+.line.l1{left:52%;top:50%;width:210px;transform:rotate(-126deg)}
+.line.l2{left:52%;top:50%;width:188px;transform:rotate(-78deg)}
+.line.l3{left:52%;top:50%;width:174px;transform:rotate(-10deg)}
+.line.l4{left:52%;top:50%;width:186px;transform:rotate(46deg)}
+.line.l5{left:52%;top:50%;width:208px;transform:rotate(128deg)}
+.line.l6{left:52%;top:50%;width:176px;transform:rotate(168deg)}
+.hero-bottom{
+  position:absolute;
+  left:40px;
+  right:40px;
+  bottom:34px;
+  z-index:2;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(260px,320px);
+  gap:18px;
+  align-items:end;
+}
+.access-panel{
+  padding:18px 18px 20px;
+  border-radius:26px;
+  border:1px solid rgba(109,241,210,.16);
+  background:linear-gradient(180deg,rgba(16,26,36,.88),rgba(9,16,24,.74));
+  box-shadow:0 30px 80px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.access-kicker{
+  font-size:9px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.access-title{
+  margin-top:10px;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  line-height:1.05;
+}
+.access-copy{
+  margin-top:10px;
+  max-width:560px;
+  font-size:11px;
+  line-height:1.72;
+  color:rgba(238,246,255,.72);
+}
+.access-actions{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.cta{
+  min-height:54px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  border-radius:999px;
+  border:1px solid rgba(151,194,212,.14);
+  background:rgba(12,20,29,.68);
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.cta:hover,.asset:hover{transform:translateY(-2px)}
+.cta.primary{
+  color:#08151a;
+  background:linear-gradient(135deg,#6df1d2,#effdff);
+  border-color:rgba(255,255,255,.24);
+  box-shadow:0 20px 54px rgba(109,241,210,.16);
+}
+.cta.secondary:hover{
+  border-color:rgba(151,194,212,.22);
+  box-shadow:0 14px 34px rgba(0,0,0,.22);
+}
+.mission-box{
+  padding:16px 18px;
+  border-radius:22px;
+  border:1px solid rgba(151,194,212,.12);
+  background:linear-gradient(180deg,rgba(13,22,32,.80),rgba(8,14,22,.72));
+}
+.mission-box strong{
+  display:block;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  color:#ffe0a8;
+}
+.mission-box span{
+  display:block;
+  margin-top:10px;
+  font-size:10px;
+  line-height:1.7;
+  color:rgba(238,246,255,.66);
+}
+.support-band{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.support{
+  padding:20px 22px;
+  border-radius:24px;
+  border:1px solid rgba(151,194,212,.10);
+  background:rgba(12,23,34,.58);
+}
+.support .label{
+  font-size:9px;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.support h2{
+  margin:12px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:24px;
+  line-height:1.06;
+}
+.support p{
+  margin:10px 0 0;
+  font-size:11px;
+  line-height:1.75;
+  color:rgba(238,246,255,.70);
+}
+.rail{
+  position:sticky;
+  top:100px;
+  height:calc(100vh - 124px);
+  overflow:auto;
+  padding:6px 2px 8px 10px;
+}
+.rail::-webkit-scrollbar{width:6px}
+.rail::-webkit-scrollbar-thumb{background:rgba(151,194,212,.22);border-radius:999px}
+.rail-shell{
+  padding:20px 18px;
+  border-radius:28px;
+  border:1px solid rgba(151,194,212,.12);
+  background:linear-gradient(180deg,rgba(12,22,31,.90),rgba(8,14,21,.78));
+  box-shadow:0 36px 80px rgba(0,0,0,.30);
+}
+.rail-head{
+  padding-bottom:18px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(151,194,212,.10);
+}
+.rail-head .label{
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.rail-head h2{
+  margin:10px 0 0;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:28px;
+  line-height:1;
+}
+.rail-head p{
+  margin:10px 0 0;
+  font-size:11px;
+  line-height:1.7;
+  color:rgba(238,246,255,.70);
+}
+.group{margin-top:20px}
+.group:first-of-type{margin-top:0}
+.group-label{
+  margin-bottom:12px;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(178,197,212,.56);
+}
+.asset-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.asset{
+  display:block;
+  padding:14px 14px 13px;
+  border-radius:20px;
+  border:1px solid rgba(151,194,212,.10);
+  background:rgba(12,23,34,.58);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.asset:hover{
+  border-color:rgba(151,194,212,.22);
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+}
+.asset.featured{
+  border-color:rgba(109,241,210,.18);
+  background:linear-gradient(180deg,rgba(16,28,38,.92),rgba(9,15,24,.82));
+}
+.asset-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+.asset-code{
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#6df1d2;
+}
+.asset-kind{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(178,197,212,.52);
+}
+.asset-title{
+  margin-top:8px;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:16px;
+  line-height:1.08;
+}
+.asset.featured .asset-title{
+  font-size:18px;
+  color:#effff9;
+}
+.asset-copy{
+  margin-top:8px;
+  font-size:10px;
+  line-height:1.65;
+  color:rgba(238,246,255,.68);
+}
+.footer-note{
+  margin-top:22px;
+  padding-top:16px;
+  border-top:1px solid rgba(151,194,212,.10);
+  font-size:10px;
+  line-height:1.7;
+  color:rgba(178,197,212,.58);
+}
+.hero{
+  background:
+    radial-gradient(circle at 72% 24%,rgba(109,241,210,.16),transparent 20%),
+    radial-gradient(circle at 70% 48%,rgba(111,196,255,.12),transparent 28%),
+    linear-gradient(180deg,rgba(10,20,30,.94),rgba(7,13,21,.86));
+}
+.network-stage{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.network-stage::before{
+  content:"";
+  position:absolute;
+  inset:28px;
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 72% 28%,rgba(109,241,210,.12),transparent 22%),
+    linear-gradient(180deg,rgba(255,255,255,.03),transparent 24%);
+}
+.hero-grid{
+  position:absolute;
+  inset:40px;
+  border-radius:28px;
+  background:
+    linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(circle at 72% 46%,black 30%,transparent 86%);
+  opacity:.34;
+}
+.hero-visual-glow{
+  position:absolute;
+  right:2%;
+  top:8%;
+  width:min(48vw,700px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(109,241,210,.18),rgba(109,241,210,0) 62%);
+  filter:blur(24px);
+}
+.hero-visual-shell{
+  position:absolute;
+  right:10%;
+  top:14%;
+  width:min(34vw,500px);
+  aspect-ratio:1;
+  border-radius:38% 62% 48% 52% / 43% 38% 62% 57%;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.10),0 0 120px rgba(109,241,210,.18),0 48px 90px rgba(0,0,0,.38);
+}
+.hero-visual-shell::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 32% 28%,rgba(255,255,255,.16),transparent 18%),
+    linear-gradient(140deg,transparent 32%,rgba(0,0,0,.46) 76%,rgba(0,0,0,.72) 100%);
+}
+.hero-visual-shell img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.08);
+  animation:drift 26s ease-in-out infinite alternate;
+  filter:saturate(1.08) contrast(1.06);
+}
+.hero-visual-orbit{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(109,241,210,.14);
+}
+.orbit-one{
+  right:5%;
+  top:10%;
+  width:min(42vw,620px);
+  aspect-ratio:1;
+}
+.orbit-two{
+  right:0;
+  top:5%;
+  width:min(48vw,710px);
+  aspect-ratio:1;
+  border-color:rgba(111,196,255,.10);
+}
+.hero-link{
+  position:absolute;
+  right:10%;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(109,241,210,.34),rgba(255,255,255,0));
+}
+.hero-link.one{top:34%;width:min(30vw,420px);transform:rotate(-18deg)}
+.hero-link.two{top:52%;width:min(34vw,480px);transform:rotate(10deg)}
+.hero-link.three{top:66%;width:min(24vw,340px);transform:rotate(26deg)}
+.hero-telemetry{
+  position:absolute;
+  right:clamp(180px,20vw,360px);
+  bottom:23%;
+  width:min(280px,26vw);
+  display:grid;
+  gap:10px;
+}
+.hero-telemetry span{
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid rgba(109,241,210,.16);
+  background:rgba(13,22,32,.72);
+  box-shadow:0 18px 34px rgba(0,0,0,.22);
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#e8fffb;
+}
+@keyframes drift{
+  0%{transform:scale(1.08) rotate(-4deg) translate(-2%,1%)}
+  100%{transform:scale(1.14) rotate(4deg) translate(2%,-1%)}
+}
+@media (max-width:1180px){
+  .layout{grid-template-columns:1fr}
+  .rail{
+    position:relative;
+    top:0;
+    height:auto;
+    overflow:visible;
+    padding:0;
+  }
+}
+@media (max-width:920px){
+  .layout{padding:22px 16px 28px}
+  .hero{padding:24px;min-height:840px}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-bottom{left:24px;right:24px;bottom:24px;grid-template-columns:1fr}
+  .support-band{grid-template-columns:1fr}
+  .hero-visual-shell{right:10%;top:11%;width:min(50vw,420px)}
+  .hero-telemetry{right:24px;bottom:31%;width:min(260px,48vw)}
+}
+@media (max-width:640px){
+  .topbar{flex-direction:column;align-items:flex-start}
+  .actions{justify-content:flex-start}
+  .hero{min-height:900px}
+  .hero h1{font-size:40px}
+  .metric-grid{grid-template-columns:1fr}
+  .hero-visual-shell{top:14%;right:12%;width:58vw}
+  .orbit-one{width:70vw}
+  .orbit-two{width:84vw}
+  .hero-telemetry{left:24px;right:24px;width:auto;bottom:33%}
+  .hero-link{display:none}
+}
+
+/* LAB CONTINUITY PASS */
+.topbar{
+  position:fixed;
+  top:24px;
+  left:28px;
+  right:28px;
+  padding:0;
+  background:none;
+  border:0;
+  backdrop-filter:none;
+}
+.pill{
+  min-height:46px;
+  background:rgba(8,18,24,.58);
+  backdrop-filter:blur(14px);
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+}
+.layout{
+  width:100%;
+  max-width:none;
+  padding:0 4.5vw 72px;
+  gap:40px;
+}
+.main{gap:52px}
+.hero{
+  margin:0 calc(50% - 50vw);
+  width:100vw;
+  min-height:100svh;
+  padding:140px 5.5vw 110px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.hero::after{display:none}
+.metric-grid{max-width:760px}
+.hero-bottom{
+  position:relative;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  margin-top:clamp(250px,30vw,420px);
+  max-width:860px;
+  grid-template-columns:minmax(0,1fr) minmax(220px,260px);
+}
+.access-panel,
+.mission-box,
+.support,
+.rail-shell,
+.asset,
+.asset.featured{
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+.access-panel,
+.support,
+.asset,
+.asset.featured{
+  border:0;
+  border-top:1px solid rgba(109,241,210,.18);
+  padding-left:0;
+  padding-right:0;
+}
+.mission-box{
+  border:0;
+  border-left:1px solid rgba(109,241,210,.18);
+  padding:0 0 0 24px;
+}
+.support-band{gap:28px}
+.rail{
+  top:118px;
+  height:auto;
+  overflow:visible;
+  padding:118px 0 0;
+}
+.rail-shell{padding:0;border:0}
+@media (max-width:1180px){
+  .layout{display:block;padding:0 5vw 56px}
+  .rail{padding:36px 0 0}
+}
+@media (max-width:920px){
+  .hero{
+    min-height:auto;
+    padding:128px 5vw 86px;
+  }
+  .hero-bottom{
+    margin-top:360px;
+    grid-template-columns:1fr;
+  }
+  .mission-box{
+    border-left:0;
+    border-top:1px solid rgba(109,241,210,.18);
+    padding:18px 0 0;
+  }
+}
+@media (max-width:640px){
+  .topbar{left:16px;right:16px;top:16px}
+  .hero{padding-top:120px}
+  .hero-bottom{margin-top:320px}
+}
+
+/* FINAL POLISH PASS */
+.eyebrow,
+.hero h1,
+.hero-copy,
+.metric-grid,
+.hero-bottom{
+  margin-left:clamp(32px,6vw,118px);
+}
+.hero h1{
+  max-width:min(700px,58vw);
+  line-height:1;
+}
+.hero-copy{
+  max-width:min(620px,48vw);
+}
+.metric-grid{
+  width:min(760px,56vw);
+}
+.access-actions{
+  row-gap:14px;
+}
+.hero-visual-shell{
+  animation:asteroidFloat 28s ease-in-out infinite alternate;
+}
+.hero-visual-shell img{
+  animation:asteroidSpin 34s ease-in-out infinite alternate;
+}
+@keyframes asteroidSpin{
+  0%{transform:scale(1.08) rotate(-5deg) translate(-2%,1%)}
+  100%{transform:scale(1.14) rotate(5deg) translate(2%,-1%)}
+}
+@keyframes asteroidFloat{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(12px,-10px,0)}
+}
+@media (max-width:920px){
+  .eyebrow,
+  .hero h1,
+  .hero-copy,
+  .metric-grid,
+  .hero-bottom{
+    margin-left:clamp(12px,3vw,28px);
+  }
+  .hero h1,
+  .hero-copy,
+  .metric-grid{
+    max-width:min(100%,620px);
+    width:auto;
+  }
+}
+@media (max-width:640px){
+  .eyebrow,
+  .hero h1,
+  .hero-copy,
+  .metric-grid,
+  .hero-bottom{
+    margin-left:0;
+  }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <strong>VEHICLE-ACCESS</strong>
+      <span>AI Access Layer</span>
+    </div>
+    <div class="actions">
+      <a class="pill" href="./index.html?ready=1">Back / Madre</a>
+      <a class="pill primary" href="./downloads/access/VEHICLE-ACCESS-Layer-v0.2.zip">Download Access Layer</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="main">
+      <section class="hero">
+        <div class="network-stage" aria-hidden="true">
+          <div class="hero-visual-glow"></div>
+          <div class="hero-grid"></div>
+          <div class="hero-visual-shell">
+            <img src="./access-meteor-hero.png" alt="">
+          </div>
+          <div class="hero-visual-orbit orbit-one"></div>
+          <div class="hero-visual-orbit orbit-two"></div>
+          <div class="hero-link one"></div>
+          <div class="hero-link two"></div>
+          <div class="hero-link three"></div>
+          <div class="hero-telemetry">
+            <span>Downloadable trust layer</span>
+            <span>AI-native release package</span>
+            <span>Verification before output</span>
+          </div>
+        </div>
+
+        <div class="eyebrow">VEHICLE Systems Lab · Institutional Access and Machine-Readable Layer</div>
+        <h1>Make the lab downloadable, verifiable and usable by AI builders.</h1>
+        <p class="hero-copy">
+          ACCESS is not just a website section. It is the layer that turns VEHICLE Systems Lab into something developers, agents, reviewers and institutions can actually download, inspect, integrate and verify. The main product here is the AI access-layer package itself.
+        </p>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>v0.2</strong>
+            <span>AI Access Layer</span>
+          </div>
+          <div class="metric">
+            <strong>15+</strong>
+            <span>Core Files</span>
+          </div>
+          <div class="metric">
+            <strong>TXT</strong>
+            <span>AI Readability</span>
+          </div>
+          <div class="metric">
+            <strong>ZIP</strong>
+            <span>Developer Download</span>
+          </div>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="access-panel">
+            <div class="access-kicker">Primary Artifact</div>
+            <div class="access-title">Replace the current ACCESS package ZIP with the new AI developer package.</div>
+            <div class="access-copy">
+              This is the one file that should take over the existing `ACCESS PACKAGE ZIP` slot. It is the package meant for AI developers, agent builders and research teams who want the VEHICLE access layer locally, not just as a webpage.
+            </div>
+            <div class="access-actions">
+              <a class="cta primary" href="./downloads/access/VEHICLE-ACCESS-Layer-v0.2.zip">Download AI Access Layer</a>
+              <a class="cta secondary" href="./downloads/access/VEHICLE-ACCESS-Investor-Package-v1.zip">Download Full ACCESS Package</a>
+              <a class="cta secondary" href="./vehicle-access-ai-reference.txt">Open AI Reference</a>
+            </div>
+          </div>
+          <div class="mission-box">
+            <strong>Ready</strong>
+            <span>Package ZIP replaced for developers. New briefs and technical docs exposed as separate download actions.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="support-band">
+        <article class="support">
+          <div class="label">Developer Layer</div>
+          <h2>The access-layer ZIP is the hero product.</h2>
+          <p>It is the file meant to be downloaded by people building AI systems, not just by investors or casual visitors. That priority should be explicit in the page hierarchy.</p>
+        </article>
+        <article class="support">
+          <div class="label">Documentation Layer</div>
+          <h2>PDF, DOCX and extracted docs can coexist cleanly.</h2>
+          <p>That gives institutions and technical reviewers two paths: polished briefs for quick reading and extracted markdown files for deeper inspection.</p>
+        </article>
+        <article class="support">
+          <div class="label">Trust Layer</div>
+          <h2>ACCESS should communicate verification, not hype.</h2>
+          <p>The whole point of this page is to make VEHICLE more understandable, machine-readable and auditable for both humans and AI systems.</p>
+        </article>
+      </section>
+    </main>
+
+    <aside class="rail">
+      <div class="rail-shell">
+        <div class="rail-head">
+          <div class="label">ACCESS Release Rail</div>
+          <h2>Right-side downloads</h2>
+          <p>The AI access ZIP leads. Investor, technical and extracted documentation follows as separate buttons.</p>
+        </div>
+
+        <section class="group">
+          <div class="group-label">Primary Download</div>
+          <div class="asset-list">
+            <a class="asset featured" href="./downloads/access/VEHICLE-ACCESS-Layer-v0.2.zip">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / CORE</div>
+                <div class="asset-kind">ZIP</div>
+              </div>
+              <div class="asset-title">AI Access Layer v0.2</div>
+              <div class="asset-copy">Direct replacement for the current `ACCESS PACKAGE ZIP` slot. Intended for AI developers and integrators.</div>
+            </a>
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Investor-Package-v1.zip">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / FULL</div>
+                <div class="asset-kind">ZIP</div>
+              </div>
+              <div class="asset-title">Investor Package v1</div>
+              <div class="asset-copy">Full offline bundle containing all ACCESS materials in one package.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Public Briefs</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Funding-Brief.pdf">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / FUND</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Funding Brief</div>
+              <div class="asset-copy">Investor-facing ACCESS summary focused on transparency, trust and institutional presentation.</div>
+            </a>
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Technical-Brief.pdf">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / TECH</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Technical Brief</div>
+              <div class="asset-copy">Technical framing for the documentation and access architecture of VEHICLE Systems Lab.</div>
+            </a>
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Operational-Costs.pdf">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / COST</div>
+                <div class="asset-kind">PDF</div>
+              </div>
+              <div class="asset-title">Operational Costs</div>
+              <div class="asset-copy">Cost planning layer for maintaining the access and dissemination system.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Editable + AI</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Funding-Brief.docx">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / FUND</div>
+                <div class="asset-kind">DOCX</div>
+              </div>
+              <div class="asset-title">Funding Brief Source</div>
+              <div class="asset-copy">Editable source document for fundraising adaptation and external review.</div>
+            </a>
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Technical-Brief.docx">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / TECH</div>
+                <div class="asset-kind">DOCX</div>
+              </div>
+              <div class="asset-title">Technical Brief Source</div>
+              <div class="asset-copy">Editable technical source for iteration and partner-facing refinement.</div>
+            </a>
+            <a class="asset" href="./downloads/access/VEHICLE-ACCESS-Operational-Costs.docx">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / COST</div>
+                <div class="asset-kind">DOCX</div>
+              </div>
+              <div class="asset-title">Operational Costs Source</div>
+              <div class="asset-copy">Editable planning file for updates in operating and maintenance projections.</div>
+            </a>
+            <a class="asset" href="./vehicle-access-ai-reference.txt">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / AI</div>
+                <div class="asset-kind">TXT</div>
+              </div>
+              <div class="asset-title">AI Reference File</div>
+              <div class="asset-copy">Machine-readable description of VEHICLE-ACCESS as the lab's institutional documentation layer.</div>
+            </a>
+            <a class="asset" href="./downloads/access/README_PACKAGE.txt">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / NOTES</div>
+                <div class="asset-kind">TXT</div>
+              </div>
+              <div class="asset-title">Package Notes</div>
+              <div class="asset-copy">Short publication note explaining how ACCESS should be surfaced publicly.</div>
+            </a>
+          </div>
+        </section>
+
+        <section class="group">
+          <div class="group-label">Extracted Developer Docs</div>
+          <div class="asset-list">
+            <a class="asset" href="./downloads/access/vehicle-ai-access-layer-v0.2/README.md">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / README</div>
+                <div class="asset-kind">MD</div>
+              </div>
+              <div class="asset-title">Layer README</div>
+              <div class="asset-copy">High-level explanation of the AI access layer and its intent.</div>
+            </a>
+            <a class="asset" href="./downloads/access/vehicle-ai-access-layer-v0.2/integration-example.md">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / INTEGRATE</div>
+                <div class="asset-kind">MD</div>
+              </div>
+              <div class="asset-title">Integration Example</div>
+              <div class="asset-copy">Minimal pattern for integrating the VEHICLE checkpoint before final output.</div>
+            </a>
+            <a class="asset" href="./downloads/access/vehicle-ai-access-layer-v0.2/VALIDATION_TESTS.md">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / TESTS</div>
+                <div class="asset-kind">MD</div>
+              </div>
+              <div class="asset-title">Validation Tests</div>
+              <div class="asset-copy">Practical smoke tests for checking response discipline with and without the layer.</div>
+            </a>
+            <a class="asset" href="./downloads/access/vehicle-ai-access-layer-v0.2/llms.txt">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / LLMS</div>
+                <div class="asset-kind">TXT</div>
+              </div>
+              <div class="asset-title">LLMS Discovery File</div>
+              <div class="asset-copy">Short AI-discovery manifest for assistants, crawlers and agent builders.</div>
+            </a>
+            <a class="asset" href="./downloads/access/vehicle-ai-access-layer-v0.2/ai-use-policy.md">
+              <div class="asset-top">
+                <div class="asset-code">ACCESS / POLICY</div>
+                <div class="asset-kind">MD</div>
+              </div>
+              <div class="asset-title">AI Use Policy</div>
+              <div class="asset-copy">Usage and attribution guidance for integrators, crawlers and local caches.</div>
+            </a>
+          </div>
+        </section>
+
+        <div class="footer-note">
+          Publication rule for ACCESS: replace the package ZIP for developers, and make the rest of the documentation visibly downloadable instead of hidden.
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

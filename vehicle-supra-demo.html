@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEHICLE-SUPRA · Lunar Command Surface</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#040810;
+  --ink-2:#09111c;
+  --ink-3:#0d1622;
+  --panel:rgba(8,14,23,0.86);
+  --panel-2:rgba(11,18,29,0.94);
+  --panel-3:rgba(14,23,36,0.72);
+  --line:rgba(135,174,200,0.13);
+  --line-strong:rgba(135,174,200,0.24);
+  --text:#edf5ff;
+  --text-soft:rgba(237,245,255,0.74);
+  --text-dim:rgba(175,194,209,0.44);
+  --green:#6df0c1;
+  --cyan:#5fe2ff;
+  --blue:#76a6ff;
+  --amber:#ffbf69;
+  --red:#ff6c78;
+  --violet:#b190ff;
+  --gold:#ffe0a1;
+  --shadow:0 30px 90px rgba(0,0,0,0.34);
+  --title:'Space Grotesk',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 14% 16%,rgba(95,226,255,0.12),transparent 24%),
+    radial-gradient(circle at 84% 14%,rgba(118,166,255,0.12),transparent 26%),
+    radial-gradient(circle at 72% 76%,rgba(255,191,105,0.08),transparent 22%),
+    linear-gradient(180deg,#02060d 0%,#07111b 42%,#030810 100%);
+  color:var(--text);
+  font-family:var(--mono);
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);
+  background-size:100px 100px;
+  mask-image:radial-gradient(circle at center,black 40%,transparent 100%);
+  opacity:.22;
+}
+
+#topbar{
+  height:84px;
+  display:grid;
+  grid-template-columns:minmax(260px,330px) minmax(380px,1fr) auto;
+  align-items:center;
+  gap:22px;
+  padding:0 26px;
+  position:relative;
+  z-index:30;
+  background:linear-gradient(180deg,rgba(7,13,22,0.97),rgba(7,13,22,0.84));
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(20px);
+}
+
+#topbar::after{
+  content:'';
+  position:absolute;
+  left:26px;
+  right:26px;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(95,226,255,0.54),rgba(255,191,105,0.32),transparent);
+}
+
+.brand-block{display:flex;flex-direction:column;gap:4px}
+.brand-main{
+  font-family:var(--title);
+  font-size:19px;
+  font-weight:700;
+  letter-spacing:.24em;
+}
+.brand-sub{
+  font-size:10px;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--cyan);
+}
+.brand-meta{
+  font-size:9px;
+  letter-spacing:.12em;
+  color:var(--text-dim);
+}
+
+#headline-ribbon{
+  display:grid;
+  grid-template-columns:minmax(210px,260px) 1fr;
+  gap:16px;
+  align-items:center;
+}
+
+.status-pod{
+  min-height:52px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 14px;
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(14,23,34,0.96),rgba(9,15,24,0.76));
+  border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.status-ring{
+  width:44px;
+  height:44px;
+  border-radius:999px;
+  border:1px solid rgba(95,226,255,0.24);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at center,rgba(95,226,255,0.14),transparent 70%);
+  color:var(--cyan);
+  font-family:var(--title);
+  font-size:18px;
+  font-weight:700;
+}
+
+.status-copy strong{
+  display:block;
+  font-family:var(--title);
+  font-size:18px;
+  line-height:1;
+}
+
+.status-copy span{
+  display:block;
+  margin-top:6px;
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+
+.metric-row{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+
+.metric-chip{
+  min-height:52px;
+  padding:11px 12px;
+  border-radius:16px;
+  background:rgba(10,17,27,0.60);
+  border:1px solid rgba(135,174,200,0.10);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.metric-chip strong{
+  display:block;
+  font-family:var(--title);
+  font-size:18px;
+}
+
+.metric-chip span{
+  display:block;
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+
+#top-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.glass-pill{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 14px;
+  border-radius:999px;
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  border:1px solid rgba(135,174,200,0.14);
+  background:rgba(11,18,28,0.56);
+}
+
+#system-status{
+  border-color:rgba(109,240,193,0.28);
+  color:var(--green);
+  animation:pulse 2s infinite;
+}
+
+#cycle-box{
+  min-width:110px;
+  text-align:right;
+  font-size:10px;
+  line-height:1.7;
+  letter-spacing:.12em;
+  color:var(--text-dim);
+}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.64}}
+
+#layout{
+  display:grid;
+  grid-template-columns:332px minmax(0,1fr) 312px;
+  height:calc(100vh - 84px);
+}
+
+#left,#right-rail{
+  overflow:auto;
+  backdrop-filter:blur(18px);
+  background:linear-gradient(180deg,rgba(7,12,20,0.95),rgba(6,11,18,0.91));
+}
+
+#left{
+  padding:18px 16px 22px;
+  border-right:1px solid var(--line);
+}
+
+#right-rail{
+  padding:18px 16px 22px;
+  border-left:1px solid var(--line);
+}
+
+#left::-webkit-scrollbar,#right-rail::-webkit-scrollbar{width:6px}
+#left::-webkit-scrollbar-thumb,#right-rail::-webkit-scrollbar-thumb{background:rgba(135,174,200,0.24);border-radius:999px}
+
+.left-intro{
+  padding:4px 4px 18px;
+  border-bottom:1px solid rgba(135,174,200,0.10);
+}
+
+.kicker{
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan);
+}
+
+.intro-title{
+  margin-top:10px;
+  font-family:var(--title);
+  font-size:29px;
+  line-height:1.04;
+}
+
+.intro-copy{
+  margin-top:12px;
+  font-size:12px;
+  line-height:1.75;
+  color:var(--text-soft);
+}
+
+.tag-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+.tag-row span{
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(135,174,200,0.12);
+  background:rgba(10,18,28,0.58);
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--text-soft);
+}
+
+.tab-switch{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:18px 0 16px;
+}
+
+.tb{
+  min-height:46px;
+  border-radius:16px;
+  border:1px solid rgba(135,174,200,0.10);
+  background:rgba(10,17,27,0.60);
+  color:var(--text-soft);
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+
+.tb:hover{transform:translateY(-1px);border-color:rgba(135,174,200,0.22)}
+.tb.active.school{color:var(--green);border-color:rgba(109,240,193,0.28);background:rgba(109,240,193,0.08)}
+.tb.active.uni{color:var(--blue);border-color:rgba(118,166,255,0.28);background:rgba(118,166,255,0.08)}
+.tb.active.phd{color:var(--violet);border-color:rgba(177,144,255,0.28);background:rgba(177,144,255,0.08)}
+
+.ps{display:none}
+.ps.active{display:block}
+
+.section{
+  padding:18px 4px;
+  border-bottom:1px solid rgba(135,174,200,0.10);
+}
+
+.sh{
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-soft);
+}
+
+.shdot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  box-shadow:0 0 16px currentColor;
+}
+
+.pyr{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.pr{
+  width:100%;
+  min-height:58px;
+  padding:12px 14px;
+  border-radius:16px;
+  border:1px solid rgba(135,174,200,0.10);
+  background:linear-gradient(180deg,rgba(12,21,32,0.96),rgba(8,15,24,0.82));
+  text-align:left;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+
+.pr:hover{
+  transform:translateX(2px);
+  border-color:rgba(135,174,200,0.22);
+  box-shadow:0 14px 34px rgba(0,0,0,0.22);
+}
+
+.pl{
+  display:block;
+  font-family:var(--title);
+  font-size:14px;
+  line-height:1.1;
+}
+
+.psb{
+  display:block;
+  margin-top:6px;
+  font-size:10px;
+  line-height:1.55;
+  color:var(--text-soft);
+}
+
+.ec{
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(10,18,28,0.62);
+  border:1px solid rgba(135,174,200,0.10);
+  font-size:11px;
+  line-height:1.8;
+  color:var(--text-soft);
+}
+
+.ec-t{
+  margin-bottom:8px;
+  font-family:var(--title);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+.fm{
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(9,16,26,0.72);
+  border:1px solid rgba(135,174,200,0.10);
+  font-size:11px;
+  line-height:1.8;
+  color:var(--text-soft);
+  overflow:auto;
+}
+
+.steps{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.step{
+  display:flex;
+  gap:10px;
+}
+
+.sn{
+  min-width:22px;
+  height:22px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--title);
+  font-size:11px;
+  background:rgba(255,255,255,0.05);
+  color:var(--text);
+}
+
+.st{
+  font-size:11px;
+  line-height:1.7;
+  color:var(--text-soft);
+}
+
+.rt{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 6px;
+}
+
+.rt th{
+  font-size:8px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  text-align:left;
+  padding:0 8px 4px;
+}
+
+.rt td{
+  padding:9px 8px;
+  font-size:10px;
+  color:var(--text-soft);
+  background:rgba(9,16,26,0.56);
+  border-top:1px solid rgba(135,174,200,0.08);
+  border-bottom:1px solid rgba(135,174,200,0.08);
+}
+
+.rt td:first-child{
+  border-left:1px solid rgba(135,174,200,0.08);
+  border-radius:12px 0 0 12px;
+}
+
+.rt td:last-child{
+  border-right:1px solid rgba(135,174,200,0.08);
+  border-radius:0 12px 12px 0;
+}
+
+.rtg{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  min-height:24px;
+  padding:0 8px;
+  border-radius:999px;
+  font-family:var(--title);
+  font-size:11px;
+  font-weight:700;
+}
+
+.brow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.btn{
+  min-height:44px;
+  padding:0 14px;
+  border-radius:14px;
+  border:1px solid rgba(135,174,200,0.12);
+  background:rgba(10,17,27,0.60);
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+
+.btn:hover{transform:translateY(-1px);border-color:rgba(135,174,200,0.22)}
+.btn.r{color:var(--red)}
+.btn.g{color:var(--green)}
+.btn.b{color:var(--blue)}
+.btn.p{color:var(--violet)}
+
+#center{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 64% 24%,rgba(95,226,255,0.10),transparent 20%),
+    radial-gradient(circle at 54% 58%,rgba(177,144,255,0.05),transparent 28%),
+    #040912;
+}
+
+#center::before{
+  content:'';
+  position:absolute;
+  inset:24px;
+  border:1px solid rgba(135,174,200,0.06);
+  border-radius:30px;
+  pointer-events:none;
+}
+
+#cv{display:block;position:absolute;inset:0;width:100%;height:100%}
+
+#stage-core,#stage-grid,#stage-axis{
+  position:absolute;
+  pointer-events:none;
+  z-index:2;
+}
+
+#stage-grid{
+  inset:48px 54px;
+  border-radius:28px;
+  background:
+    linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);
+  background-size:74px 74px;
+  mask-image:radial-gradient(circle at 56% 50%,black 34%,transparent 92%);
+  opacity:.28;
+}
+
+#stage-core{
+  width:420px;
+  height:420px;
+  left:54%;
+  top:52%;
+  transform:translate(-50%,-50%);
+  border-radius:999px;
+  background:radial-gradient(circle at center,rgba(95,226,255,0.18),rgba(177,144,255,0.07) 34%,transparent 68%);
+  filter:blur(10px);
+  animation:breathe 7s ease-in-out infinite;
+}
+
+#stage-axis{
+  left:54%;
+  top:86px;
+  bottom:70px;
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(95,226,255,0.18),rgba(255,255,255,0.04),transparent);
+}
+
+@keyframes breathe{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.82}
+  50%{transform:translate(-50%,-50%) scale(1.08);opacity:1}
+}
+
+#wm{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-family:var(--title);
+  font-size:clamp(54px,8vw,144px);
+  font-weight:700;
+  letter-spacing:.30em;
+  color:rgba(255,255,255,0.026);
+  pointer-events:none;
+  z-index:1;
+  white-space:nowrap;
+}
+
+#hero{
+  position:absolute;
+  top:34px;
+  left:40px;
+  z-index:4;
+  pointer-events:none;
+}
+
+#hero .eyebrow{
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan);
+}
+
+#hero h1{
+  margin-top:10px;
+  font-family:var(--title);
+  font-size:50px;
+  line-height:1.02;
+}
+
+#hero p{
+  margin-top:10px;
+  max-width:520px;
+  font-size:12px;
+  line-height:1.75;
+  color:var(--text-soft);
+}
+
+#mission-pod{
+  position:absolute;
+  top:40px;
+  right:40px;
+  width:240px;
+  padding:14px 16px;
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(12,21,32,0.86),rgba(8,14,24,0.72));
+  border:1px solid rgba(135,174,200,0.12);
+  box-shadow:var(--shadow);
+  z-index:4;
+}
+
+.pod-k{
+  font-size:9px;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+
+#mission-state{
+  margin-top:10px;
+  font-family:var(--title);
+  font-size:34px;
+  line-height:1;
+  color:var(--gold);
+}
+
+#mission-copy{
+  margin-top:8px;
+  font-size:10px;
+  line-height:1.7;
+  color:var(--text-soft);
+}
+
+.hud{
+  position:absolute;
+  z-index:4;
+  padding:16px 18px;
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(12,21,32,0.88),rgba(8,14,24,0.76));
+  border:1px solid rgba(135,174,200,0.12);
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);
+}
+
+.hud.tl{top:190px;left:38px;min-width:250px}
+.hud.tr{top:190px;right:38px;min-width:268px}
+.hud.danger{border-color:rgba(255,108,120,0.28)!important}
+
+.hl{
+  margin-bottom:12px;
+  font-size:10px;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+
+.hr{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  align-items:center;
+}
+
+.hk{font-size:11px;color:var(--text-soft)}
+.hv{
+  font-family:var(--title);
+  font-size:15px;
+  color:var(--cyan);
+}
+
+.hv.w{color:var(--amber)}
+.hv.c{color:var(--red)}
+.hb{
+  height:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.05);
+  overflow:hidden;
+  margin:10px 0 12px;
+}
+
+.hbf{
+  height:100%;
+  border-radius:999px;
+  transition:width .4s ease,background .4s ease;
+}
+
+#elog{
+  position:absolute;
+  left:40px;
+  bottom:158px;
+  width:min(380px,calc(100% - 80px));
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:4;
+  pointer-events:none;
+}
+
+.ll{
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px solid rgba(135,174,200,0.10);
+  background:rgba(9,17,26,0.82);
+  font-size:10px;
+  line-height:1.6;
+}
+
+.ll.f{color:rgba(255,108,120,0.95);border-color:rgba(255,108,120,0.18)}
+.ll.ok{color:rgba(118,166,255,0.92);border-color:rgba(118,166,255,0.18)}
+.ll.tw{color:rgba(177,144,255,0.92);border-color:rgba(177,144,255,0.18)}
+
+#tmtr{
+  position:absolute;
+  right:40px;
+  bottom:34px;
+  width:260px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:linear-gradient(180deg,rgba(12,21,32,0.88),rgba(8,14,24,0.76));
+  border:1px solid rgba(135,174,200,0.12);
+  box-shadow:var(--shadow);
+  z-index:4;
+}
+
+#tlab{
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+
+#tv{
+  margin-top:10px;
+  font-family:var(--title);
+  font-size:30px;
+}
+
+#tbw{
+  width:100%;
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.05);
+  overflow:hidden;
+  margin:10px 0;
+}
+
+#tb{
+  height:100%;
+  border-radius:999px;
+  transition:width .4s ease,background .4s ease;
+}
+
+#tscale{
+  display:flex;
+  justify-content:space-between;
+  font-size:9px;
+  color:var(--text-dim);
+}
+
+.rail-section{
+  padding:0 0 18px;
+  margin-bottom:18px;
+  border-bottom:1px solid rgba(135,174,200,0.10);
+}
+
+.rail-label{
+  font-size:9px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cyan);
+}
+
+.rail-title{
+  margin-top:10px;
+  font-family:var(--title);
+  font-size:24px;
+  line-height:1.05;
+}
+
+.rail-copy{
+  margin-top:10px;
+  font-size:11px;
+  line-height:1.75;
+  color:var(--text-soft);
+}
+
+.chart-shell{
+  margin-top:14px;
+  padding:12px 12px 10px;
+  border-radius:18px;
+  background:rgba(10,18,28,0.58);
+  border:1px solid rgba(135,174,200,0.10);
+}
+
+.chart-title{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:10px;
+}
+
+#histcv,#radarcv{
+  display:block;
+  width:100%;
+  height:160px;
+}
+
+#selected-meta{
+  margin-top:10px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:10px;
+  color:var(--text-soft);
+}
+
+#selected-meta strong{
+  display:block;
+  font-family:var(--title);
+  font-size:13px;
+  color:var(--text);
+}
+
+#rover-matrix{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:14px;
+}
+
+.rv-card{
+  padding:12px 12px 10px;
+  border-radius:16px;
+  background:rgba(10,18,28,0.58);
+  border:1px solid rgba(135,174,200,0.10);
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease;
+}
+
+.rv-card:hover{transform:translateX(2px);border-color:rgba(135,174,200,0.20)}
+.rv-card.active{border-color:rgba(95,226,255,0.24);background:rgba(12,22,33,0.92)}
+
+.rv-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.rv-name{
+  font-family:var(--title);
+  font-size:14px;
+}
+
+.rv-reg{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.rv-metrics{
+  margin-top:8px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+
+.rv-metrics div{
+  font-size:9px;
+  color:var(--text-dim);
+}
+
+.rv-metrics strong{
+  display:block;
+  margin-top:4px;
+  font-family:var(--title);
+  font-size:12px;
+  color:var(--text);
+}
+
+.rv-bar{
+  margin-top:10px;
+  height:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.05);
+  overflow:hidden;
+}
+
+.rv-bar span{
+  display:block;
+  height:100%;
+  border-radius:999px;
+}
+
+@media (max-width:1280px){
+  #topbar{
+    grid-template-columns:1fr;
+    height:auto;
+    padding:16px 18px;
+  }
+  #headline-ribbon{grid-template-columns:1fr}
+  #layout{
+    grid-template-columns:320px 1fr;
+    height:calc(100vh - 186px);
+  }
+  #right-rail{display:none}
+}
+
+@media (max-width:920px){
+  html,body{overflow:auto}
+  #layout{
+    grid-template-columns:1fr;
+    height:auto;
+  }
+  #left{
+    border-right:none;
+    border-bottom:1px solid var(--line);
+  }
+  #center{
+    min-height:820px;
+    height:74vh;
+  }
+  .hud.tl{top:216px}
+  .hud.tr{top:216px;right:20px}
+  #mission-pod{right:20px}
+  #elog{left:20px;bottom:154px;width:calc(100% - 40px)}
+  #tmtr{right:20px;bottom:22px}
+}
+
+@media (max-width:640px){
+  #topbar{padding:14px}
+  .metric-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #top-actions{flex-direction:column;align-items:stretch}
+  #cycle-box{text-align:left}
+  .tab-switch{grid-template-columns:1fr}
+  #hero{top:20px;left:20px;right:20px}
+  #hero h1{font-size:32px}
+  #mission-pod{left:20px;right:20px;top:154px;width:auto}
+  .hud.tl,.hud.tr{
+    left:20px;
+    right:20px;
+    min-width:0;
+  }
+  .hud.tl{top:290px}
+  .hud.tr{top:auto;bottom:184px}
+  #elog{bottom:244px}
+  #tmtr{left:20px;width:auto}
+}
+</style>
+</head>
+<body>
+<div id="topbar">
+  <div class="brand-block">
+    <div class="brand-main">VEHICLE-SUPRA</div>
+    <div class="brand-sub">Lunar Autonomous Resilience Surface</div>
+    <div class="brand-meta">DOI: 10.5281/zenodo.19981738 · GITEX Global 2026 · Dubai</div>
+  </div>
+
+  <div id="headline-ribbon">
+    <div class="status-pod">
+      <div class="status-ring" id="status-ring">A0</div>
+      <div class="status-copy">
+        <strong id="status-name">Nominal</strong>
+        <span id="status-detail">Resilient lunar network online</span>
+      </div>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric-chip"><strong id="metric-tension" style="color:var(--cyan)">0.031</strong><span>Total T(X)</span></div>
+      <div class="metric-chip"><strong id="metric-cohesion" style="color:var(--green)">98.2%</strong><span>Network Cohesion</span></div>
+      <div class="metric-chip"><strong id="metric-faults" style="color:var(--amber)">0</strong><span>Faulted Nodes</span></div>
+      <div class="metric-chip"><strong id="metric-twins" style="color:var(--violet)">0</strong><span>Twin Activations</span></div>
+    </div>
+  </div>
+
+  <div id="top-actions">
+    <div class="glass-pill" id="system-status">System Active</div>
+    <div class="glass-pill">SUPRA v1.0</div>
+    <div id="cycle-box">CYCLE: <span id="hcy">Ω-1</span><br>LUNAR FIELD ONLINE</div>
+  </div>
+</div>
+
+<div id="layout">
+  <aside id="left">
+    <div class="left-intro">
+      <div class="kicker">Command Narrative</div>
+      <div class="intro-title">Rover resilience shown as a premium mission surface</div>
+      <div class="intro-copy">SUPRA now feels less like a classroom demo and more like a future-grade lunar command system. The simulation stays operational, but the interface gains hierarchy, spectacle, and richer telemetry for real showcase value.</div>
+      <div class="tag-row">
+        <span>Lunar Ops</span>
+        <span>Twin Recovery</span>
+        <span>State Tensor</span>
+      </div>
+    </div>
+
+    <div class="tab-switch">
+      <button class="tb school active" onclick="setLevel('school')">School</button>
+      <button class="tb uni" onclick="setLevel('uni')">University</button>
+      <button class="tb phd" onclick="setLevel('phd')">PhD</button>
+    </div>
+
+    <div class="ps active" id="ps-school">
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--green)"></span>Borda Milan Pyramid</div>
+        <div class="pyr">
+          <button class="pr" onclick="xpl('school','V')"><span class="pl" style="color:var(--green)">V · Value</span><span class="psb">How important is this rover for the mission?</span></button>
+          <button class="pr" onclick="xpl('school','R')"><span class="pl" style="color:#4fe0b5">R · Recovery</span><span class="psb">Can it recover if something goes wrong?</span></button>
+          <button class="pr" onclick="xpl('school','A')"><span class="pl" style="color:#40cfa7">A · Agency</span><span class="psb">Can it move, decide, and still act?</span></button>
+          <button class="pr" onclick="xpl('school','I')"><span class="pl" style="color:#34b293">I · Integrity</span><span class="psb">Is the rover still coherent internally?</span></button>
+          <button class="pr" onclick="xpl('school','E')"><span class="pl" style="color:#2a8f74">E · Exposure</span><span class="psb">How hostile is the environment around it?</span></button>
+        </div>
+        <div class="ec" id="ec-school"><div class="ec-t" style="color:var(--green)">Tap a pyramid layer</div>Each rover continuously asks five questions. The base is the environment, the top is mission importance. Together they define whether the network remains stable or drifts into crisis.</div>
+      </div>
+
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--green)"></span>How it survives</div>
+        <div class="steps">
+          <div class="step"><span class="sn">1</span><span class="st">Measures total tension <b>T(X)</b> and detects when the mission field starts to lose coherence.</span></div>
+          <div class="step"><span class="sn">2</span><span class="st">Attempts self-repair through the internal recovery operator.</span></div>
+          <div class="step"><span class="sn">3</span><span class="st">Activates a <b>twin node</b> if self-repair cannot recover on time.</span></div>
+          <div class="step"><span class="sn">4</span><span class="st">Keeps the network alive even during cascading failures.</span></div>
+        </div>
+        <div class="brow">
+          <button class="btn r" onclick="injectFault()">Inject Fault</button>
+          <button class="btn g" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps" id="ps-uni">
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--blue)"></span>E.I.A.R.(V) State Vector</div>
+        <div class="pyr">
+          <button class="pr" onclick="xpl('uni','V')"><span class="pl" style="color:var(--blue)">Vᵢ · System Value</span><span class="psb">Mission priority and network importance.</span></button>
+          <button class="pr" onclick="xpl('uni','R')"><span class="pl" style="color:#5f93ff">Rᵢ · Recoverability</span><span class="psb">Convergence time and twin-spawn capability.</span></button>
+          <button class="pr" onclick="xpl('uni','A')"><span class="pl" style="color:#4f7ff0">Aᵢ · Effective Agency</span><span class="psb">Execution capacity under real mission conditions.</span></button>
+          <button class="pr" onclick="xpl('uni','I')"><span class="pl" style="color:#3f68d8">Iᵢ · Internal Integrity</span><span class="psb">Coherence of the internal rover state.</span></button>
+          <button class="pr" onclick="xpl('uni','E')"><span class="pl" style="color:#3153b7">Eᵢ · External Exposure</span><span class="psb">Terrain risk, drift, latency, and hostile volatility.</span></button>
+        </div>
+        <div class="ec" id="ec-uni"><div class="ec-t" style="color:var(--blue)">Select a dimension</div>Sᵢ(t) = (Eᵢ, Iᵢ, Aᵢ, Rᵢ, Vᵢ) ∈ [0,1]⁵. SUPRA continuously measures internal coherence and relational tension across the lunar rover network.</div>
+      </div>
+
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--blue)"></span>Tension Function</div>
+        <pre class="fm">T(X) = T_ext + T_int
+T_ext = Σ ωᵢⱼ · ‖Sᵢ − Sⱼ‖²
+T_int = λ · Σ ‖P₋ Sᵢ‖²</pre>
+        <pre class="fm" style="margin-top:12px">V_op(Sᵢ) = P_K[ Sᵢ − η·∇T(X) ]
+Sᵢ(t+1) = (1−α)·Sᵢ + α·V_op</pre>
+        <div class="brow">
+          <button class="btn r" onclick="injectFault()">A5 Fault</button>
+          <button class="btn b" onclick="injectCascade()">A6 Cascade</button>
+          <button class="btn g" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps" id="ps-phd">
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--violet)"></span>Formal Layer</div>
+        <div class="pyr">
+          <button class="pr" onclick="xpl('phd','V')"><span class="pl" style="color:var(--violet)">Vᵢ · κ(i,X)</span><span class="psb">Contribution fraction to global relational tension.</span></button>
+          <button class="pr" onclick="xpl('phd','R')"><span class="pl" style="color:#a17dff">Rᵢ · Recovery</span><span class="psb">τ_conv and snapshot-based twin recovery.</span></button>
+          <button class="pr" onclick="xpl('phd','A')"><span class="pl" style="color:#8b67f0">Aᵢ · Agency</span><span class="psb">Operator execution and action feasibility.</span></button>
+          <button class="pr" onclick="xpl('phd','I')"><span class="pl" style="color:#7450da">Iᵢ · Integrity</span><span class="psb">O(Sᵢ)=SᵢᵀP₋Sᵢ over the admissible region K.</span></button>
+          <button class="pr" onclick="xpl('phd','E')"><span class="pl" style="color:#5f3db6">Eᵢ · Exposure</span><span class="psb">Context drift, contradiction density, and volatility.</span></button>
+        </div>
+        <div class="ec" id="ec-phd"><div class="ec-t" style="color:var(--violet)">Select a formal dimension</div>P₋=I₅−(1/5)11ᵀ centers the state. O(Sᵢ)=‖P₋Sᵢ‖² measures imbalance. K={S∈[0,1]⁵: O(S)≤T_limit} defines the admissible region.</div>
+      </div>
+
+      <div class="section">
+        <div class="sh"><span class="shdot" style="background:var(--violet)"></span>Recovery Operator</div>
+        <pre class="fm">∇T = Σⱼωᵢⱼ(Sᵢ−Sⱼ) + λ·P₋·Sᵢ
+V_op = P_K[ Sᵢ − η·∇T ]
+Sᵢ(t+1) = (1−α)·Sᵢ + α·V_op
+Twin: Sⱼ = Sᵢ* if τ_conv &gt; 20</pre>
+      </div>
+
+      <div class="section" style="border-bottom:none">
+        <div class="sh"><span class="shdot" style="background:var(--violet)"></span>A0-A6 Regimes</div>
+        <table class="rt">
+          <tr><th>Reg.</th><th>Condition</th><th>Protocol</th></tr>
+          <tr><td><span class="rtg" style="background:rgba(109,240,193,0.14);color:var(--green)">A0</span></td><td>O&lt;0.15 ∧ T_ext&lt;0.20</td><td>Nominal</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(255,191,105,0.14);color:var(--amber)">A1</span></td><td>T_ext rising</td><td>Validate</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(118,166,255,0.14);color:var(--blue)">A2</span></td><td>T(X) drops after V_op</td><td>Monitor</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(255,155,98,0.14);color:#ff9b62">A3</span></td><td>O&gt;0.15 ∧ Aᵢ↑ ∧ Iᵢ↓</td><td>Operator Recovery</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(180,180,190,0.14);color:#b4b4be">A4</span></td><td>deg=0</td><td>Standby</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(255,108,120,0.14);color:var(--red)">A5</span></td><td>O&gt;0.28 ∨ τ&gt;20</td><td>Twin Spawn</td></tr>
+          <tr><td><span class="rtg" style="background:rgba(177,144,255,0.14);color:var(--violet)">A6</span></td><td>Multi-node escalation</td><td>Isolate</td></tr>
+        </table>
+        <div class="brow">
+          <button class="btn r" onclick="injectFault()">A5 Crisis</button>
+          <button class="btn p" onclick="injectCascade()">A6 Cascade</button>
+          <button class="btn g" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main id="center">
+    <canvas id="cv"></canvas>
+    <div id="stage-grid"></div>
+    <div id="stage-core"></div>
+    <div id="stage-axis"></div>
+    <div id="wm">SUPRA</div>
+
+    <div id="hero">
+      <div class="eyebrow">VEHICLE-SUPRA · Lunar Resilience Demonstration</div>
+      <h1>Autonomous survival<br>on the lunar field</h1>
+      <p>SUPRA visualizes how a rover network detects instability, self-recovers through the recovery operator, and escalates to twin-node protection when resilience thresholds are exceeded.</p>
+    </div>
+
+    <div id="mission-pod">
+      <div class="pod-k">Mission Posture</div>
+      <div id="mission-state">Nominal</div>
+      <div id="mission-copy">Low tension, high cohesion, and continuous rover operability across the lunar terrain.</div>
+    </div>
+
+    <div class="hud tl" id="hudtl">
+      <div class="hl">VEHICLE Framework</div>
+      <div class="hr"><span class="hk">Active Nodes</span><span class="hv" id="hn">4/4</span></div>
+      <div class="hr"><span class="hk">Network Cohesion</span><span class="hv" id="hc">98.2%</span></div>
+      <div class="hb"><div class="hbf" id="hbn" style="width:98%;background:var(--green)"></div></div>
+      <div class="hr"><span class="hk">Total T(X)</span><span class="hv" id="ht">0.031</span></div>
+      <div class="hr"><span class="hk">Twin Events</span><span class="hv" id="htw">0</span></div>
+    </div>
+
+    <div class="hud tr" id="hudtr">
+      <div class="hl">Swarm State</div>
+      <div id="rhud"></div>
+    </div>
+
+    <div id="elog"></div>
+
+    <div id="tmtr">
+      <div id="tlab">Systemic Tension</div>
+      <div id="tv">0.031</div>
+      <div id="tbw"><div id="tb" style="width:3%"></div></div>
+      <div id="tscale"><span>0.00</span><span>T_limit = 0.30</span><span>1.00</span></div>
+    </div>
+  </main>
+
+  <aside id="right-rail">
+    <div class="rail-section">
+      <div class="rail-label">Showcase Cut</div>
+      <div class="rail-title">SUPRA as a lunar resilience capability</div>
+      <div class="rail-copy">This experience demonstrates how autonomous mission assets can remain legible, recoverable, and strategically coordinated under pressure. It is not just a scene. It is a systems narrative for advanced autonomy.</div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-label">Mission History</div>
+      <div class="chart-shell">
+        <div class="chart-title">T(X) Timeline</div>
+        <canvas id="histcv" width="280" height="160"></canvas>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-label">Selected Rover</div>
+      <div class="chart-shell">
+        <div class="chart-title">E.I.A.R.(V) Radar</div>
+        <canvas id="radarcv" width="280" height="160"></canvas>
+        <div id="selected-meta">
+          <div><strong id="sel-name">Rover α</strong><span id="sel-regime">A0 · Stable</span></div>
+          <div><strong id="sel-health">98%</strong><span>Coherence</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-section" style="border-bottom:none;margin-bottom:0">
+      <div class="rail-label">Rover Matrix</div>
+      <div id="rover-matrix"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const safeArc=(ctx,x,y,r,...a)=>{const sr=Math.max(0,r);if(sr>0)ctx.arc(x,y,sr,...a);};
+const safeR=r=>Math.max(0,r);
+const clamp=(v,lo=0,hi=1)=>Math.max(lo,Math.min(hi,v));
+function Pminus(s){const m=s.reduce((a,b)=>a+b,0)/5;return s.map(v=>v-m);}
+function O(s){const p=Pminus(s);return p.reduce((a,v)=>a+v*v,0);}
+function normSq(a,b){return a.reduce((s,v,i)=>s+(v-b[i])*(v-b[i]),0);}
+function projK(z,tl=.30){
+  let s=z.map(v=>clamp(v));
+  if(O(s)<=tl)return s;
+  for(let k=0;k<50;k++){
+    const p=Pminus(s),oc=O(s);
+    if(oc<=tl)break;
+    s=s.map((v,i)=>clamp(v-.11*p[i]));
+  }
+  return s;
+}
+function vop(s,nb,om,eta=.10,alpha=.30,lam=1,tl=.30){
+  const pm=Pminus(s);
+  const g=s.map((_,k)=>{
+    let gg=lam*pm[k];
+    nb.forEach((n,i)=>{gg+=om[i]*(s[k]-n[k]);});
+    return gg;
+  });
+  const z=s.map((v,k)=>clamp(v-eta*g[k]));
+  const vs=projK(z,tl);
+  return s.map((v,k)=>(1-alpha)*v+alpha*vs[k]);
+}
+function regime(s){
+  const oc=O(s);
+  if(oc>.28)return{code:'A5',col:'#ff6c78',label:'Crisis'};
+  if(oc>.15&&s[2]>.65&&s[1]<.45)return{code:'A3',col:'#ffbf69',label:'Incoherence'};
+  if(oc>.15)return{code:'A1',col:'#ffbf69',label:'Pressure'};
+  return{code:'A0',col:'#6df0c1',label:'Stable'};
+}
+
+const canvas=document.getElementById('cv');
+const ctx=canvas.getContext('2d');
+const histcv=document.getElementById('histcv');
+const histctx=histcv.getContext('2d');
+const radarcv=document.getElementById('radarcv');
+const radarctx=radarcv.getContext('2d');
+
+let W=0,H=0,fr=0,selectedRover=0,twinCount=0;
+let terrain=[],craters=[],nebula=[],rovers=[],particles=[],logs=[],history=[];
+const TPTS=110;
+const RC=['#6df0c1','#5fe2ff','#ffbf69','#b190ff'];
+const RN=['α','β','γ','δ'];
+const STARS=Array.from({length:260},()=>({
+  x:Math.random(),y:Math.random(),r:Math.max(.15,Math.random()*1.1+.15),tw:Math.random()*Math.PI*2,bright:Math.random()>.95
+}));
+
+function resize(){
+  const r=document.getElementById('center');
+  W=r.clientWidth;H=r.clientHeight;
+  canvas.width=W*devicePixelRatio;
+  canvas.height=H*devicePixelRatio;
+  canvas.style.width=W+'px';
+  canvas.style.height=H+'px';
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  histcv.width=histcv.clientWidth*devicePixelRatio;
+  histcv.height=histcv.clientHeight*devicePixelRatio;
+  histctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  radarcv.width=radarcv.clientWidth*devicePixelRatio;
+  radarcv.height=radarcv.clientHeight*devicePixelRatio;
+  radarctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  genTerrain();
+}
+let _rt;window.addEventListener('resize',()=>{clearTimeout(_rt);_rt=setTimeout(resize,150);});
+
+function genTerrain(){
+  terrain=[];
+  let y=H*.68;
+  for(let i=0;i<TPTS;i++){
+    y+=(Math.random()-.48)*12;
+    y=Math.max(H*.54,Math.min(H*.80,y));
+    terrain.push({x:i*(W/(TPTS-1)),y});
+  }
+  craters=[];
+  for(let i=0;i<9;i++){
+    const tx=60+Math.random()*(W-120);
+    const idx=Math.floor(tx/W*(TPTS-1));
+    craters.push({x:tx,y:terrain[Math.min(idx,TPTS-1)].y-3,rx:Math.max(8,15+Math.random()*32),ry:Math.max(3,5+Math.random()*14)});
+  }
+  nebula=Array.from({length:6},()=>({
+    x:Math.random()*W,y:Math.random()*H*.44,
+    rx:Math.max(40,60+Math.random()*110),ry:Math.max(15,20+Math.random()*48),a:.012+Math.random()*.022
+  }));
+}
+function getY(px){
+  const seg=(px/W)*(TPTS-1),i=Math.floor(seg),t=seg-i;
+  if(i>=TPTS-1)return terrain[TPTS-1].y;
+  return terrain[i].y*(1-t)+terrain[i+1].y*t;
+}
+
+function initRovers(){
+  twinCount=0;
+  history=[];
+  rovers=RN.map((name,i)=>({
+    name,id:i,col:RC[i],x:.12+i*.22,tx:.12+i*.22,
+    s:[.18+i*.01,.90-i*.01,.82,.72,.60-i*.04],
+    fault:false,repairing:false,repairProg:0,wAngle:i*1.1,dust:[],twin:false,twinA:0,gp:Math.random()*Math.PI*2
+  }));
+  selectedRover=0;
+}
+
+function spawnP(x,y,col,n=12,spd=2.5){
+  for(let k=0;k<n;k++){
+    const ang=Math.random()*Math.PI*2,s=.5+Math.random()*spd;
+    particles.push({x,y,vx:Math.cos(ang)*s,vy:Math.sin(ang)*s-1.4,life:1,size:Math.max(.5,1.5+Math.random()*2.2),col});
+  }
+}
+
+function addLog(msg,type=''){
+  logs.unshift({msg,type});if(logs.length>5)logs.pop();
+  document.getElementById('elog').innerHTML=logs.map(l=>`<div class="ll ${l.type}">${l.msg}</div>`).join('');
+}
+
+const EXP={
+  school:{
+    E:['E · Exposure','How hostile is the lunar environment right now? Dust, terrain, radiation, and communication strain all raise external pressure.'],
+    I:['I · Integrity','How coherent is the rover internally? Sensors, wheels, battery, and internal state must still align.'],
+    A:['A · Agency','Can the rover still act? Move, collect, transmit, and execute tasks under pressure.'],
+    R:['R · Recovery','If the rover fails, can it recover in time or does it need a twin node?'],
+    V:['V · Value','How important is this rover to the mission? High-value nodes receive more recovery priority.']
+  },
+  uni:{
+    E:['Eᵢ · External Exposure','Environmental pressure from terrain hazard, latency, context drift, and neighboring volatility. Contributes strongly to T_ext.'],
+    I:['Iᵢ · Internal Integrity','Coherence of the internal state. O(Sᵢ)=‖P₋Sᵢ‖² measures imbalance across dimensions.'],
+    A:['Aᵢ · Effective Agency','Execution capacity under real mission conditions: movement, tool use, and action reliability.'],
+    R:['Rᵢ · Recoverability','Encodes convergence time, snapshot availability, and whether twin-node escalation is possible.'],
+    V:['Vᵢ · System Value','Mission criticality and network importance. High-value nodes receive stronger recovery priority.']
+  },
+  phd:{
+    E:['Eᵢ · Exposure (formal)','Driven by ∂X/∂t, contradiction density, and relational stress from N(i). High Eᵢ contributes to A1 escalation.'],
+    I:['Iᵢ · Integrity (formal)','P₋=I₅−(1/5)11ᵀ centers the state. O(Sᵢ)=SᵢᵀP₋Sᵢ measures admissible imbalance in K.'],
+    A:['Aᵢ · Agency (formal)','Real execution capacity modulates whether V_op can be enacted or whether the node drifts toward failure.'],
+    R:['Rᵢ · Recovery (formal)','τ_conv(i)=min{t≥t₀: O(Sᵢ(t))≤T_limit}. If τ_conv is too large, twin recovery becomes mandatory.'],
+    V:['Vᵢ · Value (formal)','κ(i,X) describes each node’s contribution to total relational tension and recovery priority ordering.']
+  }
+};
+function xpl(lv,dim){
+  const d=EXP[lv][dim];
+  document.getElementById('ec-'+lv).innerHTML=`<div class="ec-t" style="color:${lv==='school'?'var(--green)':lv==='uni'?'var(--blue)':'var(--violet)'}">${d[0]}</div>${d[1]}`;
+}
+
+function setLevel(lv){
+  document.querySelectorAll('.ps').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ps-'+lv).classList.add('active');
+  document.querySelector('.tb.'+lv).classList.add('active');
+}
+
+function setSelectedRover(idx){selectedRover=idx;updateRightRail();}
+
+function injectFault(){
+  const r=rovers[Math.floor(Math.random()*rovers.length)];
+  r.fault=true;r.s=[.92,.08,.88,.18,r.s[4]];
+  addLog(`FAULT: Rover ${r.name} entered A5 incoherence`,'f');
+  spawnP(r.x*W,getY(r.x*W)-22,'#ff6c78',18,3);
+}
+function injectCascade(){
+  rovers.forEach((r,i)=>{if(i<3){r.fault=true;r.s=[.88+i*.02,.08+i*.02,.85,.15,r.s[4]];}});
+  addLog('CASCADE A6: multiple nodes escalating across the field','f');
+  rovers.slice(0,3).forEach(r=>spawnP(r.x*W,getY(r.x*W)-22,'#ff6c78',12,3.5));
+}
+function resetAll(){
+  initRovers();particles=[];logs=[];document.getElementById('elog').innerHTML='';
+  addLog('System reset: all nodes returned to A0','ok');
+}
+
+function drawSky(){
+  const g=ctx.createLinearGradient(0,0,0,H*.72);
+  g.addColorStop(0,'#000307');g.addColorStop(.5,'#000810');g.addColorStop(1,'#010f1a');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
+function drawNebula(){
+  nebula.forEach(n=>{
+    const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.rx);
+    g.addColorStop(0,`rgba(0,80,140,${n.a})`);g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.ellipse(n.x,n.y,n.rx,n.ry,.4,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+}
+function drawStars(){
+  STARS.forEach(s=>{
+    const tw=.4+.6*Math.abs(Math.sin(fr*.016+s.tw));
+    const r=safeR(s.r*tw);
+    if(r<=0)return;
+    ctx.beginPath();safeArc(ctx,s.x*W,s.y*(H*.6),r,0,Math.PI*2);
+    ctx.fillStyle=s.bright?`rgba(200,220,255,${.7*tw})`:`rgba(255,255,255,${.3*tw})`;ctx.fill();
+  });
+}
+function drawEarth(){
+  const ex=W*.87,ey=H*.08,er=Math.min(W,H)*.058;
+  const ag=ctx.createRadialGradient(ex,ey,er*.9,ex,ey,er*1.5);
+  ag.addColorStop(0,'rgba(40,100,220,.12)');ag.addColorStop(1,'transparent');
+  ctx.beginPath();safeArc(ctx,ex,ey,er*1.5,0,Math.PI*2);ctx.fillStyle=ag;ctx.fill();
+  const g=ctx.createRadialGradient(ex-er*.25,ey-er*.2,2,ex,ey,er);
+  g.addColorStop(0,'#223a8a');g.addColorStop(.45,'#112255');g.addColorStop(.8,'#08173a');g.addColorStop(1,'rgba(3,8,22,.4)');
+  ctx.beginPath();safeArc(ctx,ex,ey,er,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+}
+function drawTerrain(){
+  ctx.beginPath();ctx.moveTo(0,H*.63);
+  for(let x=0;x<=W;x+=8)ctx.lineTo(x,H*.63-28*Math.sin(x*.006)*Math.sin(x*.010+.7)-12*Math.sin(x*.018+2));
+  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fillStyle='#141414';ctx.fill();
+  ctx.beginPath();ctx.moveTo(0,H*.67);
+  for(let x=0;x<=W;x+=8)ctx.lineTo(x,H*.67-14*Math.sin(x*.013+1)*Math.sin(x*.009));
+  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fillStyle='#1a1a1a';ctx.fill();
+  craters.forEach(c=>{
+    const gs=ctx.createRadialGradient(c.x+c.rx*.1,c.y-1,0,c.x,c.y,c.rx);
+    gs.addColorStop(0,'#080808');gs.addColorStop(.65,'#181818');gs.addColorStop(1,'#2a2a2a');
+    ctx.beginPath();ctx.ellipse(c.x,c.y,c.rx,c.ry,0,0,Math.PI*2);ctx.fillStyle=gs;ctx.fill();
+  });
+  ctx.beginPath();ctx.moveTo(0,terrain[0].y);
+  for(let i=1;i<TPTS;i++){
+    const cp=terrain[i-1],p=terrain[i],mx=(cp.x+p.x)/2;
+    ctx.bezierCurveTo(mx,cp.y,mx,p.y,p.x,p.y);
+  }
+  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();
+  const tg=ctx.createLinearGradient(0,H*.55,0,H);
+  tg.addColorStop(0,'#2e2e2e');tg.addColorStop(.2,'#242424');tg.addColorStop(.7,'#181818');tg.addColorStop(1,'#0a0a0a');
+  ctx.fillStyle=tg;ctx.fill();
+}
+function drawNetwork(){
+  for(let i=0;i<rovers.length;i++){
+    for(let j=i+1;j<rovers.length;j++){
+      if(j-i>1)continue;
+      const a=rovers[i],b=rovers[j];
+      const q=Math.max(0,(1-O(a.s)/.5+1-O(b.s)/.5)*.5);
+      const ax=a.x*W,ay=getY(a.x*W)-44,bx=b.x*W,by=getY(b.x*W)-44;
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);
+      ctx.strokeStyle=`rgba(95,226,255,${.08*q})`;ctx.lineWidth=.9;ctx.setLineDash([6,8]);ctx.stroke();ctx.setLineDash([]);
+      const t=((Date.now()*.00072+i*.45)%1);
+      const px=ax*(1-t)+bx*t,py=ay*(1-t)+by*t;
+      const pr=safeR(2.1*q);
+      if(pr>0){
+        ctx.beginPath();safeArc(ctx,px,py,pr,0,Math.PI*2);
+        ctx.fillStyle=`rgba(109,240,193,${.78*q})`;ctx.fill();
+      }
+    }
+  }
+}
+
+function drawRover(r){
+  const rx=r.x*W,ry=getY(r.x*W);
+  r.x+=(r.tx-r.x)*.04;
+  if(!r.fault)r.wAngle+=.12;
+  r.gp+=.04;
+  const oc=O(r.s),reg=regime(r.s);
+  const col=r.fault?'#ff6c78':reg.col;
+
+  ctx.save();
+  ctx.translate(rx,ry);
+  ctx.beginPath();ctx.ellipse(0,2,20,4,0,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,.42)';ctx.fill();
+
+  if(!r.fault&&fr%3===0&&Math.random()<.55)r.dust.push({x:0,y:-6,vx:(Math.random()-.5)*1.6,vy:-.3,life:1});
+  r.dust=r.dust.filter(d=>{
+    d.x+=d.vx;d.y+=d.vy;d.life-=.045;
+    const dr=safeR(3*d.life);
+    if(dr>0){ctx.beginPath();safeArc(ctx,d.x,d.y,dr,0,Math.PI*2);ctx.fillStyle=`rgba(175,155,125,${d.life*.16})`;ctx.fill();}
+    return d.life>0;
+  });
+
+  [-18,-6,6,18].forEach(wx=>{
+    ctx.beginPath();ctx.moveTo(wx*.55,-12);ctx.lineTo(wx,-8);ctx.strokeStyle='rgba(60,60,60,.7)';ctx.lineWidth=1.5;ctx.stroke();
+  });
+
+  [-18,-6,6,18].forEach(wx=>{
+    ctx.beginPath();safeArc(ctx,wx,-8,6.5,0,Math.PI*2);ctx.fillStyle='#0e0e0e';ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+    for(let t=0;t<4;t++){
+      const ta=r.wAngle+t*Math.PI/2;
+      ctx.beginPath();safeArc(ctx,wx,-8,6.5,ta,ta+.35);ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=3;ctx.stroke();
+    }
+    ctx.beginPath();ctx.moveTo(wx+Math.cos(r.wAngle)*6,-8+Math.sin(r.wAngle)*6);ctx.lineTo(wx-Math.cos(r.wAngle)*6,-8-Math.sin(r.wAngle)*6);
+    ctx.strokeStyle='rgba(255,255,255,.28)';ctx.lineWidth=1;ctx.stroke();
+    ctx.beginPath();safeArc(ctx,wx,-8,2,0,Math.PI*2);ctx.fillStyle=col;ctx.fill();
+  });
+
+  ctx.beginPath();ctx.moveTo(-18,-8);ctx.lineTo(18,-8);ctx.strokeStyle='rgba(70,70,70,.6)';ctx.lineWidth=2.5;ctx.stroke();
+
+  const brd=4;
+  ctx.beginPath();
+  ctx.moveTo(-17+brd,-26);ctx.lineTo(17-brd,-26);ctx.lineTo(17,-26+brd);ctx.lineTo(17,-14);ctx.lineTo(-17,-14);ctx.lineTo(-17,-26+brd);ctx.closePath();
+  ctx.fillStyle='#111';ctx.fill();ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.stroke();
+
+  if(oc>.05){
+    ctx.beginPath();
+    ctx.moveTo(-17+brd,-26);ctx.lineTo(17-brd,-26);ctx.lineTo(17,-26+brd);ctx.lineTo(17,-14);ctx.lineTo(-17,-14);ctx.lineTo(-17,-26+brd);ctx.closePath();
+    const heat=Math.min(1,oc/.4);
+    ctx.fillStyle=`rgba(255,${Math.floor(80-80*heat)},0,${heat*.30})`;ctx.fill();
+  }
+
+  ctx.fillStyle='#0a2030';ctx.fillRect(-10,-34,20,7);ctx.strokeStyle=col;ctx.lineWidth=.8;ctx.strokeRect(-10,-34,20,7);
+  const glint=Math.sin(fr*.05+r.id)*.5+.5;
+  ctx.fillStyle=`rgba(100,220,255,${.1*glint})`;ctx.fillRect(-10,-34,20,7);
+
+  ctx.beginPath();ctx.moveTo(-3,-26);ctx.lineTo(-3,-42);ctx.strokeStyle='rgba(80,80,80,.8)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.fillStyle='#1a1a1a';ctx.fillRect(-7,-46,8,6);ctx.strokeStyle=col;ctx.lineWidth=.8;ctx.strokeRect(-7,-46,8,6);
+  ctx.beginPath();safeArc(ctx,-3,-43,2,0,Math.PI*2);ctx.fillStyle='#000';ctx.fill();ctx.strokeStyle='rgba(100,200,255,.5)';ctx.lineWidth=.5;ctx.stroke();
+
+  ctx.beginPath();ctx.moveTo(10,-26);ctx.lineTo(13,-41);ctx.strokeStyle=col;ctx.lineWidth=1;ctx.stroke();
+  ctx.save();ctx.translate(13,-41);ctx.rotate(-.3);ctx.beginPath();ctx.ellipse(0,0,4,2.5,0,0,Math.PI*2);ctx.strokeStyle=col;ctx.lineWidth=.8;ctx.stroke();ctx.restore();
+  const antCol=r.twin?'#b190ff':(r.repairing?'#5fe2ff':(r.fault?'#ff6c78':col));
+  ctx.beginPath();safeArc(ctx,13,-41,2.5,0,Math.PI*2);ctx.fillStyle=antCol;ctx.fill();
+
+  if(!r.fault&&!r.repairing){
+    const pulse=Math.sin(r.gp)*.5+.5;
+    [7,13].forEach((base,ri)=>{
+      const pr=safeR(base+4*pulse),pa=.17*(1-pulse)*(ri===0?1:.5);
+      if(pr>0&&pa>0){ctx.beginPath();safeArc(ctx,13,-41,pr,0,Math.PI*2);ctx.strokeStyle=`rgba(109,240,193,${pa})`;ctx.lineWidth=.8;ctx.stroke();}
+    });
+  }
+
+  if(r.repairing){
+    const arc=r.repairProg*Math.PI*2;
+    ctx.beginPath();safeArc(ctx,0,-20,24,-Math.PI/2,-Math.PI/2+arc);ctx.strokeStyle='rgba(95,226,255,.55)';ctx.lineWidth=2.5;ctx.stroke();
+  }
+
+  if(r.twin){r.twinA=Math.min(1,r.twinA+.05);}else{r.twinA=Math.max(0,r.twinA-.05);}
+  if(r.twinA>.01){
+    ctx.beginPath();safeArc(ctx,0,-18,28,0,Math.PI*2);ctx.strokeStyle=`rgba(177,144,255,${.48*r.twinA})`;ctx.lineWidth=1.2;ctx.setLineDash([4,5]);ctx.stroke();ctx.setLineDash([]);
+  }
+
+  ctx.font='700 9px Space Grotesk, sans-serif';ctx.fillStyle=col;ctx.textAlign='center';ctx.fillText('Rover '+r.name,0,-56);
+  ctx.font='700 8px Space Grotesk, sans-serif';ctx.fillStyle=reg.col;ctx.fillText(reg.code,0,-66);
+
+  if(r.fault){
+    const fg=ctx.createRadialGradient(0,-20,0,0,-20,30);
+    fg.addColorStop(0,'rgba(255,40,40,.1)');fg.addColorStop(1,'transparent');
+    ctx.beginPath();safeArc(ctx,0,-20,30,0,Math.PI*2);ctx.fillStyle=fg;ctx.fill();
+  }
+  ctx.restore();
+}
+
+function updateRovers(){
+  rovers.forEach((r,i)=>{
+    const nb=[],om=[];
+    rovers.forEach((r2,j)=>{if(i!==j&&Math.abs(i-j)===1){nb.push(r2.s);om.push(.65);}});
+    if(r.fault){
+      r.repairing=true;
+      r.repairProg=Math.min(1,r.repairProg+.006);
+      r.s=vop(r.s,nb,om,.09,.22,1,.30);
+      const oc=O(r.s);
+      if(oc<=.30&&r.repairProg>.14){
+        r.fault=false;r.repairing=false;r.repairProg=0;r.s[1]=Math.min(1,r.s[1]+.28);
+        addLog(`AUTO-RECOVERY: Rover ${r.name} restored to A0`,'ok');
+        spawnP(r.x*W,getY(r.x*W)-22,'#5fe2ff',14,2.5);
+      } else if(r.repairProg>=1){
+        r.twin=true;r.repairProg=0;r.s=[.18,.92,.85,.75,r.s[4]];r.fault=false;r.repairing=false;twinCount++;
+        addLog(`TWIN-SPAWN: Rover ${r.name} activated a recovery twin`,'tw');
+        spawnP(r.x*W,getY(r.x*W)-22,'#b190ff',16,2);
+        setTimeout(()=>{r.twin=false;},9000);
+      }
+    } else {
+      r.s=vop(r.s,nb,om,.04,.14,1,.30);
+      if(!r.twin&&fr%(260+i*55)===0)r.tx=.08+Math.random()*.84;
+    }
+  });
+}
+
+function computeTotals(){
+  let Tt=0;
+  rovers.forEach((r,i)=>{
+    Tt+=O(r.s);
+    rovers.forEach((r2,j)=>{if(j>i&&Math.abs(i-j)===1)Tt+=.65*normSq(r.s,r2.s);});
+  });
+  return Tt;
+}
+
+function updateMissionState(Tt,health,faults){
+  const state=document.getElementById('mission-state');
+  const copy=document.getElementById('mission-copy');
+  const status=document.getElementById('system-status');
+  const ring=document.getElementById('status-ring');
+  const name=document.getElementById('status-name');
+  const detail=document.getElementById('status-detail');
+
+  if(Tt>.55||faults>=2){
+    state.textContent='Critical';
+    state.style.color='var(--red)';
+    copy.textContent='Multiple resilience thresholds are under stress. Recovery logic and twin escalation are now central to mission continuity.';
+    status.textContent='Critical Tension';
+    status.style.color='var(--red)';
+    status.style.borderColor='rgba(255,108,120,0.32)';
+    ring.textContent='A5';
+    ring.style.color='var(--red)';
+    ring.style.borderColor='rgba(255,108,120,0.32)';
+    name.textContent='Critical Load';
+    detail.textContent='Recovery escalation active';
+  } else if(Tt>.22||health<.78){
+    state.textContent='Elevated';
+    state.style.color='var(--amber)';
+    copy.textContent='The field is still viable, but tension density is rising and operator recovery must preserve coherence before cascade conditions emerge.';
+    status.textContent='Elevated Tension';
+    status.style.color='var(--amber)';
+    status.style.borderColor='rgba(255,191,105,0.32)';
+    ring.textContent='A1';
+    ring.style.color='var(--amber)';
+    ring.style.borderColor='rgba(255,191,105,0.32)';
+    name.textContent='Pressure Build';
+    detail.textContent='Stability still recoverable';
+  } else {
+    state.textContent='Nominal';
+    state.style.color='var(--gold)';
+    copy.textContent='Low tension, high cohesion, and continuous rover operability across the lunar terrain.';
+    status.textContent='System Active';
+    status.style.color='var(--green)';
+    status.style.borderColor='rgba(109,240,193,0.28)';
+    ring.textContent='A0';
+    ring.style.color='var(--cyan)';
+    ring.style.borderColor='rgba(95,226,255,0.24)';
+    name.textContent='Nominal';
+    detail.textContent='Resilient lunar network online';
+  }
+}
+
+function updateHUD(){
+  const active=rovers.filter(r=>!r.fault).length;
+  const health=rovers.reduce((s,r)=>s+Math.max(0,1-O(r.s)/.5),0)/rovers.length;
+  const faults=rovers.filter(r=>r.fault).length;
+  const Tt=computeTotals();
+  history.push(Tt);
+  if(history.length>90)history.shift();
+
+  document.getElementById('hn').textContent=active+'/'+rovers.length;
+  document.getElementById('hcy').textContent='Ω-'+Math.floor(fr/200+1);
+  document.getElementById('htw').textContent=twinCount;
+
+  const hc=document.getElementById('hc');
+  hc.textContent=(health*100).toFixed(1)+'%';
+  hc.className='hv'+(health<.55?' c':health<.75?' w':'');
+
+  const ht=document.getElementById('ht');
+  ht.textContent=Tt.toFixed(3);
+  ht.className='hv'+(Tt>.55?' c':Tt>.22?' w':'');
+
+  const hbn=document.getElementById('hbn');
+  hbn.style.width=Math.max(2,health*100)+'%';
+  hbn.style.background=health>.7?'#6df0c1':health>.4?'#ffbf69':'#ff6c78';
+  document.getElementById('hudtl').className='hud tl'+(Tt>.5?' danger':'');
+
+  document.getElementById('tv').textContent=Tt.toFixed(3);
+  document.getElementById('tv').style.color=Tt>.55?'var(--red)':Tt>.22?'var(--amber)':'var(--green)';
+  const tb=document.getElementById('tb');
+  tb.style.width=Math.min(100,Tt*100)+'%';
+  tb.style.background=Tt>.55?'#ff6c78':Tt>.22?'#ffbf69':'#6df0c1';
+
+  document.getElementById('metric-tension').textContent=Tt.toFixed(3);
+  document.getElementById('metric-tension').style.color=Tt>.55?'var(--red)':Tt>.22?'var(--amber)':'var(--cyan)';
+  document.getElementById('metric-cohesion').textContent=(health*100).toFixed(1)+'%';
+  document.getElementById('metric-cohesion').style.color=health<.65?'var(--amber)':'var(--green)';
+  document.getElementById('metric-faults').textContent=faults;
+  document.getElementById('metric-faults').style.color=faults?'var(--red)':'var(--amber)';
+  document.getElementById('metric-twins').textContent=twinCount;
+
+  document.getElementById('rhud').innerHTML=rovers.map(r=>{
+    const reg=regime(r.s);
+    const hp=Math.max(0,100-O(r.s)/.4*100).toFixed(0);
+    const st=r.fault?'FAULT':r.repairing?'REPAIR':r.twin?'TWIN':'NOMINAL';
+    return `<div class="hr"><span class="hk" style="color:${r.col}">Rover ${r.name}</span><span style="font-size:10px;color:${reg.col};font-family:var(--title)">${st}</span></div><div class="hb"><div class="hbf" style="width:${hp}%;background:${r.col}"></div></div>`;
+  }).join('');
+
+  updateMissionState(Tt,health,faults);
+  updateRightRail();
+}
+
+function drawHistory(){
+  const w=histcv.clientWidth,h=histcv.clientHeight;
+  histctx.clearRect(0,0,w,h);
+  const g=histctx.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,'rgba(95,226,255,0.12)');
+  g.addColorStop(1,'rgba(95,226,255,0)');
+  histctx.fillStyle=g;
+  histctx.fillRect(0,0,w,h);
+  for(let i=0;i<4;i++){
+    const y=16+i*((h-32)/3);
+    histctx.strokeStyle='rgba(255,255,255,0.06)';
+    histctx.beginPath();histctx.moveTo(0,y);histctx.lineTo(w,y);histctx.stroke();
+  }
+  if(history.length<2)return;
+  histctx.beginPath();
+  history.forEach((v,i)=>{
+    const x=i/(history.length-1)*(w-8)+4;
+    const y=h-14-Math.min(1,v)*(h-32);
+    if(i===0)histctx.moveTo(x,y);else histctx.lineTo(x,y);
+  });
+  histctx.strokeStyle='rgba(95,226,255,0.96)';
+  histctx.lineWidth=2;
+  histctx.stroke();
+}
+
+function drawRadar(rover){
+  const w=radarcv.clientWidth,h=radarcv.clientHeight,cx=w/2,cy=h/2+2,r=Math.min(w,h)*.34;
+  radarctx.clearRect(0,0,w,h);
+  const labels=['E','I','A','R','V'];
+  radarctx.strokeStyle='rgba(255,255,255,0.08)';
+  for(let k=1;k<=4;k++){
+    radarctx.beginPath();
+    for(let i=0;i<5;i++){
+      const a=-Math.PI/2+i*(Math.PI*2/5);
+      const px=cx+Math.cos(a)*(r*k/4),py=cy+Math.sin(a)*(r*k/4);
+      if(i===0)radarctx.moveTo(px,py);else radarctx.lineTo(px,py);
+    }
+    radarctx.closePath();radarctx.stroke();
+  }
+  labels.forEach((label,i)=>{
+    const a=-Math.PI/2+i*(Math.PI*2/5);
+    const px=cx+Math.cos(a)*(r+18),py=cy+Math.sin(a)*(r+18);
+    radarctx.fillStyle='rgba(237,245,255,0.72)';
+    radarctx.font='11px Space Grotesk, sans-serif';
+    radarctx.textAlign='center';
+    radarctx.fillText(label,px,py);
+    radarctx.strokeStyle='rgba(255,255,255,0.08)';
+    radarctx.beginPath();radarctx.moveTo(cx,cy);radarctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);radarctx.stroke();
+  });
+  radarctx.beginPath();
+  rover.s.forEach((v,i)=>{
+    const a=-Math.PI/2+i*(Math.PI*2/5);
+    const px=cx+Math.cos(a)*(r*v),py=cy+Math.sin(a)*(r*v);
+    if(i===0)radarctx.moveTo(px,py);else radarctx.lineTo(px,py);
+  });
+  radarctx.closePath();
+  radarctx.fillStyle='rgba(95,226,255,0.18)';
+  radarctx.fill();
+  radarctx.strokeStyle=rover.col;
+  radarctx.lineWidth=2;
+  radarctx.stroke();
+}
+
+function updateRightRail(){
+  const rover=rovers[selectedRover]||rovers[0];
+  const reg=regime(rover.s);
+  const health=Math.max(0,100-O(rover.s)/.4*100).toFixed(0);
+  document.getElementById('sel-name').textContent='Rover '+rover.name;
+  document.getElementById('sel-regime').textContent=reg.code+' · '+reg.label;
+  document.getElementById('sel-regime').style.color=reg.col;
+  document.getElementById('sel-health').textContent=health+'%';
+  drawHistory();
+  drawRadar(rover);
+  document.getElementById('rover-matrix').innerHTML=rovers.map((r,i)=>{
+    const reg=regime(r.s);
+    const coh=Math.max(0,100-O(r.s)/.4*100).toFixed(0);
+    return `<div class="rv-card ${i===selectedRover?'active':''}" onclick="setSelectedRover(${i})"><div class="rv-top"><div class="rv-name" style="color:${r.col}">Rover ${r.name}</div><div class="rv-reg" style="color:${reg.col}">${r.fault?'FAULT':r.twin?'TWIN':reg.code}</div></div><div class="rv-metrics"><div>Tension<strong>${O(r.s).toFixed(3)}</strong></div><div>Agency<strong>${r.s[2].toFixed(2)}</strong></div><div>Recovery<strong>${r.s[3].toFixed(2)}</strong></div></div><div class="rv-bar"><span style="width:${coh}%;background:${r.col}"></span></div></div>`;
+  }).join('');
+}
+
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  drawSky();drawNebula();drawStars();drawEarth();drawTerrain();drawNetwork();
+  rovers.forEach(r=>drawRover(r));
+  particles=particles.filter(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=.055;p.life-=.019;
+    const pr=safeR(p.size*p.life);
+    if(pr>0&&p.life>0){ctx.beginPath();safeArc(ctx,p.x,p.y,pr,0,Math.PI*2);ctx.fillStyle=p.col+Math.floor(p.life*255).toString(16).padStart(2,'0');ctx.fill();}
+    return p.life>0;
+  });
+  updateRovers();
+  if(fr%2===0)updateHUD();
+  fr++;
+  requestAnimationFrame(loop);
+}
+
+resize();
+initRovers();
+xpl('school','V');
+xpl('uni','V');
+xpl('phd','V');
+addLog('VEHICLE-SUPRA initialized','ok');
+addLog('4 E.I.A.R.(V) nodes deployed on the lunar field','ok');
+loop();
+
+window.setLevel=setLevel;
+window.xpl=xpl;
+window.injectFault=injectFault;
+window.injectCascade=injectCascade;
+window.resetAll=resetAll;
+window.setSelectedRover=setSelectedRover;
+</script>
+</body>
+</html>

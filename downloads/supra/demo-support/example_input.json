@@ -1,0 +1,10 @@
+{
+  "mission": "lunar_rover_resilience_demo",
+  "nodes": 4,
+  "state_vector": "E.I.A.R.(V)",
+  "scenarios": [
+    "fault_injection",
+    "cascade",
+    "twin_recovery"
+  ]
+}

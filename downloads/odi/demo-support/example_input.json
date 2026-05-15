@@ -1,0 +1,26 @@
+{
+  "objects": [
+    {
+      "id": "RB-001",
+      "type": "rocket_body",
+      "mass_kg": 800,
+      "orbit_band": "LEO 600-900",
+      "state": "A5"
+    },
+    {
+      "id": "FM-034",
+      "type": "medium_fragment",
+      "mass_kg": 50,
+      "orbit_band": "SSO",
+      "state": "A3"
+    }
+  ],
+  "metrics": [
+    "OTI",
+    "T_ext",
+    "T_int",
+    "O(S)",
+    "V_i"
+  ],
+  "scenario": "fragmentation_event"
+}

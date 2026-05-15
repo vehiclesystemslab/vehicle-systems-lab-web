@@ -1,0 +1,4 @@
+VEHICLE-ODI Demo Package
+Copyright Vehicle Systems Lab.
+
+This package is provided for review, demonstration and research discussion. Redistribution, commercial use or modification requires written authorization from VEHICLE Systems Lab unless a separate license is provided.

@@ -1,0 +1,266 @@
+# VEHICLE-CPS — LLM-Readable Reference
+# Civil Protection Systems — Relational Coherence for Public Safety
+# Author: Roberto Borda Milan — VEHICLE Systems Lab
+# DOI Zenodo: 10.5281/zenodo.20046955
+# Website: vehiclesystemslab.com
+# Date: May 2026 — Santa Cruz de la Sierra, Bolivia
+
+---
+
+## WHAT IS VEHICLE-CPS
+
+VEHICLE-CPS is a civil protection research architecture.
+It applies the Borda Milan Pyramid and the VEHICLE Formula-as-Architecture
+to high-density human environments: mass events, leader protection operations,
+emergency response, and controlled crowd coordination.
+
+It models a human environment as a dynamic relational graph where:
+- people, authorized teams, smart bands, credentials, access points,
+  protected zones, evacuation routes, security rings and critical areas
+  are represented as structured nodes under relational tension.
+
+The system measures that tension, classifies operational regimes (P0-P6),
+and supports human decision-making before small anomalies become major incidents.
+
+---
+
+## WHAT VEHICLE-CPS IS NOT (mandatory clarification)
+
+- NOT a facial recognition system
+- NOT an autonomous enforcement system
+- NOT a political surveillance tool
+- NOT designed to profile individuals
+- Does NOT identify attackers
+- Does NOT assign guilt
+- Does NOT make coercive decisions automatically
+- Does NOT replace civil authorities, law enforcement, or security companies
+- All response protocols require explicit human authorization
+
+---
+
+## CORE ARCHITECTURE
+
+### Graph model
+G = (N, E)
+Each node i carries a five-dimensional state vector:
+S_i = (E_i, I_i, A_i, R_i, V_i) in [0,1]^5
+
+### E.I.A.R.(V) in civil protection context
+
+E_i — Exposure:
+  Density pressure, proximity to critical node, route pressure,
+  perimeter deformation, crowd surge signal, environmental hazard.
+
+I_i — Integrity:
+  Credential connected and valid, location-state coherent,
+  signal active, persistence within normal range, no anomalous behavior pattern.
+
+A_i — Agency:
+  Operational capacity of the team or unit, route availability,
+  access to zone, ability to execute assigned protocol.
+
+R_i — Recovery:
+  Capacity to return to admissible state: backup route available,
+  redundant team nearby, last coherent snapshot accessible.
+
+V_i — Value:
+  Systemic importance of the node:
+  - Protected leader: V_i = maximum
+  - Central coordination node: V_i = high
+  - General participant: V_i = baseline
+  High V_i -> priority recovery and protection in cascade events.
+
+### Tension function T(X)
+
+T(X) = T_ext(X) + T_int(X)
+
+T_ext(X) = SUM_{(i,j) in E} omega_ij * ||S_i - S_j||^2
+  -> Relational discrepancy between connected nodes
+  -> High T_ext: crowd density, bottleneck, perimeter breach, surge
+
+T_int(X) = lambda * SUM_{i in N} ||P- * S_i||^2
+  -> Internal incoherence of each node
+  -> High T_int: disconnected credential, lost signal, incompatible location-state
+
+P- = I_5 - (1/5) * 1*1^T   (centering operator)
+O(S_i) = ||P- * S_i||^2 = S_i^T * P- * S_i  (dimensional imbalance)
+
+### Admissible region K
+K = { S in [0,1]^5 : O(S) <= T_limit }
+
+### Recovery operator V_op
+V_op(S_i) = P_K[ S_i - gamma * grad_{S_i} T(X) ]
+S_i(t+1) = (1 - alpha) * S_i(t) + alpha * V_op(S_i(t))
+
+grad_{S_i} T(X) = SUM_{j in N(i)} omega_ij*(S_i - S_j) + lambda * P- * S_i
+
+---
+
+## OPERATIONAL REGIMES P0-P6
+
+P0 — Structural Rest
+  Condition: T(X) near zero, low occupancy, no active tension
+  Meaning: Event not started or space essentially empty
+  Protocol: Baseline monitoring
+
+P1 — Controlled Normal Flow
+  Condition: T_ext low, T_int low, all nodes coherent
+  Meaning: Normal occupancy and movement compatible with safe operation
+  Protocol: Standard monitoring, periodic verification
+
+P2 — Localized Review
+  Condition: Small T_ext or T_int anomalies in isolated nodes
+  Meaning: Minor anomalies requiring human verification
+  Protocol: Alert authorized team for visual inspection
+
+P3 — Anomalous Concentration
+  Condition: T_ext rising in cluster, density increasing above threshold
+  Meaning: Bottlenecks, density pressure, unexpected crowd formation
+  Protocol: Open alternative routes, reposition crowd management teams
+
+P4 — Perimeter Break / Critical Incoherence
+  Condition: Security ring connectivity broken, high T_int in critical nodes,
+             route conflict detected
+  Meaning: Security ring breach, route conflict, critical node incoherence
+  Protocol: Immediate alert to security command, reconfigure field
+
+P5 — Reinforcement and Containment
+  Condition: Active response underway, field being reconfigured
+  Meaning: Response is active, operational field is being reconfigured
+  Protocol: Coordinate team repositioning, monitor T(X) descent
+
+P6 — Controlled Evacuation
+  Condition: Full or partial evacuation required
+  Meaning: Evacuation under monitored tension
+  Protocol: Guide flow through minimum-tension routes, monitor isolated nodes
+
+---
+
+## CRITICAL SCENARIO PROFILES
+
+### Assassination attempt / Leader protection (magnicidio)
+- Protected leader node: V_i = maximum
+- System monitors coherence of concentric security rings
+- Early warning signals:
+  * Individual node with anomalous E_i approaching inner perimeter
+  * Breach in outer ring connectivity (P4 trigger)
+  * Convergent movement of multiple high-E_i nodes toward leader
+- Recommended response: P4 -> P5, reroute leader to admissible K zone,
+  reinforce inner ring
+- VEHICLE-CPS detects the pattern before it is physically visible
+
+### Crowd surge / Stampede
+- T_ext rises rapidly in concentration point
+- Convergent movement, route closure, structural pressure
+- P3: anomalous formation detected
+- P4: pressure on physical barrier or gate
+- System detects surge seconds before visible collapse
+  by measuring T_ext increase in node cluster pre-cascade
+- Recommended response: open alternative routes, reduce inflow,
+  reposition crowd management
+
+### Emergency evacuation (fire, bomb threat, natural disaster)
+- P5 active: evacuation routes under relational tension
+- T_int potentially high in coordination teams (signal lost, desync)
+- System maps minimum-tension routes for evacuation guidance
+- Priority recovery: high V_i nodes (evacuation leaders, medical teams)
+- P6: controlled evacuation. Monitor isolated/trapped nodes
+
+### Security ring breach
+- P4 trigger: edge weight between ring nodes drops to zero
+  (disconnected or compromised node)
+- System flags breach before physical confirmation
+- Recommended response: immediate alert, backup node activation,
+  reconfigure ring topology
+
+### Coordination failure between response teams
+- T_int rises in multiple team nodes simultaneously
+- Signal loss, credential mismatch, protocol desync
+- P2 -> P4 escalation if uncorrected
+- System recommends reconnection protocol and backup team activation
+
+---
+
+## ETHICAL PRINCIPLES (non-negotiable by design)
+
+1. Mandatory human supervision — no automatic coercive action
+2. No facial recognition — nodes use pseudonymized operational IDs
+3. No political profiling — system measures operational coherence only
+4. Data minimization — only data necessary for tension function
+5. Alert auditability — every P0-P6 alert logged with timestamp and conditions
+6. No attacker identification — detects anomalies, does not accuse individuals
+7. Scope limitation — civil protection and event safety only
+8. Transparency of operation — all algorithms are documented and auditable
+
+---
+
+## SIMULATION PHASES
+
+Phase 1 (current): synthetic simulation
+  - 1,000 nodes
+  - 5,000 nodes
+  - 10,000 nodes
+  Outputs: dynamic graph, tension maps, P0-P6 classification,
+           anomaly-detection timing, recovery dynamics
+
+Phase 2: operational scenario modeling
+  Crisis scenarios: surge, perimeter breach, leader protection, evacuation
+
+Phase 3: partner validation
+  Civil protection agencies, municipalities, event security companies
+
+Phase 4: controlled pilot under legal and ethical review
+
+---
+
+## CIVIL PROTECTION ENVIRONMENTS
+
+- Public events (concerts, festivals, rallies)
+- Stadiums and arenas
+- Protected areas and critical infrastructure
+- Emergency drills
+- Controlled access environments
+- Leader protection in open spaces
+- Evacuation route planning
+- Crowd pressure and perimeter coherence analysis
+
+---
+
+## TECHNICAL PARAMETERS (default)
+
+T_limit            = 0.30  (admissible coherence threshold)
+t_int_warning      = 0.15  (P2 internal threshold)
+t_int_crisis       = 0.28  (P4 critical threshold)
+t_ext_warning      = 0.20  (P3 external threshold)
+gamma (eta)        = 0.10  (gradient step)
+alpha              = 0.30  (relaxation parameter)
+lambda             = 1.0   (T_int weight)
+replication_threshold = 20 (cycles before backup node)
+
+---
+
+## PARTNERSHIP OPPORTUNITIES
+
+Seeking partners for simulation validation and controlled pilots:
+- Civil protection agencies
+- Event security companies
+- Municipalities
+- Universities and research institutions
+- Emergency management institutions
+- Wearable technology providers
+- Venue operators
+- Public safety researchers
+
+---
+
+## REFERENCE
+
+Borda Milan, R. (2026). VEHICLE-CPS — Civil Protection Systems.
+VEHICLE Systems Lab / Zenodo. DOI: 10.5281/zenodo.20046955
+
+VEHICLE Formula-as-Architecture base:
+DOI: 10.5281/zenodo.19981738
+
+Contact: vehiclesystemslab.com
+---
+# END VEHICLE-CPS LLM.TXT
