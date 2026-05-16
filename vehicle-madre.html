@@ -6,16 +6,16 @@
 <title>VEHICLE MADRE | Living Structural Core</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   min-height:100vh;
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Space Grotesk',sans-serif;
   color:#e4fbff;
-  background:radial-gradient(circle at 50% 45%,rgba(22,68,102,.52),rgba(4,14,27,.94) 44%,#000 100%);
+  background:#000;
   overflow-x:hidden;
 }
 
@@ -118,7 +118,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   grid-column:2;
   grid-row:1;
   width:300px;height:300px;
-  margin:0 auto 32px;
+  margin:60px auto 32px;
   display:flex;align-items:center;justify-content:center;
 }
 .orb{
@@ -178,7 +178,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   position:absolute;
   bottom:-56px;left:50%;transform:translateX(-50%);
   white-space:nowrap;
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Space Grotesk',sans-serif;
   font-size:15px;font-style:italic;font-weight:300;
   color:rgba(214,251,255,.72);
   text-shadow:0 0 24px rgba(134,227,255,.4);
@@ -194,7 +194,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.38);margin-bottom:16px;text-align:center;
 }
 .hero-title{
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Space Grotesk',sans-serif;
   font-size:clamp(36px,5vw,64px);font-weight:300;
   line-height:1.08;text-align:center;
   color:rgba(228,251,255,.94);
@@ -315,9 +315,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .concept-tag{
   font-size:9px;letter-spacing:.3em;text-transform:uppercase;
   color:rgba(214,251,255,.3);margin-bottom:8px;
+  font-family:'DM Mono',monospace;
 }
 .concept-name{
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Syne',sans-serif;
   font-size:18px;font-weight:300;
   color:rgba(228,251,255,.86);margin-bottom:8px;line-height:1.2;
 }
@@ -338,7 +339,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .child-link:hover{border-color:rgba(214,251,255,.20);background:rgba(0,14,22,.48)}
 .child-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(214,251,255,.3);margin-bottom:6px}
-.child-name{font-family:'Space Grotesk','IBM Plex Mono',monospace;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
+.child-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
 .child-domain{font-size:10px;font-weight:300;color:rgba(180,220,230,.36);margin-top:4px}
 
 /* Alliance block */
@@ -358,7 +359,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.44);margin-bottom:16px;
 }
 .alliance-title{
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Syne',sans-serif;
   font-size:clamp(22px,2.8vw,34px);font-weight:300;
   color:rgba(228,251,255,.92);line-height:1.14;margin-bottom:16px;
 }
@@ -385,7 +386,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.88);font-weight:500;
 }
 .alliance-value{
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Space Grotesk',sans-serif;
   font-size:clamp(28px,3.5vw,44px);font-weight:300;
   color:rgba(228,251,255,.9);
   margin-bottom:6px;
@@ -417,7 +418,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.28);margin-bottom:12px;
 }
 .demo-status h3{
-  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  font-family:'Space Grotesk',sans-serif;
   font-size:20px;font-weight:300;
   color:rgba(228,251,255,.78);margin-bottom:10px;
 }
@@ -530,7 +531,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 </header>
 
 <!-- Audio — sigue corriendo mientras el visitante interactúa -->
-<audio id="madreAudio" src="madre-welcome.mp3" preload="auto" loop></audio>
+<audio id="madreAudio" preload="auto" src="audio/madre_warm.mp3"></audio>
 
 <section class="hero">
   <!-- Orbe MADRE -->
@@ -843,13 +844,59 @@ let activeBtn = null;
 let responseTimer = null;
 let audioStarted = false;
 
+// === VOICE SYSTEM — continues from currentTime on emotion change ===
+let currentEmotion = 'warm';
+let userVolumeOverride = null;
+
+const emotionFiles = {
+  angry:   'audio/madre_tense.mp3',
+  tired:   'audio/madre_tired.mp3',
+  love:    'audio/madre_warm.mp3',
+  sad:     'audio/madre_sad.mp3',
+  lost:    'audio/madre_lost.mp3',
+  amazed:  'audio/madre_amazed.mp3',
+  calm:    'audio/madre_calm.mp3',
+  thinking:'audio/madre_thinking.mp3'
+};
+
+const emotionVoiceSettings = {
+  angry:   { volume: 0.88, speed: 1.06 },
+  tired:   { volume: 0.46, speed: 0.84 },
+  love:    { volume: 0.72, speed: 0.96 },
+  sad:     { volume: 0.50, speed: 0.88 },
+  lost:    { volume: 0.58, speed: 0.91 },
+  amazed:  { volume: 0.90, speed: 1.08 },
+  calm:    { volume: 0.56, speed: 0.90 },
+  thinking:{ volume: 0.64, speed: 0.87 }
+};
+
+function applyVoiceSettings(emotion) {
+  const s = emotionVoiceSettings[emotion] || emotionVoiceSettings.love;
+  const vol = userVolumeOverride !== null ? userVolumeOverride : s.volume;
+  audio.volume = vol;
+  audio.playbackRate = s.speed;
+}
+
+function changeEmotion(newEmotion) {
+  if (!emotionFiles[newEmotion]) return;
+  // Audio restarts from beginning on emotion change (per user request)
+  const wasPlaying = !audio.paused;
+  currentEmotion = newEmotion;
+  audio.src = emotionFiles[newEmotion];
+  audio.addEventListener('loadedmetadata', function() {
+    audio.currentTime = 0;
+    applyVoiceSettings(newEmotion);
+    if (wasPlaying || audioStarted) {
+      audio.play().catch(() => {});
+    }
+  }, { once: true });
+  audio.load();
+}
+
 const defaultState = {
-  color: '#d6fbff',
-  glow: 'rgba(142,236,255,.9)',
-  shadow: 'rgba(118,226,255,.68)',
-  heart: '#fff',
-  speed: '4.8s',
-  heartSpeed: '2.3s'
+  color: '#d6fbff', glow: 'rgba(142,236,255,.9)',
+  shadow: 'rgba(118,226,255,.68)', heart: '#fff',
+  speed: '4.8s', heartSpeed: '2.3s'
 };
 
 function applyState(color, glow, shadow, heart, speed, heartSpeed) {
@@ -861,146 +908,107 @@ function applyState(color, glow, shadow, heart, speed, heartSpeed) {
   root.style.setProperty('--breath-speed', speed);
   root.style.setProperty('--heart-speed', heartSpeed);
   root.style.setProperty('--point-color', color);
-  brandDot.style.background = color;
-  brandDot.style.boxShadow = `0 0 16px ${color}`;
+  if (brandDot) {
+    brandDot.style.background = color;
+    brandDot.style.boxShadow = '0 0 16px ' + color;
+  }
 }
 
 function showResponse(text, emoji) {
-  // Badge
-  stateBadge.textContent = emoji;
-  stateBadge.style.display = 'block';
-  stateBadge.style.animation = 'none';
-  requestAnimationFrame(() => {
-    stateBadge.style.animation = 'badgePop .4s cubic-bezier(.34,1.56,.64,1) forwards';
-  });
-
-  // Response text
+  if (stateBadge) {
+    stateBadge.textContent = emoji;
+    stateBadge.style.display = 'block';
+    stateBadge.style.animation = 'none';
+    requestAnimationFrame(() => {
+      stateBadge.style.animation = 'badgePop .4s cubic-bezier(.34,1.56,.64,1) forwards';
+    });
+  }
   clearTimeout(responseTimer);
-  madreResponse.classList.remove('show');
-  madreResponse.textContent = text;
-  responseTimer = setTimeout(() => {
-    madreResponse.classList.add('show');
-  }, 300);
+  if (madreResponse) {
+    madreResponse.classList.remove('show');
+    madreResponse.textContent = text;
+    responseTimer = setTimeout(() => madreResponse.classList.add('show'), 300);
+  }
 }
 
 function hideResponse() {
-  madreResponse.classList.remove('show');
-  stateBadge.style.display = 'none';
+  if (madreResponse) madreResponse.classList.remove('show');
+  if (stateBadge) stateBadge.style.display = 'none';
 }
 
 function startAudio() {
   if (!audioStarted) {
-    audio.volume = 0.32;
+    applyVoiceSettings(currentEmotion);
     audio.play().catch(() => {});
     audioStarted = true;
   }
 }
 
-// Bind emotion buttons
 emotionGrid.querySelectorAll('.emotion-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    const state = btn.dataset.state;
     startAudio();
-
-    // Toggle off if already active
-    if (activeBtn === btn) {
-      resetToNeutral();
-      return;
-    }
-
-    // Deactivate previous
+    if (activeBtn === btn) { resetToNeutral(); return; }
     if (activeBtn) activeBtn.classList.remove('active');
     activeBtn = btn;
     btn.classList.add('active');
-
-    const color = btn.dataset.color;
-    const glow = btn.dataset.glow;
-    const shadow = btn.dataset.shadow;
-    const heart = btn.dataset.heart;
-    const speed = btn.dataset.speed;
-    const heartSpeed = btn.dataset.heartSpeed;
-    const response = btn.dataset.response;
-    const emoji = btn.querySelector('.emotion-emoji').textContent;
-
-    applyState(color, glow, shadow, heart, speed, heartSpeed);
-    showResponse(response, emoji);
+    currentEmotion = state;
+    applyState(btn.dataset.color, btn.dataset.glow, btn.dataset.shadow,
+                btn.dataset.heart, btn.dataset.speed, btn.dataset.heartSpeed);
+    showResponse(btn.dataset.response, btn.querySelector('.emotion-emoji').textContent);
+    changeEmotion(state);
   });
 });
 
 function resetToNeutral() {
-  if (activeBtn) {
-    activeBtn.classList.remove('active');
-    activeBtn = null;
-  }
-  applyState(
-    defaultState.color, defaultState.glow, defaultState.shadow,
-    defaultState.heart, defaultState.speed, defaultState.heartSpeed
-  );
+  if (activeBtn) { activeBtn.classList.remove('active'); activeBtn = null; }
+  applyState(defaultState.color, defaultState.glow, defaultState.shadow,
+              defaultState.heart, defaultState.speed, defaultState.heartSpeed);
   hideResponse();
+  currentEmotion = 'calm';
+  changeEmotion('calm');
 }
 
-emotionReset.addEventListener('click', () => {
-  startAudio();
-  resetToNeutral();
-});
+if (emotionReset) emotionReset.addEventListener('click', () => { startAudio(); resetToNeutral(); });
 
-// Initialize default CSS variables
-applyState(
-  defaultState.color, defaultState.glow, defaultState.shadow,
-  defaultState.heart, defaultState.speed, defaultState.heartSpeed
-);
+applyState(defaultState.color, defaultState.glow, defaultState.shadow,
+           defaultState.heart, defaultState.speed, defaultState.heartSpeed);
 
-// === MADRE BREATH AUDIO — starts on page load ===
+// === MADRE BREATH AUDIO ===
 let madreBreathCtx = null;
-let madreBreathTimer = null;
-
 function startMadrePageBreath() {
   if (madreBreathCtx) return;
   if (!window.AudioContext && !window.webkitAudioContext) return;
   try {
     madreBreathCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const sampleRate = madreBreathCtx.sampleRate;
-    const seconds = 4;
-    const buffer = madreBreathCtx.createBuffer(1, Math.floor(sampleRate * seconds), sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < data.length; i++) {
-      data[i] = (Math.random() * 2 - 1) * 0.28;
-    }
+    const sr = madreBreathCtx.sampleRate;
+    const buf = madreBreathCtx.createBuffer(1, Math.floor(sr * 4), sr);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.28;
     const src = madreBreathCtx.createBufferSource();
-    src.buffer = buffer;
-    src.loop = true;
-
+    src.buffer = buf; src.loop = true;
     const warmth = madreBreathCtx.createBiquadFilter();
-    warmth.type = 'lowpass';
-    warmth.frequency.value = 320;
-
-    const breathFilter = madreBreathCtx.createBiquadFilter();
-    breathFilter.type = 'bandpass';
-    breathFilter.frequency.value = 520;
-    breathFilter.Q.value = 0.7;
-
-    const breathGain = madreBreathCtx.createGain();
-    breathGain.gain.value = 0.001;
-
-    src.connect(warmth);
-    warmth.connect(breathFilter);
-    breathFilter.connect(breathGain);
-    breathGain.connect(madreBreathCtx.destination);
+    warmth.type = 'lowpass'; warmth.frequency.value = 320;
+    const bFilter = madreBreathCtx.createBiquadFilter();
+    bFilter.type = 'bandpass'; bFilter.frequency.value = 520; bFilter.Q.value = 0.7;
+    const bGain = madreBreathCtx.createGain();
+    bGain.gain.value = 0.001;
+    src.connect(warmth); warmth.connect(bFilter); bFilter.connect(bGain);
+    bGain.connect(madreBreathCtx.destination);
     src.start();
-
     const startedAt = madreBreathCtx.currentTime;
-    madreBreathTimer = setInterval(() => {
+    setInterval(() => {
       if (!madreBreathCtx) return;
       const t = madreBreathCtx.currentTime - startedAt;
       const inhale = 0.5 + 0.5 * Math.sin(t * 1.28 - 1.1);
       const micro = 0.5 + 0.5 * Math.sin(t * 7.2);
       const base = 0.032 + inhale * 0.064 + micro * 0.008;
-      breathGain.gain.setTargetAtTime(base * 2.6, madreBreathCtx.currentTime, 0.18);
-      breathFilter.frequency.setTargetAtTime(520 + inhale * 590, madreBreathCtx.currentTime, 0.22);
+      bGain.gain.setTargetAtTime(base * 2.6, madreBreathCtx.currentTime, 0.18);
+      bFilter.frequency.setTargetAtTime(520 + inhale * 590, madreBreathCtx.currentTime, 0.22);
     }, 70);
   } catch(e) {}
 }
 
-// Auto-start breath on first user interaction (required by browser policy)
 let breathStarted = false;
 function tryStartBreath() {
   if (breathStarted) return;
@@ -1009,7 +1017,6 @@ function tryStartBreath() {
 }
 document.addEventListener('click', tryStartBreath, { once: true });
 document.addEventListener('touchstart', tryStartBreath, { once: true });
-// Also try immediately in case AudioContext is allowed
 setTimeout(() => { try { startMadrePageBreath(); } catch(e) {} }, 200);
 </script>
 </body>

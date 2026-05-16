@@ -158,12 +158,23 @@
     <section id="madreScene" class="scene madre-scene" aria-live="polite">
       <button class="scene-back" data-back type="button">BACK / MADRE</button>
       <div class="madre-veil" aria-hidden="true"></div>
-      <div class="scene-copy center-copy madre-copy">
+
+      <!-- Left: info text — low opacity, reveals on hover -->
+      <div class="madre-info-panel">
         <p id="madreText" class="scene-text"></p>
-        <div class="scene-links scene-links-center">
+        <div class="scene-links">
           <a class="scene-launch" href="vehicle-madre.html">OPEN MADRE PAGE</a>
-          <a href="VEHICLE-MADRE-Investor-Package-v1.zip" download>OPEN FULL MADRE PACKAGE</a>
-          <a href="vehicle-madre-ai-reference.txt" download>OPEN MADRE AI REFERENCE</a>
+          <a href="VEHICLE-MADRE-Investor-Package-v1.zip" download>FULL PACKAGE</a>
+          <a href="vehicle-madre-ai-reference.txt" download>AI REFERENCE</a>
+        </div>
+      </div>
+
+      <!-- Right: audio invitation -->
+      <div class="madre-audio-invite">
+        <div class="audio-invite-line">Listen to the full audio</div>
+        <div class="audio-invite-sub">to understand MADRE.</div>
+        <div class="audio-pulse" aria-hidden="true">
+          <span></span><span></span><span></span>
         </div>
       </div>
       <div class="scene-downloads madre-downloads">

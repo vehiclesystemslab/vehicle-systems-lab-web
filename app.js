@@ -35,7 +35,7 @@ const audios = {
   madre: document.getElementById('madreAudio')
 };
 
-const bootReady = new URLSearchParams(window.location.search).get('ready') === '1';
+const bootReady = new URLSearchParams(window.location.search).get('ready') === '1' || (function(){ try { return localStorage.getItem('madreAwake') === '1'; } catch(e){ return false; } })();
 
 const projectMeta = {
   idle: {
@@ -505,6 +505,7 @@ function wakeMadre() {
   currentState = 'awakening';
   stage.classList.remove('sleeping');
   stage.classList.add('awakening');
+  try { localStorage.setItem('madreAwake', '1'); } catch(e) {}
 
   // Breath audio — never block wake on failure
   try { startMadreBreathAudio(); } catch(e) {}
@@ -549,18 +550,18 @@ function showProjects() {
   setFooter('idle');
   setTimeout(() => renderVoice(''), 900);
 
-  // Stagger project buttons — appear one by one with 300ms gap
+  // Ceremonial stagger — each button rises from below, one by one
   const order = ['supra', 'odi', 'cps', 'access', 'madre'];
   order.forEach((name, i) => {
     const btn = document.querySelector(`.project-name.${name}`);
     if (!btn) return;
     btn.style.opacity = '0';
-    btn.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-    btn.style.transform = 'scale(0.78)';
+    btn.style.transform = 'translateY(36px) scale(0.88)';
+    btn.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)';
     setTimeout(() => {
       btn.style.opacity = '1';
-      btn.style.transform = 'scale(1)';
-    }, 400 + i * 300);
+      btn.style.transform = 'translateY(0) scale(1)';
+    }, 600 + i * 500);
   });
 }
 

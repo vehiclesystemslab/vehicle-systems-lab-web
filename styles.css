@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap');
 
 :root {
-  --font-display: 'Space Grotesk', Arial, Helvetica, sans-serif;
-  --font-body: 'Space Grotesk', Inter, Arial, Helvetica, sans-serif;
+  --font-display: 'Syne', 'Space Grotesk', Arial, sans-serif;
+  --font-body: 'Space Grotesk', Arial, sans-serif;
+  --font-mono: 'DM Mono', monospace;
   --cyan: #d6fbff;
   --blue: #79d9ff;
   --soft: rgba(228, 251, 255, 0.82);
@@ -27,7 +28,7 @@ button { font-family: inherit; }
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 45%, rgba(22, 68, 102, 0.48), rgba(4, 14, 27, 0.92) 42%, #000 100%);
+  background: #000;
 }
 
 .space, .network, .vignette, .grain { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -1169,3 +1170,141 @@ button { font-family: inherit; }
   color: rgba(234, 252, 255, 0.18);
   line-height: 1.7;
 }
+
+/* ============================================================
+   MADRE SCENE — 2026-05-16 redesign
+   ============================================================ */
+
+/* Info panel — left, low opacity, reveals on hover */
+.madre-info-panel {
+  position: absolute;
+  z-index: 25;
+  left: 5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(340px, 28vw);
+  padding: 28px 26px;
+  border-left: 1px solid rgba(193,235,255,.22);
+  background: linear-gradient(90deg,rgba(0,8,18,.72),rgba(0,8,18,.12));
+  backdrop-filter: blur(10px);
+  opacity: .22;
+  transition: opacity .5s ease;
+}
+.madre-info-panel:hover { opacity: 1; }
+.madre-info-panel .scene-text {
+  font: clamp(13px,1.1vw,17px) var(--font-body);
+  letter-spacing: .04em;
+  line-height: 1.7;
+  white-space: pre-line;
+  color: rgba(230,248,255,.88);
+  opacity: 1;
+  transform: none;
+}
+.madre-info-panel .scene-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+.madre-info-panel .scene-links a {
+  font: 9px var(--font-display);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(180,230,255,.72);
+  padding: 10px 14px;
+  border: 1px solid rgba(180,230,255,.18);
+  background: rgba(0,12,24,.48);
+  transition: background .2s, color .2s;
+}
+.madre-info-panel .scene-links a:hover {
+  background: rgba(20,60,100,.52);
+  color: rgba(220,248,255,.96);
+}
+.scene-launch {
+  color: rgba(220,248,255,.96) !important;
+  border-color: rgba(180,230,255,.32) !important;
+}
+
+/* Audio invite — right side */
+.madre-audio-invite {
+  position: absolute;
+  z-index: 25;
+  right: 5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+  pointer-events: none;
+}
+.audio-invite-line {
+  font: 600 clamp(14px,1.4vw,20px) var(--font-display);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(214,251,255,.82);
+  text-shadow: 0 0 32px rgba(134,227,255,.5);
+  margin-bottom: 6px;
+}
+.audio-invite-sub {
+  font: 300 clamp(12px,1.1vw,16px) var(--font-body);
+  letter-spacing: .08em;
+  color: rgba(180,230,255,.52);
+  margin-bottom: 20px;
+}
+.audio-pulse {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.audio-pulse span {
+  width: 3px;
+  border-radius: 999px;
+  background: rgba(134,227,255,.6);
+  animation: audioPulse 1.4s ease-in-out infinite;
+}
+.audio-pulse span:nth-child(1) { height: 12px; animation-delay: 0s; }
+.audio-pulse span:nth-child(2) { height: 22px; animation-delay: .18s; }
+.audio-pulse span:nth-child(3) { height: 14px; animation-delay: .36s; }
+@keyframes audioPulse {
+  0%,100% { transform: scaleY(.5); opacity: .4; }
+  50%      { transform: scaleY(1);  opacity: 1;  }
+}
+
+/* Hide audio invite when not in MADRE scene */
+.madre-audio-invite,
+.madre-info-panel {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s ease;
+}
+.stage.madre-active .madre-audio-invite {
+  opacity: 1;
+  pointer-events: none;
+}
+.stage.madre-active .madre-info-panel {
+  opacity: .22;
+  pointer-events: auto;
+}
+.stage.madre-active .madre-info-panel:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   TIPOGRAFÍA 2028 — Syne + Space Grotesk + DM Mono
+   ============================================================ */
+/* Home labels, status, voice */
+.status { font-family: var(--font-mono, 'DM Mono', monospace) !important; }
+.sleep-label { font-family: var(--font-mono, 'DM Mono', monospace) !important; }
+.voice-line { font-family: var(--font-display) !important; font-weight: 600 !important; letter-spacing: .08em !important; }
+.brand strong { font-family: var(--font-display) !important; font-weight: 700 !important; }
+.brand em { font-family: var(--font-body) !important; font-weight: 300 !important; }
+.project-name { font-family: var(--font-display) !important; font-weight: 600 !important; letter-spacing: .18em !important; }
+.scene-text { font-family: var(--font-display) !important; font-weight: 600 !important; }
+.scene-downloads a { font-family: var(--font-mono, 'DM Mono', monospace) !important; }
+.scene-back { font-family: var(--font-mono, 'DM Mono', monospace) !important; }
+.footer-note a { font-family: var(--font-mono, 'DM Mono', monospace) !important; }
+.left-whisper span { font-family: var(--font-display) !important; font-weight: 700 !important; }
+
+/* ============================================================
+   MADRE SCENE HIDDEN PANELS — Override old center-copy rule
+   ============================================================ */
+.madre-scene .center-copy,
+.madre-scene .madre-copy { display: none !important; }
