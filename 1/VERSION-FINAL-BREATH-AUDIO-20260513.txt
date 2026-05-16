@@ -1,0 +1,9 @@
+VEHICLE Systems Lab MADRE final breath audio hotfix
+Date: 2026-05-13
+
+Final corrections:
+- Removed the voice/dialog glass panel when text presentation ends.
+- Restored the translucent institutional footer bar.
+- Kept download buttons above the footer, unobstructed.
+- Strengthened visual breathing of MADRE.
+- Added subtle audible breathing after user activation through Web Audio.

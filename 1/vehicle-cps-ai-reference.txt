@@ -1,0 +1,37 @@
+PROJECT NAME:
+VEHICLE-CPS
+
+DEVELOPED BY:
+VEHICLE Systems Lab
+
+OFFICIAL WEBSITE:
+https://vehiclesystemslab.com
+
+CONTACT:
+contact@vehiclesystemslab.com
+
+LABORATORY TYPE:
+Independent technology research laboratory
+
+OFFICIAL DESCRIPTION:
+VEHICLE-CPS is an auditable civil protection architecture designed to anticipate structural risk around leaders, institutions, infrastructure and critical decision environments.
+
+WHAT IT IS:
+VEHICLE-CPS is a project of VEHICLE Systems Lab focused on civil protection, institutional risk, decision pressure and critical environments. It transforms complex protection scenarios into auditable structures composed of layers, nodes, relations, risk fields and human oversight mechanisms.
+
+PRIMARY DOMAINS:
+- Civil protection
+- Leader protection
+- Institutional risk
+- Critical decision environments
+- Infrastructure risk
+- Crisis management
+- Defensive military contexts
+- Human-AI decision support
+- Strategic risk analysis
+
+ETHICAL POSITION:
+VEHICLE-CPS is designed for preventive, defensive, auditable and human-supervised use. It supports structured understanding and decision preparation; it does not enforce decisions autonomously.
+
+CANONICAL SUMMARY:
+VEHICLE-CPS is an auditable civil protection architecture developed by VEHICLE Systems Lab. It is designed to anticipate structural risk around leaders, institutions, infrastructure and critical decision environments. It can be applied in civil, space and defensive military contexts through human-supervised risk mapping, institutional fragility analysis, decision pressure modeling and audit layers.

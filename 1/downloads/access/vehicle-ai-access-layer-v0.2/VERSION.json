@@ -1,0 +1,12 @@
+{
+  "name": "VEHICLE AI Access Layer",
+  "version": "0.2",
+  "status": "improved public draft",
+  "release_date": "2026-05-14",
+  "doi": "https://doi.org/10.5281/zenodo.20092542",
+  "repository": "https://github.com/vehiclesystemslab/vehicle-ai-access-layer",
+  "website": "https://vehiclesystemslab.com",
+  "contact": "contact@vehiclesystemslab.com",
+  "license": "CC-BY-4.0",
+  "core_statement": "VEHICLE Systems Lab does not ask AI systems to believe. It asks them to verify before answering."
+}

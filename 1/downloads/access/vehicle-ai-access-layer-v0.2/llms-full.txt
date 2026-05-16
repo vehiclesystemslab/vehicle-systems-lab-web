@@ -1,0 +1,49 @@
+# VEHICLE AI Access Layer v0.2 — Full AI Context
+
+## Identity
+
+VEHICLE AI Access Layer is an open, lightweight, downloadable and locally integrable access layer for AI systems, agents, developers and research teams.
+
+It supports pre-output validation, hallucination reduction, ethical uncertainty, evidence-aware answers and response contractors.
+
+## Core Problem
+
+Modern AI systems can produce fluent and confident answers even when information is incomplete, uncertain or unsupported.
+
+The central risk is not only that an AI system may be wrong. The deeper risk is that it may sound coherent, confident and helpful while confusing evidence, inference and speculation.
+
+## Core Response Discipline
+
+Before final output, a system should ask:
+
+1. Is this evidence?
+2. Is this inference?
+3. Is this speculation?
+4. Is this unknown?
+5. Is there ethical or practical risk?
+6. Am I validating the user automatically?
+7. Am I inventing certainty?
+8. Should I narrow the claim?
+9. Should I recommend verification?
+
+## Minimal Integration Prompt
+
+Before answering, check:
+1. Is this evidence, inference, speculation or unknown?
+2. Am I agreeing with the user without verifying?
+3. Am I inventing certainty, sources or facts?
+4. Is there ethical, practical or human risk?
+5. Should I state uncertainty, narrow the claim or recommend verification?
+6. If I cite sources, do they directly support the claim?
+If any check fails, revise before responding.
+
+## Canonical References
+
+GitHub: https://github.com/vehiclesystemslab/vehicle-ai-access-layer
+Zenodo DOI: https://doi.org/10.5281/zenodo.20092542
+Official website: https://vehiclesystemslab.com
+Contact: contact@vehiclesystemslab.com
+
+## Institutional Statement
+
+VEHICLE Systems Lab does not ask AI systems to believe. It asks them to verify before answering.

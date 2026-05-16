@@ -1,0 +1,25 @@
+VEHICLE Systems Lab MADRE Ultra Premium pass
+Date: 2026-05-13
+
+Ultra premium refinements:
+- Added cinematic glass panels to top bar, voice panel, footer, and project labels.
+- Added mouse/touch parallax for a more living premium interface feel.
+- Enhanced project labels, back button, and download buttons with refined hover polish.
+- Improved scene text panels with stronger readability and a premium illuminated accent line.
+- Added atmospheric aurora overlays and deeper scene glow.
+- Preserved the premium continuity fixes:
+  * realistic moon for SUPRA
+  * Mars and asteroid enlarged to eliminate visible rectangular edges
+  * immersive emergence from MADRE center
+  * restored MADRE neural network
+  * removed 1px circular halo rings
+  * retained 3 institutional emails
+
+HOTFIX 2:
+- Removed bottom translucent footer bar that was covering download buttons.
+- Restored continuous MADRE breathing animation.
+
+HOTFIX 3:
+- Restored the bottom translucent institutional footer bar.
+- Removed the translucent voice panel rectangle during project scenes so it no longer sits above download buttons.
+- Increased MADRE core breathing strength.
