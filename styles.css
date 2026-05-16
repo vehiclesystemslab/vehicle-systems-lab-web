@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap');
 
 :root {
-  --font-display: 'Syne', 'Space Grotesk', Arial, sans-serif;
-  --font-body: 'Space Grotesk', Arial, sans-serif;
-  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Plus Jakarta Sans', Arial, sans-serif;
+  --font-body: 'Plus Jakarta Sans', Arial, sans-serif;
+  --font-mono: 'Plus Jakarta Sans', monospace;
   --cyan: #d6fbff;
   --blue: #79d9ff;
   --soft: rgba(228, 251, 255, 0.82);
@@ -266,13 +266,13 @@ button { font-family: inherit; }
   position: absolute;
   border: 0;
   background: transparent;
-  color: rgba(238, 252, 255, 0.84);
+  color: rgba(255, 255, 255, 0.96);
   font: 11px var(--font-display);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
   padding: 10px 12px;
-  text-shadow: 0 0 28px rgba(112, 213, 255, 0.22);
+  text-shadow: 0 0 18px rgba(112,213,255,.8), 0 0 40px rgba(80,180,255,.4);
 }
 .project-name:hover { color: #fff; text-shadow: 0 0 38px rgba(168, 244, 255, 0.76); }
 .project-name.supra { left: -178px; top: 28%; }

@@ -37,6 +37,12 @@ const audios = {
 
 const bootReady = new URLSearchParams(window.location.search).get('ready') === '1' || (function(){ try { return localStorage.getItem('madreAwake') === '1'; } catch(e){ return false; } })();
 
+// Instantly apply awake state before first paint to prevent flash
+if (bootReady) {
+  stage.classList.remove('sleeping');
+  stage.classList.add('awake', 'projects-visible');
+}
+
 const projectMeta = {
   idle: {
     orcid: 'https://orcid.org/0009-0009-9047-1036',
@@ -458,7 +464,13 @@ function startMadreBreathAudio() {
     breathSource.connect(warmth);
     warmth.connect(breathFilter);
     breathFilter.connect(breathGain);
-    breathGain.connect(breathCtx.destination);
+    const breathCompressor = breathCtx.createDynamicsCompressor();
+    breathCompressor.threshold.value = -18;
+    breathCompressor.ratio.value = 4;
+    breathCompressor.attack.value = 0.02;
+    breathCompressor.release.value = 0.2;
+    breathGain.connect(breathCompressor);
+    breathCompressor.connect(breathCtx.destination);
     breathSource.start();
 
     const startedAt = breathCtx.currentTime;
@@ -467,8 +479,8 @@ function startMadreBreathAudio() {
       const t = breathCtx.currentTime - startedAt;
       const inhale = 0.5 + 0.5 * Math.sin(t * 1.28 - 1.1);
       const micro = 0.5 + 0.5 * Math.sin(t * 7.2);
-      const target = 0.032 + inhale * 0.064 + micro * 0.008;
-      breathGain.gain.setTargetAtTime(target * 2.8, breathCtx.currentTime, 0.16);
+      const target = 0.022 + inhale * 0.044 + micro * 0.005;
+      breathGain.gain.setTargetAtTime(target * 1.4, breathCtx.currentTime, 0.16);
       breathFilter.frequency.setTargetAtTime(520 + inhale * 590, breathCtx.currentTime, 0.22);
 
       // Visual breath sync — scale and glow follow the inhale cycle
@@ -687,3 +699,16 @@ setFooter('idle');
 resize();
 if (bootReady) showProjects();
 loop();
+
+// FIX: Start breath audio on first interaction when bootReady (returning visitor)
+if (bootReady) {
+  const startBreathOnInteraction = () => {
+    try { startMadreBreathAudio(); } catch(e) {}
+    document.removeEventListener('click', startBreathOnInteraction);
+    document.removeEventListener('keydown', startBreathOnInteraction);
+    document.removeEventListener('touchstart', startBreathOnInteraction);
+  };
+  document.addEventListener('click', startBreathOnInteraction);
+  document.addEventListener('keydown', startBreathOnInteraction);
+  document.addEventListener('touchstart', startBreathOnInteraction);
+}

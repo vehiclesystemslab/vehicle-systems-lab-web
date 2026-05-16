@@ -6,14 +6,14 @@
 <title>VEHICLE MADRE | Living Structural Core</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   min-height:100vh;
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   color:#e4fbff;
   background:#000;
   overflow-x:hidden;
@@ -178,7 +178,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   position:absolute;
   bottom:-56px;left:50%;transform:translateX(-50%);
   white-space:nowrap;
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:15px;font-style:italic;font-weight:300;
   color:rgba(214,251,255,.72);
   text-shadow:0 0 24px rgba(134,227,255,.4);
@@ -194,7 +194,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.38);margin-bottom:16px;text-align:center;
 }
 .hero-title{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:clamp(36px,5vw,64px);font-weight:300;
   line-height:1.08;text-align:center;
   color:rgba(228,251,255,.94);
@@ -315,10 +315,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .concept-tag{
   font-size:9px;letter-spacing:.3em;text-transform:uppercase;
   color:rgba(214,251,255,.3);margin-bottom:8px;
-  font-family:'DM Mono',monospace;
+  font-family:'Plus Jakarta Sans',monospace;
 }
 .concept-name{
-  font-family:'Syne',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:18px;font-weight:300;
   color:rgba(228,251,255,.86);margin-bottom:8px;line-height:1.2;
 }
@@ -339,7 +339,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .child-link:hover{border-color:rgba(214,251,255,.20);background:rgba(0,14,22,.48)}
 .child-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(214,251,255,.3);margin-bottom:6px}
-.child-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
+.child-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
 .child-domain{font-size:10px;font-weight:300;color:rgba(180,220,230,.36);margin-top:4px}
 
 /* Alliance block */
@@ -359,7 +359,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.44);margin-bottom:16px;
 }
 .alliance-title{
-  font-family:'Syne',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:clamp(22px,2.8vw,34px);font-weight:300;
   color:rgba(228,251,255,.92);line-height:1.14;margin-bottom:16px;
 }
@@ -386,7 +386,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.88);font-weight:500;
 }
 .alliance-value{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:clamp(28px,3.5vw,44px);font-weight:300;
   color:rgba(228,251,255,.9);
   margin-bottom:6px;
@@ -418,7 +418,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.28);margin-bottom:12px;
 }
 .demo-status h3{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:20px;font-weight:300;
   color:rgba(228,251,255,.78);margin-bottom:10px;
 }
@@ -544,7 +544,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="sphere heart" id="sphereHeart"></div>
       <div class="sphere point" id="spherePoint"></div>
     </div>
-    <div class="state-badge" id="stateBadge" style="display:none"></div>
     <div class="madre-response" id="madreResponse"></div>
   </div>
 
@@ -879,12 +878,14 @@ function applyVoiceSettings(emotion) {
 
 function changeEmotion(newEmotion) {
   if (!emotionFiles[newEmotion]) return;
-  // Audio restarts from beginning on emotion change (per user request)
   const wasPlaying = !audio.paused;
+  const savedTime = audio.currentTime;
   currentEmotion = newEmotion;
   audio.src = emotionFiles[newEmotion];
   audio.addEventListener('loadedmetadata', function() {
-    audio.currentTime = 0;
+    // Preserve position — continue from same point in the audio
+    const dur = Number.isFinite(audio.duration) ? audio.duration : savedTime;
+    audio.currentTime = Math.min(savedTime, Math.max(dur - 0.2, 0));
     applyVoiceSettings(newEmotion);
     if (wasPlaying || audioStarted) {
       audio.play().catch(() => {});
@@ -915,14 +916,7 @@ function applyState(color, glow, shadow, heart, speed, heartSpeed) {
 }
 
 function showResponse(text, emoji) {
-  if (stateBadge) {
-    stateBadge.textContent = emoji;
-    stateBadge.style.display = 'block';
-    stateBadge.style.animation = 'none';
-    requestAnimationFrame(() => {
-      stateBadge.style.animation = 'badgePop .4s cubic-bezier(.34,1.56,.64,1) forwards';
-    });
-  }
+  // stateBadge removed
   clearTimeout(responseTimer);
   if (madreResponse) {
     madreResponse.classList.remove('show');
@@ -933,7 +927,7 @@ function showResponse(text, emoji) {
 
 function hideResponse() {
   if (madreResponse) madreResponse.classList.remove('show');
-  if (stateBadge) stateBadge.style.display = 'none';
+  // stateBadge removed
 }
 
 function startAudio() {
@@ -993,8 +987,14 @@ function startMadrePageBreath() {
     bFilter.type = 'bandpass'; bFilter.frequency.value = 520; bFilter.Q.value = 0.7;
     const bGain = madreBreathCtx.createGain();
     bGain.gain.value = 0.001;
+    const compressor = madreBreathCtx.createDynamicsCompressor();
+    compressor.threshold.value = -18;
+    compressor.knee.value = 10;
+    compressor.ratio.value = 4;
+    compressor.attack.value = 0.02;
+    compressor.release.value = 0.2;
     src.connect(warmth); warmth.connect(bFilter); bFilter.connect(bGain);
-    bGain.connect(madreBreathCtx.destination);
+    bGain.connect(compressor); compressor.connect(madreBreathCtx.destination);
     src.start();
     const startedAt = madreBreathCtx.currentTime;
     setInterval(() => {
@@ -1003,21 +1003,22 @@ function startMadrePageBreath() {
       const inhale = 0.5 + 0.5 * Math.sin(t * 1.28 - 1.1);
       const micro = 0.5 + 0.5 * Math.sin(t * 7.2);
       const base = 0.032 + inhale * 0.064 + micro * 0.008;
-      bGain.gain.setTargetAtTime(base * 2.6, madreBreathCtx.currentTime, 0.18);
+      bGain.gain.setTargetAtTime(base * 1.2, madreBreathCtx.currentTime, 0.18);
       bFilter.frequency.setTargetAtTime(520 + inhale * 590, madreBreathCtx.currentTime, 0.22);
     }, 70);
   } catch(e) {}
 }
 
+// Try breath immediately, then on interaction as fallback
+setTimeout(() => { try { startMadrePageBreath(); } catch(e) {} }, 100);
 let breathStarted = false;
 function tryStartBreath() {
   if (breathStarted) return;
   breathStarted = true;
-  startMadrePageBreath();
+  try { startMadrePageBreath(); } catch(e) {}
 }
 document.addEventListener('click', tryStartBreath, { once: true });
 document.addEventListener('touchstart', tryStartBreath, { once: true });
-setTimeout(() => { try { startMadrePageBreath(); } catch(e) {} }, 200);
 </script>
 </body>
 </html>

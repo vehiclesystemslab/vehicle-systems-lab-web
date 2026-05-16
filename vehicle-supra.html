@@ -6,14 +6,14 @@
 <title>VEHICLE-SUPRA | Lunar Structural Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   min-height:100vh;
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   color:#f2f0e8;
   background:#000;
   overflow-x:hidden;
@@ -194,7 +194,7 @@ a{color:inherit;text-decoration:none}
   color:#f4d59d;margin-bottom:20px;
 }
 .hero-copy h1{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:clamp(42px,5.8vw,80px);
   font-weight:300;line-height:1.06;letter-spacing:-.01em;
   color:rgba(242,240,232,.96);
@@ -271,7 +271,7 @@ a{color:inherit;text-decoration:none}
   color:rgba(244,213,157,.38);margin-bottom:10px;
 }
 .support-item h3{
-  font-family:'Space Grotesk',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:22px;font-weight:300;
   color:rgba(242,240,232,.88);margin-bottom:10px;line-height:1.2;
 }
@@ -511,5 +511,48 @@ a{color:inherit;text-decoration:none}
     </div>
   </aside>
 </div>
+
+<script>
+// Subpage breath audio — auto starts on load or first interaction
+(function() {
+  let ctx = null;
+  function startBreath() {
+    if (ctx) return;
+    if (!window.AudioContext && !window.webkitAudioContext) return;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const sr = ctx.sampleRate;
+      const buf = ctx.createBuffer(1, Math.floor(sr * 4), sr);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1)*0.22;
+      const src = ctx.createBufferSource();
+      src.buffer = buf; src.loop = true;
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass'; lp.frequency.value = 280;
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass'; bp.frequency.value = 480; bp.Q.value = 0.6;
+      const gain = ctx.createGain();
+      gain.gain.value = 0.001;
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -20; comp.ratio.value = 4;
+      src.connect(lp); lp.connect(bp); bp.connect(gain);
+      gain.connect(comp); comp.connect(ctx.destination);
+      src.start();
+      const t0 = ctx.currentTime;
+      setInterval(function() {
+        if (!ctx) return;
+        const t = ctx.currentTime - t0;
+        const inhale = 0.5 + 0.5 * Math.sin(t * 1.18 - 1.1);
+        const base = 0.018 + inhale * 0.032;
+        gain.gain.setTargetAtTime(base, ctx.currentTime, 0.22);
+        bp.frequency.setTargetAtTime(460 + inhale * 480, ctx.currentTime, 0.26);
+      }, 80);
+    } catch(e) {}
+  }
+  setTimeout(function() { try { startBreath(); } catch(e) {} }, 150);
+  document.addEventListener('click', function() { try { startBreath(); } catch(e) {} }, { once: true });
+  document.addEventListener('touchstart', function() { try { startBreath(); } catch(e) {} }, { once: true });
+})();
+</script>
 </body>
 </html>
