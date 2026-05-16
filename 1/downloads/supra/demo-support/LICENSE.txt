@@ -1,3 +1,0 @@
-Copyright (c) VEHICLE Systems Lab.
-
-This demo package is provided for review, research, investor evaluation and institutional discussion. Redistribution or commercial use requires written authorization from VEHICLE Systems Lab.

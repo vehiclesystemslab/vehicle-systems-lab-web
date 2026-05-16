@@ -418,6 +418,7 @@ let breathSource = null;
 let breathTimer = null;
 
 function startMadreBreathAudio() {
+  if (!window.AudioContext && !window.webkitAudioContext) return;
   try {
     if (breathCtx && breathCtx.state === 'suspended') {
       breathCtx.resume();
@@ -494,7 +495,7 @@ async function unlockAudio() {
   }
 }
 
-async function wakeMadre() {
+function wakeMadre() {
   if (currentState !== 'sleeping') return;
   stage.classList.add('power-consumed');
   powerButton.setAttribute('aria-hidden', 'true');
@@ -505,8 +506,8 @@ async function wakeMadre() {
   stage.classList.remove('sleeping');
   stage.classList.add('awakening');
 
-  await unlockAudio();
-  startMadreBreathAudio();
+  // Breath audio — never block wake on failure
+  try { startMadreBreathAudio(); } catch(e) {}
 
   setTimeout(() => {
     currentState = 'awake';
@@ -514,9 +515,16 @@ async function wakeMadre() {
     statusLabel.textContent = 'MADRE / AWAKE';
     sleepLabel.textContent = 'MADRE / PRESENTING';
 
+    // Try audio — wake completes regardless of result
     audios.welcome.currentTime = 0;
-    audios.welcome.play().catch(() => {});
-    syncLines(audios.welcome, welcomeLines, renderVoice);
+    const playPromise = audios.welcome.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => { syncLines(audios.welcome, welcomeLines, renderVoice); })
+        .catch(() => { setTimeout(showProjects, 3000); });
+    } else {
+      syncLines(audios.welcome, welcomeLines, renderVoice);
+    }
   }, 700);
 }
 
