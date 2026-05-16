@@ -1,22 +1,6 @@
 {
-  "headers": [
-    {
-      "source": "/(.*\\.js)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/(.*\\.css)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/(.*\\.html)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
-  ]
+  "version": 2,
+  "buildCommand": "echo static deploy",
+  "outputDirectory": ".",
+  "installCommand": "echo no install"
 }
