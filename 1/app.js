@@ -541,20 +541,17 @@ function showProjects() {
   setFooter('idle');
   setTimeout(() => renderVoice(''), 900);
 
-  // Stagger project buttons — appear one by one with 280ms gap
-  const buttons = document.querySelectorAll('.project-name');
-  buttons.forEach((btn) => {
-    btn.style.opacity = '0';
-    btn.style.transform = btn.style.transform + ' scale(0.72)';
-    btn.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
-  });
+  // Stagger project buttons — appear one by one with 300ms gap
   const order = ['supra', 'odi', 'cps', 'access', 'madre'];
   order.forEach((name, i) => {
     const btn = document.querySelector(`.project-name.${name}`);
     if (!btn) return;
+    btn.style.opacity = '0';
+    btn.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    btn.style.transform = 'scale(0.78)';
     setTimeout(() => {
       btn.style.opacity = '1';
-      btn.style.transform = btn.style.transform.replace('scale(0.72)', '').trim();
+      btn.style.transform = 'scale(1)';
     }, 400 + i * 300);
   });
 }
