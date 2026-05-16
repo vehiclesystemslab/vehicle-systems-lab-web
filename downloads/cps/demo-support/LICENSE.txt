@@ -1,8 +1,0 @@
-VEHICLE-CPS Demo Package
-Copyright VEHICLE Systems Lab.
-
-This package is provided for review, demonstration, research discussion and investor evaluation.
-
-No operational deployment, resale, redistribution or derivative commercial use is authorized without written permission from VEHICLE Systems Lab.
-
-Contact: contact@vehiclesystemslab.com
