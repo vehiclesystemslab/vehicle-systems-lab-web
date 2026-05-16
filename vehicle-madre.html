@@ -6,43 +6,63 @@
 <title>VEHICLE MADRE | Living Structural Core</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   min-height:100vh;
-  font-family:'IBM Plex Mono',monospace;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   color:#e4fbff;
-  background:#000;
+  background:radial-gradient(circle at 50% 45%,rgba(22,68,102,.52),rgba(4,14,27,.94) 44%,#000 100%);
   overflow-x:hidden;
 }
 
-/* Stars */
+/* Stars — dense field */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
-    radial-gradient(1px 1px at 11% 7%,rgba(255,255,255,.72),transparent),
-    radial-gradient(1px 1px at 33% 21%,rgba(214,251,255,.52),transparent),
+    radial-gradient(1px 1px at 5% 4%,rgba(255,255,255,.82),transparent),
+    radial-gradient(1.5px 1.5px at 11% 7%,rgba(255,255,255,.72),transparent),
+    radial-gradient(1px 1px at 18% 14%,rgba(214,251,255,.58),transparent),
+    radial-gradient(1px 1px at 24% 3%,rgba(255,255,255,.66),transparent),
+    radial-gradient(1.5px 1.5px at 33% 21%,rgba(214,251,255,.52),transparent),
+    radial-gradient(1px 1px at 42% 9%,rgba(255,255,255,.44),transparent),
     radial-gradient(1.5px 1.5px at 55% 5%,rgba(255,255,255,.84),transparent),
-    radial-gradient(1px 1px at 77% 13%,rgba(255,255,255,.48),transparent),
-    radial-gradient(1px 1px at 89% 29%,rgba(214,251,255,.62),transparent),
+    radial-gradient(1px 1px at 63% 17%,rgba(214,251,255,.48),transparent),
+    radial-gradient(1px 1px at 77% 13%,rgba(255,255,255,.58),transparent),
+    radial-gradient(1.5px 1.5px at 89% 29%,rgba(214,251,255,.62),transparent),
+    radial-gradient(1px 1px at 96% 8%,rgba(255,255,255,.54),transparent),
+    radial-gradient(1px 1px at 3% 31%,rgba(255,255,255,.46),transparent),
     radial-gradient(1.5px 1.5px at 7% 43%,rgba(255,255,255,.56),transparent),
-    radial-gradient(1px 1px at 21% 66%,rgba(255,255,255,.38),transparent),
-    radial-gradient(1px 1px at 43% 80%,rgba(214,251,255,.60),transparent),
+    radial-gradient(1px 1px at 13% 52%,rgba(214,251,255,.38),transparent),
+    radial-gradient(1px 1px at 21% 66%,rgba(255,255,255,.48),transparent),
+    radial-gradient(1px 1px at 29% 38%,rgba(255,255,255,.36),transparent),
+    radial-gradient(1.5px 1.5px at 38% 58%,rgba(214,251,255,.60),transparent),
+    radial-gradient(1px 1px at 43% 80%,rgba(255,255,255,.70),transparent),
+    radial-gradient(1px 1px at 51% 44%,rgba(214,251,255,.34),transparent),
     radial-gradient(1.5px 1.5px at 64% 57%,rgba(255,255,255,.72),transparent),
+    radial-gradient(1px 1px at 70% 32%,rgba(255,255,255,.52),transparent),
+    radial-gradient(1px 1px at 76% 74%,rgba(214,251,255,.44),transparent),
+    radial-gradient(1.5px 1.5px at 82% 52%,rgba(255,255,255,.60),transparent),
     radial-gradient(1px 1px at 86% 71%,rgba(255,255,255,.42),transparent),
+    radial-gradient(1px 1px at 91% 45%,rgba(214,251,255,.56),transparent),
+    radial-gradient(1.5px 1.5px at 96% 62%,rgba(255,255,255,.68),transparent),
     radial-gradient(1px 1px at 4% 90%,rgba(214,251,255,.54),transparent),
+    radial-gradient(1px 1px at 9% 82%,rgba(255,255,255,.40),transparent),
     radial-gradient(1px 1px at 17% 37%,rgba(255,255,255,.32),transparent),
-    radial-gradient(1px 1px at 71% 88%,rgba(255,255,255,.50),transparent),
-    radial-gradient(1.5px 1.5px at 46% 43%,rgba(214,251,255,.34),transparent),
-    radial-gradient(1px 1px at 82% 52%,rgba(255,255,255,.60),transparent),
+    radial-gradient(1.5px 1.5px at 22% 96%,rgba(214,251,255,.58),transparent),
     radial-gradient(1px 1px at 28% 95%,rgba(255,255,255,.42),transparent),
+    radial-gradient(1px 1px at 34% 87%,rgba(214,251,255,.46),transparent),
+    radial-gradient(1.5px 1.5px at 46% 43%,rgba(255,255,255,.34),transparent),
+    radial-gradient(1px 1px at 52% 92%,rgba(255,255,255,.62),transparent),
     radial-gradient(1px 1px at 59% 70%,rgba(214,251,255,.52),transparent),
-    radial-gradient(1.5px 1.5px at 93% 87%,rgba(255,255,255,.66),transparent),
-    radial-gradient(1px 1px at 37% 51%,rgba(255,255,255,.28),transparent),
-    radial-gradient(1px 1px at 14% 75%,rgba(214,251,255,.46),transparent);
+    radial-gradient(1px 1px at 65% 84%,rgba(255,255,255,.44),transparent),
+    radial-gradient(1.5px 1.5px at 71% 88%,rgba(255,255,255,.50),transparent),
+    radial-gradient(1px 1px at 78% 97%,rgba(214,251,255,.38),transparent),
+    radial-gradient(1.5px 1.5px at 84% 78%,rgba(255,255,255,.64),transparent),
+    radial-gradient(1px 1px at 93% 87%,rgba(255,255,255,.66),transparent);
 }
 
 a{color:inherit;text-decoration:none}
@@ -83,17 +103,22 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hero{
   position:relative;
   min-height:100svh;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  grid-template-rows:auto;
+  align-items:start;
   overflow:hidden;
   padding:100px 40px 60px;
+  gap:0 48px;
 }
 
 /* Orbe MADRE reutilizado del home */
 .orb-wrap{
   position:relative;
-  width:280px;height:280px;
-  margin-bottom:48px;
+  grid-column:2;
+  grid-row:1;
+  width:300px;height:300px;
+  margin:0 auto 32px;
   display:flex;align-items:center;justify-content:center;
 }
 .orb{
@@ -153,7 +178,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   position:absolute;
   bottom:-56px;left:50%;transform:translateX(-50%);
   white-space:nowrap;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:15px;font-style:italic;font-weight:300;
   color:rgba(214,251,255,.72);
   text-shadow:0 0 24px rgba(134,227,255,.4);
@@ -169,7 +194,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.38);margin-bottom:16px;text-align:center;
 }
 .hero-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:clamp(36px,5vw,64px);font-weight:300;
   line-height:1.08;text-align:center;
   color:rgba(228,251,255,.94);
@@ -183,6 +208,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* Estado de entrenamiento */
+.hero-center{grid-column:2;grid-row:2;}
+
 .training-badge{
   display:inline-flex;align-items:center;gap:10px;
   padding:10px 20px;border-radius:999px;
@@ -201,26 +228,31 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* === EMOTION BUTTONS === */
 .emotion-section{
-  text-align:center;margin-bottom:16px;
+  grid-column:1;
+  grid-row:1/10;
+  padding-top:8px;
+  position:sticky;
+  top:100px;
+  text-align:left;
 }
 .emotion-label{
-  font-size:9px;letter-spacing:.32em;text-transform:uppercase;
-  color:rgba(214,251,255,.28);margin-bottom:20px;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(214,251,255,.28);margin-bottom:16px;
+  line-height:1.7;
 }
 .emotion-grid{
-  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
-  max-width:560px;
+  display:flex;flex-direction:column;gap:8px;
 }
 .emotion-btn{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:14px 18px;
-  border-radius:20px;
+  display:flex;flex-direction:row;align-items:center;gap:10px;
+  padding:10px 14px;
+  border-radius:12px;
   border:1px solid rgba(214,251,255,.10);
   background:rgba(0,8,14,.48);backdrop-filter:blur(10px);
   color:rgba(214,251,255,.52);
   font-size:9px;letter-spacing:.18em;text-transform:uppercase;
   transition:border-color .2s,background .2s,color .2s,transform .18s;
-  min-width:88px;
+  width:100%;
 }
 .emotion-btn:hover{
   border-color:rgba(214,251,255,.24);
@@ -234,15 +266,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:#e4fbff;
   box-shadow:0 0 24px rgba(134,227,255,.08);
 }
-.emotion-emoji{font-size:24px;line-height:1}
-.emotion-name{font-size:8px;letter-spacing:.2em}
+.emotion-emoji{font-size:20px;line-height:1;flex-shrink:0}
+.emotion-name{font-size:9px;letter-spacing:.16em}
 
 /* Reset button */
 .emotion-reset{
-  margin-top:16px;
-  font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  margin-top:12px;width:100%;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
   color:rgba(214,251,255,.22);
-  padding:8px 16px;
+  padding:8px 10px;
   border-radius:999px;
   border:1px solid rgba(214,251,255,.08);
   transition:color .2s,border-color .2s;
@@ -285,7 +317,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.3);margin-bottom:8px;
 }
 .concept-name{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:18px;font-weight:300;
   color:rgba(228,251,255,.86);margin-bottom:8px;line-height:1.2;
 }
@@ -306,7 +338,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .child-link:hover{border-color:rgba(214,251,255,.20);background:rgba(0,14,22,.48)}
 .child-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(214,251,255,.3);margin-bottom:6px}
-.child-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
+.child-name{font-family:'Space Grotesk','IBM Plex Mono',monospace;font-size:19px;font-weight:300;color:rgba(228,251,255,.82)}
 .child-domain{font-size:10px;font-weight:300;color:rgba(180,220,230,.36);margin-top:4px}
 
 /* Alliance block */
@@ -326,7 +358,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.44);margin-bottom:16px;
 }
 .alliance-title{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:clamp(22px,2.8vw,34px);font-weight:300;
   color:rgba(228,251,255,.92);line-height:1.14;margin-bottom:16px;
 }
@@ -353,7 +385,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.88);font-weight:500;
 }
 .alliance-value{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:clamp(28px,3.5vw,44px);font-weight:300;
   color:rgba(228,251,255,.9);
   margin-bottom:6px;
@@ -385,7 +417,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   color:rgba(214,251,255,.28);margin-bottom:12px;
 }
 .demo-status h3{
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:20px;font-weight:300;
   color:rgba(228,251,255,.78);margin-bottom:10px;
 }
@@ -460,14 +492,21 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .rail{position:relative;top:0;height:auto;overflow:visible;padding:40px 0 0}
   .main-col{padding-right:0}
 }
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:90px 24px 48px}
+  .emotion-section{grid-column:1;grid-row:auto;position:relative;top:0;
+    margin-bottom:32px;text-align:center}
+  .emotion-grid{flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .emotion-btn{width:auto}
+  .emotion-reset{width:auto}
+  .orb-wrap{grid-column:1;width:220px;height:220px;margin:0 auto 24px}
+  .hero-center{grid-column:1;text-align:center}
+}
 @media(max-width:700px){
   .topbar{padding:16px 20px}
-  .hero{padding:90px 24px 48px}
-  .orb-wrap{width:220px;height:220px}
   .concepts-grid{grid-template-columns:1fr}
   .children-grid{grid-template-columns:1fr}
   .alliance-block{padding:28px 24px}
-  .emotion-btn{min-width:76px;padding:12px 14px}
 }
 </style>
 </head>
@@ -508,18 +547,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="madre-response" id="madreResponse"></div>
   </div>
 
-  <div class="training-badge">
-    <div class="training-dot"></div>
-    Active training · Research consolidation
+  <div class="hero-center">
+    <div class="training-badge">
+      <div class="training-dot"></div>
+      Active training · Research consolidation
+    </div>
+    <div class="hero-label">VEHICLE Systems Lab · Core Architecture</div>
+    <h1 class="hero-title">
+      The living structural<br><em>core of the laboratory.</em>
+    </h1>
+    <p class="hero-subtitle">
+      MADRE is not a product. It is the mother architecture from which all VEHICLE systems are born — organizing knowledge through layers, nodes, attractors, contractors, and informational mitosis.
+    </p>
   </div>
-
-  <div class="hero-label">VEHICLE Systems Lab · Core Architecture</div>
-  <h1 class="hero-title">
-    The living structural<br><em>core of the laboratory.</em>
-  </h1>
-  <p class="hero-subtitle">
-    MADRE is not a product. It is the mother architecture from which all VEHICLE systems are born — organizing knowledge through layers, nodes, attractors, contractors, and informational mitosis.
-  </p>
 
   <!-- Emotion buttons -->
   <div class="emotion-section">
@@ -593,7 +633,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <button class="emotion-reset" id="emotionReset">Reset to neutral</button>
   </div>
 
-  <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(214,251,255,.18);margin-top:12px;text-align:center">
+  <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(214,251,255,.18);margin-top:12px;text-align:left;grid-column:2">
     MADRE is in training. These states are a window into what she will become.
   </p>
 </section>
@@ -908,6 +948,69 @@ applyState(
   defaultState.color, defaultState.glow, defaultState.shadow,
   defaultState.heart, defaultState.speed, defaultState.heartSpeed
 );
+
+// === MADRE BREATH AUDIO — starts on page load ===
+let madreBreathCtx = null;
+let madreBreathTimer = null;
+
+function startMadrePageBreath() {
+  if (madreBreathCtx) return;
+  if (!window.AudioContext && !window.webkitAudioContext) return;
+  try {
+    madreBreathCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const sampleRate = madreBreathCtx.sampleRate;
+    const seconds = 4;
+    const buffer = madreBreathCtx.createBuffer(1, Math.floor(sampleRate * seconds), sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * 0.28;
+    }
+    const src = madreBreathCtx.createBufferSource();
+    src.buffer = buffer;
+    src.loop = true;
+
+    const warmth = madreBreathCtx.createBiquadFilter();
+    warmth.type = 'lowpass';
+    warmth.frequency.value = 320;
+
+    const breathFilter = madreBreathCtx.createBiquadFilter();
+    breathFilter.type = 'bandpass';
+    breathFilter.frequency.value = 520;
+    breathFilter.Q.value = 0.7;
+
+    const breathGain = madreBreathCtx.createGain();
+    breathGain.gain.value = 0.001;
+
+    src.connect(warmth);
+    warmth.connect(breathFilter);
+    breathFilter.connect(breathGain);
+    breathGain.connect(madreBreathCtx.destination);
+    src.start();
+
+    const startedAt = madreBreathCtx.currentTime;
+    madreBreathTimer = setInterval(() => {
+      if (!madreBreathCtx) return;
+      const t = madreBreathCtx.currentTime - startedAt;
+      const inhale = 0.5 + 0.5 * Math.sin(t * 1.28 - 1.1);
+      const micro = 0.5 + 0.5 * Math.sin(t * 7.2);
+      const base = 0.032 + inhale * 0.064 + micro * 0.008;
+      breathGain.gain.setTargetAtTime(base * 2.6, madreBreathCtx.currentTime, 0.18);
+      breathFilter.frequency.setTargetAtTime(520 + inhale * 590, madreBreathCtx.currentTime, 0.22);
+    }, 70);
+  } catch(e) {}
+}
+
+// Auto-start breath on first user interaction (required by browser policy)
+let breathStarted = false;
+function tryStartBreath() {
+  if (breathStarted) return;
+  breathStarted = true;
+  startMadrePageBreath();
+}
+document.addEventListener('click', tryStartBreath, { once: true });
+document.addEventListener('touchstart', tryStartBreath, { once: true });
+// Also try immediately in case AudioContext is allowed
+setTimeout(() => { try { startMadrePageBreath(); } catch(e) {} }, 200);
 </script>
 </body>
 </html>

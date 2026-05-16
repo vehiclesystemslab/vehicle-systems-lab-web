@@ -467,8 +467,8 @@ function startMadreBreathAudio() {
       const t = breathCtx.currentTime - startedAt;
       const inhale = 0.5 + 0.5 * Math.sin(t * 1.28 - 1.1);
       const micro = 0.5 + 0.5 * Math.sin(t * 7.2);
-      const target = 0.016 + inhale * 0.038 + micro * 0.004;
-      breathGain.gain.setTargetAtTime(target, breathCtx.currentTime, 0.16);
+      const target = 0.032 + inhale * 0.064 + micro * 0.008;
+      breathGain.gain.setTargetAtTime(target * 2.8, breathCtx.currentTime, 0.16);
       breathFilter.frequency.setTargetAtTime(520 + inhale * 590, breathCtx.currentTime, 0.22);
 
       // Visual breath sync — scale and glow follow the inhale cycle

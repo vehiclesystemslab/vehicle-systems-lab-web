@@ -6,16 +6,16 @@
 <title>VEHICLE ACCESS | AI Access Layer for Developers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body{
   min-height:100vh;
-  font-family:'IBM Plex Mono',monospace;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   color:#e8f2f0;
-  background:#000;
+  background:radial-gradient(circle at 72% 44%,rgba(12,44,82,.42),rgba(2,8,20,.88) 48%,#000 100%);
   overflow-x:hidden;
 }
 
@@ -24,26 +24,46 @@ body::before{
   content:'';
   position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
-    radial-gradient(1px 1px at 7% 6%,rgba(255,255,255,.68),transparent),
-    radial-gradient(1px 1px at 28% 17%,rgba(109,240,193,.52),transparent),
-    radial-gradient(1.5px 1.5px at 50% 4%,rgba(255,255,255,.76),transparent),
-    radial-gradient(1px 1px at 72% 12%,rgba(255,255,255,.42),transparent),
-    radial-gradient(1px 1px at 86% 26%,rgba(109,240,193,.58),transparent),
-    radial-gradient(1.5px 1.5px at 4% 40%,rgba(255,255,255,.50),transparent),
-    radial-gradient(1px 1px at 17% 62%,rgba(255,255,255,.34),transparent),
-    radial-gradient(1px 1px at 39% 77%,rgba(109,240,193,.52),transparent),
-    radial-gradient(1.5px 1.5px at 61% 54%,rgba(255,255,255,.64),transparent),
-    radial-gradient(1px 1px at 83% 68%,rgba(255,255,255,.36),transparent),
-    radial-gradient(1px 1px at 1% 86%,rgba(109,240,193,.46),transparent),
-    radial-gradient(1px 1px at 14% 33%,rgba(255,255,255,.28),transparent),
-    radial-gradient(1px 1px at 68% 84%,rgba(255,255,255,.44),transparent),
-    radial-gradient(1.5px 1.5px at 43% 38%,rgba(109,240,193,.28),transparent),
-    radial-gradient(1px 1px at 78% 49%,rgba(255,255,255,.52),transparent),
-    radial-gradient(1px 1px at 25% 91%,rgba(255,255,255,.36),transparent),
-    radial-gradient(1px 1px at 55% 66%,rgba(109,240,193,.42),transparent),
-    radial-gradient(1.5px 1.5px at 90% 83%,rgba(255,255,255,.60),transparent),
-    radial-gradient(1px 1px at 33% 47%,rgba(255,255,255,.24),transparent),
-    radial-gradient(1px 1px at 10% 72%,rgba(255,255,255,.40),transparent);
+    radial-gradient(1px 1px at 3% 3%,rgba(255,255,255,.82),transparent),
+    radial-gradient(1.5px 1.5px at 8% 11%,rgba(255,255,255,.68),transparent),
+    radial-gradient(1px 1px at 15% 6%,rgba(255,255,255,.56),transparent),
+    radial-gradient(1px 1px at 22% 19%,rgba(255,255,255,.48),transparent),
+    radial-gradient(1.5px 1.5px at 31% 4%,rgba(255,255,255,.76),transparent),
+    radial-gradient(1px 1px at 39% 14%,rgba(255,255,255,.44),transparent),
+    radial-gradient(1.5px 1.5px at 48% 8%,rgba(255,255,255,.88),transparent),
+    radial-gradient(1px 1px at 57% 3%,rgba(255,255,255,.52),transparent),
+    radial-gradient(1px 1px at 65% 16%,rgba(255,255,255,.62),transparent),
+    radial-gradient(1.5px 1.5px at 74% 7%,rgba(255,255,255,.72),transparent),
+    radial-gradient(1px 1px at 83% 22%,rgba(255,255,255,.46),transparent),
+    radial-gradient(1.5px 1.5px at 91% 11%,rgba(255,255,255,.80),transparent),
+    radial-gradient(1px 1px at 97% 4%,rgba(255,255,255,.58),transparent),
+    radial-gradient(1px 1px at 2% 34%,rgba(255,255,255,.44),transparent),
+    radial-gradient(1px 1px at 9% 48%,rgba(255,255,255,.36),transparent),
+    radial-gradient(1.5px 1.5px at 16% 41%,rgba(255,255,255,.64),transparent),
+    radial-gradient(1px 1px at 24% 55%,rgba(255,255,255,.42),transparent),
+    radial-gradient(1px 1px at 33% 38%,rgba(255,255,255,.54),transparent),
+    radial-gradient(1.5px 1.5px at 41% 62%,rgba(255,255,255,.70),transparent),
+    radial-gradient(1px 1px at 50% 47%,rgba(255,255,255,.38),transparent),
+    radial-gradient(1px 1px at 58% 71%,rgba(255,255,255,.56),transparent),
+    radial-gradient(1.5px 1.5px at 67% 43%,rgba(255,255,255,.74),transparent),
+    radial-gradient(1px 1px at 75% 58%,rgba(255,255,255,.46),transparent),
+    radial-gradient(1px 1px at 84% 35%,rgba(255,255,255,.60),transparent),
+    radial-gradient(1.5px 1.5px at 92% 50%,rgba(255,255,255,.68),transparent),
+    radial-gradient(1px 1px at 4% 72%,rgba(255,255,255,.52),transparent),
+    radial-gradient(1px 1px at 12% 86%,rgba(255,255,255,.44),transparent),
+    radial-gradient(1.5px 1.5px at 20% 79%,rgba(255,255,255,.62),transparent),
+    radial-gradient(1px 1px at 28% 94%,rgba(255,255,255,.48),transparent),
+    radial-gradient(1px 1px at 37% 83%,rgba(255,255,255,.56),transparent),
+    radial-gradient(1.5px 1.5px at 45% 91%,rgba(255,255,255,.72),transparent),
+    radial-gradient(1px 1px at 54% 77%,rgba(255,255,255,.40),transparent),
+    radial-gradient(1px 1px at 62% 88%,rgba(255,255,255,.58),transparent),
+    radial-gradient(1.5px 1.5px at 71% 95%,rgba(255,255,255,.66),transparent),
+    radial-gradient(1px 1px at 79% 82%,rgba(255,255,255,.50),transparent),
+    radial-gradient(1px 1px at 87% 74%,rgba(255,255,255,.44),transparent),
+    radial-gradient(1.5px 1.5px at 95% 89%,rgba(255,255,255,.76),transparent),
+    radial-gradient(1px 1px at 6% 97%,rgba(255,255,255,.38),transparent),
+    radial-gradient(1px 1px at 43% 29%,rgba(255,255,255,.32),transparent),
+    radial-gradient(1.5px 1.5px at 88% 61%,rgba(255,255,255,.60),transparent)
 }
 
 a{color:inherit;text-decoration:none}
@@ -94,7 +114,7 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   right:6%;top:50%;
   transform:translateY(-50%);
-  width:min(44vw,580px);
+  width:min(54vw,720px);
   aspect-ratio:1;
   pointer-events:none;
 }
@@ -135,7 +155,7 @@ a{color:inherit;text-decoration:none}
 /* Code fragments floating */
 .code-float{
   position:absolute;
-  font-family:'IBM Plex Mono',monospace;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:10px;letter-spacing:.06em;
   color:rgba(109,240,193,.28);
   white-space:nowrap;
@@ -172,9 +192,9 @@ a{color:inherit;text-decoration:none}
   color:#6df0c1;margin-bottom:20px;
 }
 .hero-copy h1{
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:clamp(42px,5.8vw,80px);
-  font-weight:300;line-height:1.04;
+  font-weight:300;line-height:1.06;letter-spacing:-.01em;
   color:rgba(232,242,240,.96);
   margin-bottom:24px;
 }
@@ -230,7 +250,7 @@ a{color:inherit;text-decoration:none}
 .df-label::before{content:'';width:24px;height:1px;background:rgba(109,240,193,.4)}
 
 .df-title{
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:clamp(28px,3.4vw,46px);font-weight:300;
   line-height:1.12;color:rgba(232,242,240,.94);
   margin-bottom:20px;
@@ -301,7 +321,7 @@ a{color:inherit;text-decoration:none}
   color:rgba(109,240,193,.56);margin-bottom:12px;
 }
 .df-checkpoint code{
-  font-family:'IBM Plex Mono',monospace;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:10px;color:rgba(109,240,193,.72);
 }
 
@@ -402,7 +422,7 @@ a{color:inherit;text-decoration:none}
   color:rgba(109,240,193,.34);margin-bottom:10px;
 }
 .support-item h3{
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
   font-size:22px;font-weight:300;
   color:rgba(232,242,240,.88);margin-bottom:10px;line-height:1.2;
 }
